@@ -26,13 +26,12 @@ public class CartControllerServlet extends HttpServlet {
     	super.init();
     	
     	try {
-			// Create a JNDI Initial context to be able to lookup the DataSource
 			InitialContext ctx = new InitialContext();
-			// Lookup the DataSource, which will be backed by a pool
-			// that the application server provides.
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/EmployeeDB");
+			// 改資料庫名稱
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/OurDB");
 			if (ds == null)
-				throw new ServletException("Unknown DataSource 'jdbc/EmployeeDB'");
+				// 改資料庫名稱
+				throw new ServletException("Unknown DataSource 'jdbc/OurDB'");
 		} catch (NamingException ex) {
 			ex.printStackTrace();
 		}
