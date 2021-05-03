@@ -10,14 +10,20 @@
 	OF ANY KIND, either express or implied. See the License for the specific 
 	language governing permissions and limitations under the License. --><!-- The contents of this file will be loaded for each web application -->
 <Context>
-	<!-- ********************************* -->
+
+	<!-- ****************************************************************** -->
+	<!-- 大家各自的實體連線標籤請直接追加在這個區塊，小心別覆蓋掉別人的！統整的話我們之後再找個時間用:^) -->
+	
+	<!-- Ken's -->
 	<Resource name="jdbc/EmployeeDB" auth="Container"
 		type="javax.sql.DataSource" maxTotal="100" maxIdle="30"
 		maxWaitMillis="10000" username="ken" password="kenken"
 		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
 		url="jdbc:sqlserver://localhost:1433;databaseName=Project" />
+		
 
-	<!-- ********************************* -->
+	<!-- ****************************************************************** -->
+	
 	<!-- Default set of monitored resources. If one of these changes, the -->
 	<!-- web application will be reloaded. -->
 	<WatchedResource>WEB-INF/web.xml</WatchedResource>
