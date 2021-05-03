@@ -5,7 +5,7 @@
 - 請避免在main(主幹/主要分支)直接做修改🖐️
     - 請以自己的名稱(ex: ken_branch)創個自己個人的分支(create new branch)
     - **分支用完(合併完後)後請刪掉重創**，不然你分支的時間軸會脫離主幹(main)太遠
-- Eclipse和VSCode是也git功能，不過操作上來說我目前只有GitHub Desktop比較會解釋😅
+- Eclipse和VSCode是也有git功能，不過操作上來說我目前只有GitHub Desktop比較會解釋😅
 
 ## 操作流程大概長這樣
 1. Clone下我們的[儲存庫](https://github.com/AWildHuskyAppeard/legendary-repository.git)
