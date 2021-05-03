@@ -15,7 +15,7 @@ public class TestSvt extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().print("哈士奇是對的");
+		response.getWriter().print("哈士奇說的對");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

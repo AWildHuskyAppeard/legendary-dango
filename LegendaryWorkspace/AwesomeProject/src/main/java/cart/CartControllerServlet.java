@@ -18,9 +18,8 @@ import javax.sql.DataSource;
 public class CartControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	DataSource ds;
+	private DataSource ds;
 
-       
     @Override
     public void init() throws ServletException {
     	super.init();
@@ -100,7 +99,10 @@ public class CartControllerServlet extends HttpServlet {
 
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session = request.getSession();
+    	List<Order> cart = (ArrayList<Order>) session.getAttribute("cart");
+    	
+    	String todo = request.getParameter("todo");
 	}
 
 }
