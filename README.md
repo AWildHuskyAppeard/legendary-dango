@@ -1,4 +1,4 @@
-# A legendary repository belon to iii group 5.
+# A legendary repository belongs to iii group 5.
 
 ## 補充
 - 推薦使用Github桌面版的tutorial來練習一下操作！
