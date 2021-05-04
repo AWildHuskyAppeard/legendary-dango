@@ -31,7 +31,7 @@ public class teeest extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-    	List<Order> cart = (ArrayList<Order>) session.getAttribute("cart");
+    	List<OrderBean> cart = (ArrayList<OrderBean>) session.getAttribute("cart");
     	response.getWriter().print(cart);
 	}
 
