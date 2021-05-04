@@ -25,6 +25,15 @@
 		<res-sharing-scope>Shareable</res-sharing-scope>
 	</resource-ref>
 	
+		<!-- Josh's -->
+	<resource-ref>
+		<description>DB Connection Pool</description>
+		<res-ref-name>jdbc/ProjectDB</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+		<res-sharing-scope>Shareable</res-sharing-scope>
+	</resource-ref>
+	
 	
 	<!-- ****************************************************************** -->
 	
