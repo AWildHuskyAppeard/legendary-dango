@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Cart Index Page</title>
-<link rel="stylesheet" href="../assets/cartIndex.css">
+<link rel="stylesheet" href="/AwesomeProject/assets/cartIndex.css">
 </head>
 <body>
 <!-- 1. 顯示當前購物車內容表格 -->
-	<form>
+	<form method="POST" action="/AwesomeProject/CartControllerServlet"> 
 		<table>
 			<tr>
 			    <th>C1</th>

@@ -1,6 +1,6 @@
 package cart;
-// 即購物車項目。
-public class Order {
+// 即CartItem、購物車項目。
+public class OrderBean {
 	private Integer O_ID ; // PK
 	private String qtyOrdered; // FK
 	private String P_Name; // FK

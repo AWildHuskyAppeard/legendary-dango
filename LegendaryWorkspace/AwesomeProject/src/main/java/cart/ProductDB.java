@@ -1,5 +1,5 @@
 package cart;
-
+// 模仿老師作的建的class，但大概用不到
 import java.io.Serializable;
 
 public class ProductDB implements Serializable {
