@@ -19,13 +19,16 @@ public class CartControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private DataSource ds;
+	
+	private 	HttpSession session; 
+	private List<ProductBean> cart;
 
     @Override
     public void init() throws ServletException {
     	super.init();
-    	Connection conn;
+
     	try {
-    	conn = getConnection();
+
 //			InitialContext ctx = new InitialContext();
 //			// 改資料庫名稱
 //			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/ProjectDB");
@@ -98,71 +101,95 @@ public class CartControllerServlet extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		response.getWriter().print("Use POST, sir.");
 	}
 
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(); // session範圍：會員點選「加入購物車」(#add) ~ 付款完成 or 登出為止 
-    	List<OrderBean> cart = (ArrayList<OrderBean>) session.getAttribute("cart");
-    	session.setAttribute("cart", cart);
+    	// session範圍：會員點選「加入購物車」(#add) ~ 付款完成 or 登出為止 
+		this.session = request.getSession();
+    	this.cart = (List<ProductBean>) session.getAttribute("cart");
+    	this.session.setAttribute("cart", cart);
     	
-    	String nextPage = "";
     	String todo = request.getParameter("todo");
     	
-    	if(todo == null) 
-    	{  // 1. 右上角購物車圖示 (from 任何頁面) 
-			gotoCartIndexPage();
-			
-    	} else if(todo == "add")
-    	{	// 2. 加入品項 (from 商品頁面)
-    		putProductIntoCart();
-    		
-    		nextPage = "/來的那一頁(該課程頁)";
-    	} else if(todo == "remove")
-    	{  // 3. 移除品項 (from 購物車頁面)
-    		removeProductFromCart();
-    		
-    		nextPage = "/購物車頁面";
-    	} else if(todo == "checkout")
-    	{ // 4. 去結帳 (from 購物車頁面) 
-    		
-    		nextPage = "/checkout.jsp"; // 此.jsp要invalidate()
-    	}
-    		
+    	// 1. 右上角購物車圖示 (from 任何頁面) 
+    	if(todo == null) gotoCartIndexPage(request, response); 
+    	// 2. 加入品項 (from 商品頁面)
+    	else if(todo == "add") putProductIntoCart(request, response);
+    	// 3. 移除品項 (from 購物車頁面)
+    	else if(todo == "remove") removeProductFromCart(request, response);
+    	// 4. 去結帳 (from 購物車頁面) 
+    	else if(todo == "checkout") checkout(request, response);
+    	
 	}
     /**
-     * @Method #01 
-     * @1. 導向CartIndex.jsp
+     * @Method #01
+     * @1. 導向購物車頁(CartIndex.jsp)
      * @Database_Connection 不涉及
      **/
-    private void gotoCartIndexPage() {
+    private void gotoCartIndexPage(HttpServletRequest req, HttpServletResponse res) {
+    	req.getRequestDispatcher("/cart/cartIndex.jsp");
     	
     }
     
     /**
-	 * @Method #02 
+	 * @Method #02 購買商品
 	 * @1. 將品項加入購物車
 	 * @2. 返回該商品頁
-	 * @Database_Connection 不涉及
+	 * @Database_Connection 不涉及?
+	 * @Problem1. 要有剩餘名額嗎？會影響到此方法要不要連DB
 	 **/
-	private void putProductIntoCart() {
+	private void putProductIntoCart(HttpServletRequest req, HttpServletResponse res) {
+		// 大概要改。這邊是假設課程頁會傳該product的column值過來。
+		// 有沒有辦法抓ProductBean呀？
+		ProductBean addedProduct = new ProductBean();
+		addedProduct.setP_ID ( req.getParameter("P_ID")); 
+		addedProduct.setP_Name ( req.getParameter("P_Name"));
+		addedProduct.setP_Class ( req.getParameter("P_Class"));
+		addedProduct.setP_Price ( Integer.parseInt(req.getParameter("P_Price"))); 
+		addedProduct.setP_DESC ( req.getParameter("P_DESC")); 
+		addedProduct.setU_ID ( req.getParameter("U_ID"));
+		addedProduct.setP_Img ( req.getParameter("P_Img")); 
+		addedProduct.setP_Video ( req.getParameter("P_Video"));
 		
+		this.session.setAttribute("addedProduct", addedProduct);
+		// 這邊不做像老師MVC Demo2的產品數量重疊的判斷和處理迴圈，
+		// 因為單項課程沒有超過一件的概念...吧？
+		this.cart.add(addedProduct);
+		
+		req.getRequestDispatcher("/product/xxxxxxxx.jsp");	// 返回原頁
 	}
 
     /**
      * @Method #03 移除商品
      * @1. 將指定商品自購物車移除
-     * @2. 導回購物車頁
+     * @2. 導回購物車頁(CartIndex.jsp)
      * @Database_Connection 不涉及
      **/
-	private void removeProductFromCart() {
+	private void removeProductFromCart(HttpServletRequest req, HttpServletResponse res) {
+		// 針對一次刪一件寫的，
+		// 萬一一次要刪多件(比方說checkbox傳來多值)要重寫。
+		String P_ID = req.getParameter("P_ID");
+		req.getParameterValues("");
+		
+	}
+	
+    /**
+     * @Method #04 結帳
+     * @1. 導向至結帳頁面(checkout.jsp)
+     * @undone 「下一頁」要記得把session invalidate()掉
+     * @Database_Connection 不涉及
+     **/
+	private void checkout(HttpServletRequest req, HttpServletResponse res) {
 		
 	}
 
 	/**
      * @SubMethod #01 取得連線
-     * @1. 使用此方法的方法要在最後記得關閉
+     * @undone 使用此方法的方法要在最後記得關閉
      * @Database_Connection 不涉及
      * @Problem1. InitialContext要關嗎？
      **/

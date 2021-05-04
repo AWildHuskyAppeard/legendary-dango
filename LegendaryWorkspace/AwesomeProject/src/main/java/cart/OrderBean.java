@@ -1,5 +1,6 @@
 package cart;
-// 即CartItem、購物車項目。
+// Cart = ArrayList<ProductBean> = ArrayList<CartItem>
+// OrderBean = cart +- 一些額外資訊
 public class OrderBean {
 	private Integer O_ID ; // PK
 	private String qtyOrdered; // FK
