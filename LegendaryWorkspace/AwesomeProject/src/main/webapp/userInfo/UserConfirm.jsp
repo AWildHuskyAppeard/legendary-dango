@@ -23,7 +23,7 @@ margin:auto;
 <body>
 	<div class="UserConfirm_div_1">
 		<h2>確認註冊資料</h2>
-		<form action="./UserServlet" method="Get">
+		<form action="/AwesomeProject/UserServlet" method="Get">
 			<tr>
 			<td><b>User ID: </b></td>
 			<td>${param.u_ID }</td>

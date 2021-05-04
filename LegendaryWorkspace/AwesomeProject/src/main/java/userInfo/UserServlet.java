@@ -67,7 +67,7 @@ public class UserServlet extends HttpServlet {
 	
 	//註冊
 	public void gotoSignUpPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("UserSignUp.jsp").forward(request, response);
+		request.getRequestDispatcher("/userInfo/UserSignUp.jsp").forward(request, response);
 	}
 	
 	//註冊確認頁面
@@ -94,7 +94,7 @@ public class UserServlet extends HttpServlet {
 		
 		UserBean create_user = new UserBean(u_ID, u_Psw, u_BirthDay, u_LastName, u_FirstName, u_Email, u_Tel, u_Sex, u_Address);
 		request.getSession(true).setAttribute("create_user", create_user);
-		request.getRequestDispatcher("UserConfirm.jsp").forward(request, response); //去confirm的jsp頁面
+		request.getRequestDispatcher("/userInfo/UserConfirm.jsp").forward(request, response); //去confirm的jsp頁面
 	}
 	
 	//感謝註冊頁面
@@ -114,7 +114,7 @@ public class UserServlet extends HttpServlet {
 				System.out.println("GET SOME SQL COMMANDS DONE!");
 				request.getSession(true).invalidate();
 				//去感謝頁面
-				request.getRequestDispatcher("ThankPage.jsp").forward(request, response);
+				request.getRequestDispatcher("/userInfo/ThankPage.jsp").forward(request, response);
 			}
 			
 		} catch (NamingException ne) {
@@ -135,7 +135,7 @@ public class UserServlet extends HttpServlet {
 	
 	//回登入頁面
 	public void gotoLoginPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("UserLogin.jsp").forward(request, response);
+		request.getRequestDispatcher("/userInfo/UserLogin.jsp").forward(request, response);
 	}
 
 	/**

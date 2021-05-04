@@ -25,7 +25,7 @@ response.setDateHeader("Expires",-1);
 <body>
 	<div class="UserSignUp_div_1">
 		<h2>註冊資料</h2>
-		<form action="./UserServlet" method="Get">
+		<form action="/AwesomeProject/UserServlet" method="Get">
 			<table>
 				<tr>
 					<td>User ID:</td>
