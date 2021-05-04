@@ -65,9 +65,11 @@ public class CartControllerServlet extends HttpServlet {
 				P_VideoList.add(rset.getString("P_Video"));
 			}
 
-			// toArray()有兩種return結果
-			// 1. 若參數之String size >= ArrayList size > 直接把AL內容物移植進去並return
-			// 2. 若參數之String size < ArrayList size > 產生剛好size的Array裝進來並return
+			/**
+			 * @toArray() 有兩種return結果
+			 * @1. 若參數之String size >= ArrayList size > 直接把AL內容物移植進去並return
+			 * @2. 若參數之String size < ArrayList size > 產生剛好size的Array裝進來並return
+			 * */
 			ProductDB.setP_ID((String[])P_IDList.toArray(new String[0]));
 			ProductDB.setP_Name((String[])P_NameList.toArray(new String[0]));
 			ProductDB.setP_Class((String[])P_ClassList.toArray(new String[0]));
@@ -81,6 +83,7 @@ public class CartControllerServlet extends HttpServlet {
 			ex.printStackTrace();
 		} finally {
 
+			// 確定要在這裡關閉連線？
 			try {
 				if (stmt != null)
 					stmt.close();
@@ -91,7 +94,7 @@ public class CartControllerServlet extends HttpServlet {
 			}
 		}
     }
-    
+
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
@@ -99,10 +102,36 @@ public class CartControllerServlet extends HttpServlet {
 
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(); // session範圍：會員點選「加入購物車」(#add) ~ 付款完成 or 登出為止 
     	List<Order> cart = (ArrayList<Order>) session.getAttribute("cart");
     	
+    	String nextPage = "";
     	String todo = request.getParameter("todo");
+    	
+    	if(todo == null) 
+    	{  // 1. 右上角購物車圖示 (from 任何頁面) 
+			session.setAttribute("cart", cart);
+			
+			
+			nextPage = "/購物車頁面";
+    	} else if(todo == "add")
+    	{	// 2. 加入品項 (from 商品頁面)
+    		
+    		
+    		nextPage = "/來的那一頁(該課程頁)";
+    	} else if(todo == "remove")
+    	{  // 3. 移除品項 (from 購物車頁面)
+    		
+    		
+    		nextPage = "/購物車頁面";
+    	} else if(todo == "checkout")
+    	{ // 4. 去結帳 (from 購物車頁面) 
+    		
+    		nextPage = "/checkout.jsp"; // 此.jsp要invalidate()
+    	}
+    		
+    		
+    		
 	}
 
 }
