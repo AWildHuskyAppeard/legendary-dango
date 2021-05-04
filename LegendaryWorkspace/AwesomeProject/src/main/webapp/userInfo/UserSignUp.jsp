@@ -16,9 +16,12 @@ response.setDateHeader("Expires",-1);
         .UserSignUp_div_1{
             width: 400px;
             margin: auto;
-            padding:20px;
+            padding:20px 30px;
             box-shadow:3px 3px 12px lightgray;
             line-height:1.5;
+        }
+        .UserSignUp_div_1 td{
+            line-height: 1.7;
         }
     </style>
 </head>
@@ -62,7 +65,7 @@ response.setDateHeader("Expires",-1);
 						maxlength="15"></td>
 				</tr>
 				<tr>
-					<td>Gender</td>
+					<td>Gender:</td>
 					<td><label><input type="radio" name="u_Sex"
 							value="man">man</label> <label><input type="radio"
 							name="u_Sex" value="female">female</label></td>
@@ -75,7 +78,8 @@ response.setDateHeader("Expires",-1);
 				<tr>
 					<td><input type="reset"></td>
 					<td><button type="submit" name="signUpButton" value="confirm">確認</td>
-					<td><button name="signUpGotoIndex" value="goToIndexPage">回首頁</button></td>
+					<!--<td><button name="signUpGotoIndex" value="首頁">回首頁</button></td>-->
+					<td><a href="#####" title="首頁">回首頁</a></td>
 				</tr>
 			</table>
 		</form>

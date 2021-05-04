@@ -24,51 +24,52 @@ public class UserServlet extends HttpServlet {
 	
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public UserServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType(CONTENT_TYPE);
 		
+		//新增註冊資料
 		if(request.getParameter("login")!=null) {
 			gotoIndexPage(request, response);
-		} else if(request.getParameter("signUp")!=null) {
+		} /*else if(request.getParameter("signUp")!=null) {
 			gotoSignUpPage(request, response);
-		} else if (request.getParameter("signUpButton")!=null) {
+		}*/ else if (request.getParameter("signUpButton")!=null) {
 			//註冊頁面確認，去確認頁面(同時拿參數進來放入Bean)
 			gotoConfirmPage(request,response);
-		} else if (request.getParameter("signUpGotoIndex")!=null) {
+		}/* else if (request.getParameter("signUpGotoIndex")!=null) {
 			//註冊頁面按:回首頁
 			//gotoIndexPage
-		} else if (request.getParameter("confirmButton")!=null) {
+		}*/ else if (request.getParameter("confirmButton")!=null) {
 			//確認註冊資料，去ThanksPage，資料匯入DB
 			gotoThankPage(request, response);
-		} else if (request.getParameter("thankPageButton")!=null) {
+		}/* else if (request.getParameter("thankPageButton")!=null) {
 			//感謝頁面，導回登入頁面
 			gotoLoginPage(request, response);
-		}
+		}*/
 		
 	}
+	
 	
 	//登入
 	public void gotoIndexPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//待補充
 	}
 	
+	
+	/*
 	//註冊
 	public void gotoSignUpPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/userInfo/UserSignUp.jsp").forward(request, response);
 	}
+	*/
 	
 	//註冊確認頁面
 	public void gotoConfirmPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -111,7 +112,7 @@ public class UserServlet extends HttpServlet {
 			UserDAO userDAO = new UserDAO(conn); //這邊
 			UserBean userData = (UserBean)request.getSession(true).getAttribute("create_user");
 			if (userDAO.createUser(userData)) {
-				System.out.println("GET SOME SQL COMMANDS DONE!");
+				System.out.println("註冊資料匯入成功!");
 				request.getSession(true).invalidate();
 				//去感謝頁面
 				request.getRequestDispatcher("/userInfo/ThankPage.jsp").forward(request, response);
@@ -133,14 +134,16 @@ public class UserServlet extends HttpServlet {
 		
 	}
 	
+	/*
 	//回登入頁面
 	public void gotoLoginPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/userInfo/UserLogin.jsp").forward(request, response);
-	}
+	}*/
+	
+	
+	
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

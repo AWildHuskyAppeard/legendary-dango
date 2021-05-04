@@ -4,14 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Confirm Page</title>
+<title>Thanks Page</title>
 </head>
 	<body>
 		<h1>
 			<B>Thank you for registration!</B>
 		</h1>
 		<form action="/AwesomeProject/UserServlet" method="Get">
-			<button type="submit" name="thankPageButton" value="thankPageButton">回登入頁面</button>
+			<!--<button type="submit" name="thankPageButton" value="thankPageButton">回登入頁面</button>-->
+			<!-- 打完整路徑 -->
+			<a href="/AwesomeProject/userInfo/UserLogin.jsp" title="返回登入">返回登入頁面</a>
 		</form>
 	</body>
 </html>
