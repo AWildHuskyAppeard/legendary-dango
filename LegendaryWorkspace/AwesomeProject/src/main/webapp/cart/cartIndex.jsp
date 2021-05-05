@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Cart Index Page</title>
 <link rel="stylesheet" href="/AwesomeProject/assets/cartIndex.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body>
 <!-- 1. 顯示當前購物車內容表格 -->
@@ -17,7 +18,7 @@
 			    <th>C3</th>
 			    <th>C4</th>
 			    <th>C5</th>
-			    <th>C6</th>
+			    <th>C6 Delete checkboxes</th>
 			</tr>
 			
 			<tr>
@@ -26,7 +27,9 @@
 			    <td>33</td>
 			    <td>44</td>
 			    <td>55</td>
-			    <td>66</td>
+			    <td>66<input type="checkbox" name="checkRemove"></td>
+			    <td>66<input type="checkbox" name="checkRemove"></td>
+			    <td>66<input type="checkbox" name="checkRemove"></td>
 			</tr>
 		
 		
@@ -36,7 +39,7 @@
 <!-- 2. 按鈕導向各頁 -->
 		<button name="todo" value="remove">移除</button>
 		<button name="todo" value="checkout">結帳</button>
-		<button name="(未定)" value="(未定)">回首頁</button>
+		<button name="" value="">回首頁</button>
 	</form>
 </body>
 </html>

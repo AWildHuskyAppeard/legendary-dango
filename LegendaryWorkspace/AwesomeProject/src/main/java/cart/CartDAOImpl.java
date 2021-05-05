@@ -1,6 +1,9 @@
 package cart;
 // 購物車的連線物件
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class CartDAOImpl implements CartDAO {
 	private Connection conn;
@@ -18,6 +21,22 @@ public class CartDAOImpl implements CartDAO {
 	@Override
 	public boolean selectOrder(OrderBean orderBean) {
 		boolean selectStatus = false;
+		String selectCmd = "SELECT * FROM [ORDER]"; // ***
+		PreparedStatement pStmt;
+		ResultSet rs;
+		try {
+			pStmt = conn.prepareStatement(selectCmd);
+			rs = pStmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+//				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 		return selectStatus;
 	}
 
