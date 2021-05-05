@@ -53,7 +53,10 @@ public class UserServlet extends HttpServlet {
 		}/* else if (request.getParameter("thankPageButton")!=null) {
 			//感謝頁面，導回登入頁面
 			gotoLoginPage(request, response);
-		}*/
+		}*/ else if (request.getParameter("updateButton")!=null) {
+			// 更新會員資料
+			userUpdateProcess(request, response);
+		}
 		
 	}
 	
@@ -73,25 +76,16 @@ public class UserServlet extends HttpServlet {
 	
 	//註冊確認頁面
 	public void gotoConfirmPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String u_ID;
-		String u_Psw;
-		String u_BirthDay; //這邊
-		String u_LastName;
-		String u_FirstName;
-		String u_Email;
-		String u_Tel;
-		String u_Sex;
-		String u_Address; 
 		
-		u_ID = request.getParameter("u_ID").trim();
-		u_Psw = request.getParameter("u_Psw").trim();
-		u_BirthDay = request.getParameter("u_BirthDay").trim();
-		u_LastName = request.getParameter("u_LastName").trim();
-		u_FirstName = request.getParameter("u_FirstName").trim();
-		u_Email = request.getParameter("u_Email").trim();
-		u_Tel = request.getParameter("u_Tel").trim();
-		u_Sex = request.getParameter("u_Sex").trim();
-		u_Address = request.getParameter("u_Address").trim();
+		String u_ID = request.getParameter("u_ID").trim();
+		String u_Psw = request.getParameter("u_Psw").trim();
+		String u_BirthDay = request.getParameter("u_BirthDay");
+		String u_LastName= request.getParameter("u_LastName").trim();
+		String u_FirstName = request.getParameter("u_FirstName").trim();
+		String u_Email = request.getParameter("u_Email").trim();
+		String u_Tel = request.getParameter("u_Tel").trim();
+		String u_Sex = request.getParameter("u_Sex");
+		String u_Address = request.getParameter("u_Address").trim(); 
 		
 		UserBean create_user = new UserBean(u_ID, u_Psw, u_BirthDay, u_LastName, u_FirstName, u_Email, u_Tel, u_Sex, u_Address);
 		request.getSession(true).setAttribute("create_user", create_user);
@@ -140,6 +134,60 @@ public class UserServlet extends HttpServlet {
 		request.getRequestDispatcher("/userInfo/UserLogin.jsp").forward(request, response);
 	}*/
 	
+	// 修改會員資料
+	public void userUpdateProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String u_BirthDay = request.getParameter("u_BirthDay");
+		String u_LastName = request.getParameter("u_LastName");
+		String u_FirstName = request.getParameter("u_FirstName");
+		String u_Email = request.getParameter("u_Email");
+		String u_Tel = request.getParameter("u_Tel");
+		String u_Sex = request.getParameter("u_Sex");
+		String u_Address = request.getParameter("u_Address");
+		
+		// 把取到的參數放入Bean
+		UserBean updateUser = new UserBean();
+		updateUser.setU_BirthDay(u_BirthDay);
+		updateUser.setU_LastName(u_LastName);
+		updateUser.setU_FirstName(u_FirstName);
+		updateUser.setU_Email(u_Email);
+		updateUser.setU_Tel(u_Tel);
+		updateUser.setU_Sex(u_Sex);
+		updateUser.setU_Address(u_Address);
+		
+		// 設Attribute
+		request.getSession().setAttribute("updateUser", updateUser);
+		
+		DataSource ds = null;
+		InitialContext ctxt = null;
+		Connection conn = null;
+		
+		// call function
+		try {
+			ctxt = new InitialContext();
+			ds = (DataSource)ctxt.lookup("java:comp/env/jdbc/ProjectDB");
+			conn = ds.getConnection();
+			UserDAO userDAO = new UserDAO(conn);
+			userDAO.updateUser(updateUser);
+			if(userDAO.updateUser(updateUser)) {
+				// 看dao裡的updateUser回傳什麼
+				System.out.println("資料修改成功!");
+				request.getRequestDispatcher("/userInfo/index_test.html").forward(request, response);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			try {
+				if (conn!=null) { conn.close(); }
+			} catch (Exception e2) {
+				System.out.println("Connection Pool Error!!!");
+			}
+		}
+		
+		
+		
+		
+	}
 	
 	
 

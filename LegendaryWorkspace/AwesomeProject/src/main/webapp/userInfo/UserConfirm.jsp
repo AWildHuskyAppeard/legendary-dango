@@ -63,16 +63,8 @@ margin:auto;
 			<td><b>Address: </b></td>
 			<td>${param.u_Address }</td>
 			</tr><br>
-				<!-- <li><b>User ID: </b>${param.id }</li>
-				<li><b>Birthday: </b>${param.birthDay }</li>
-				<li><b>Last Name: </b>${param.lastName }</li>
-				<li><b>First Name: </b>${param.firstName }</li>
-				<li><b>E-mail: </b>${param.email }</li>
-				<li><b>Telephone: </b>${param.telephone }</li>
-				<li><b>Gender: </b>${param.gender }</li>
-				<li><b>Address: </b>${param.address }</li> -->
 			
-			<button type="submit" name="confirmButton" value="confirm">確認</button>
+			<button type="submit" name="confirmButton" value="confirmButton">確認</button>
 		</form>
 	</div>
 </body>
