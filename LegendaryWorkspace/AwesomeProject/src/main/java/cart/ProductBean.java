@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class ProductBean implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
 	private String P_ID; // PK
 	private String P_Name;
 	private String P_Class;
@@ -13,7 +12,24 @@ public class ProductBean implements Serializable {
 	private String U_ID; // FK
 	private String P_Img; 
 	private String P_Video;
+	
+	public ProductBean() {	} // 
+//	public ProductBean(String P_ID,	String P_Name, String P_Class, Integer P_Price,	String P_DESC,	String U_ID,	String P_Img, String P_Video) {
+//		this.P_ID = P_ID;
+//	}
+	
 	// getters
+	public ProductBean(String p_ID, String p_Name, String p_Class, Integer p_Price, String p_DESC, String u_ID,
+		String p_Img, String p_Video) {
+		setP_ID       (p_ID   );
+		setP_Name  (p_Name );
+		setP_Class   (p_Class);
+		setP_Price   (p_Price);
+		setP_DESC  (p_DESC );
+		setU_ID     (u_ID   );
+		setP_Img    (p_Img  );
+		setP_Video  (p_Video);
+}                      
 	public String getP_ID() {		return P_ID;	}
 	public String getP_Name() {		return P_Name;	}
 	public String getP_Class() {		return P_Class;	}

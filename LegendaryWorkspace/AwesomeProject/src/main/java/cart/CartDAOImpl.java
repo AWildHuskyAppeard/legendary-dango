@@ -3,6 +3,7 @@ package cart;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 public class CartDAOImpl implements CartDAO {
@@ -27,6 +28,9 @@ public class CartDAOImpl implements CartDAO {
 		try {
 			pStmt = conn.prepareStatement(selectCmd);
 			rs = pStmt.executeQuery();
+			ResultSetMetaData md = rs.getMetaData();
+			
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

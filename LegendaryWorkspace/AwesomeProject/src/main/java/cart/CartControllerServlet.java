@@ -25,7 +25,9 @@ public class CartControllerServlet extends HttpServlet {
 	private HttpSession session; 
 	private List<ProductBean> cart;
 	
-	private ProductBean testBean1, testBean2, testBean3;
+	private ProductBean testBean1 = new ProductBean("ENG003", "Speaking", "ENG", 900, "nice", "mem005", "www", "sss")  ;
+	private ProductBean testBean2 = new ProductBean("ENG015", "Reading", "ENG", 350, "awesome", "mem905", "ww", "ks")  ;
+	private ProductBean testBean3 = new ProductBean("JPN003", "Speaking", "JPN", 99, "subarashii", "mem001", "aaa", "ww")  ;
 	
     @Override
     public void init() throws ServletException {
