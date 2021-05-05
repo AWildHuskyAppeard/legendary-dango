@@ -119,6 +119,14 @@ public class CartControllerServlet extends HttpServlet {
     	this.cart = (List<ProductBean>) session.getAttribute("cart");
     	this.session.setAttribute("cart", cart);
     	
+    	// 測試用
+    	if(this.cart == null) 
+    	{
+    		this.cart.add(testBean1);
+    		this.cart.add(testBean2);
+    		this.cart.add(testBean3);
+    	}
+    	
     	String todo = request.getParameter("todo");
     	
     	// 1. 右上角購物車圖示 (from 任何頁面) 
