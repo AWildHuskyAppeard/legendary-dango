@@ -13,16 +13,20 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
+/**
+ * @Q1. 重新導向過去的網址有誤(理應是.jsp卻顯示此controller)
+ * @Q2. 
+ **/
 
 @WebServlet("/CartControllerServlet")
 public class CartControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	private DataSource ds;
-	
-	private 	HttpSession session; 
+	private HttpSession session; 
 	private List<ProductBean> cart;
-
+	
+	private ProductBean testBean1, testBean2, testBean3;
+	
     @Override
     public void init() throws ServletException {
     	super.init();
@@ -118,31 +122,35 @@ public class CartControllerServlet extends HttpServlet {
     	// 1. 右上角購物車圖示 (from 任何頁面) 
     	if(todo == null) gotoCartIndexPage(request, response); 
     	// 2. 加入品項 (from 商品頁面)
-    	else if(todo == "add") putProductIntoCart(request, response);
+    	else if("add".equals(todo)) putProductIntoCart(request, response);
     	// 3. 移除品項 (from 購物車頁面)
-    	else if(todo == "remove") removeProductFromCart(request, response);
+    	else if("remove".equals(todo)) removeProductFromCart(request, response);
     	// 4. 去結帳 (from 購物車頁面) 
-    	else if(todo == "checkout") checkout(request, response);
+    	else if( "checkout".equals(todo)) checkout(request, response);
+    	// 5. debug用
+    	else response.getWriter().print("Something went wrong! "
+    			+ "todo value = " + todo);
     	
 	}
     /**
-     * @Method #01
+     * @Method #01 todo == null > 導向購物車
      * @1. 導向購物車頁(CartIndex.jsp)
      * @Database_Connection 不涉及
      **/
-    private void gotoCartIndexPage(HttpServletRequest req, HttpServletResponse res) {
-    	req.getRequestDispatcher("/cart/cartIndex.jsp");
+    private void gotoCartIndexPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);;
     	
     }
     
     /**
-	 * @Method #02 購買商品
+     * @Method #02 add > 購買商品
 	 * @1. 將品項加入購物車
 	 * @2. 返回該商品頁
+	 * @undone 返回原頁的參數
 	 * @Database_Connection 不涉及?
 	 * @Problem1. 要有剩餘名額嗎？會影響到此方法要不要連DB
 	 **/
-	private void putProductIntoCart(HttpServletRequest req, HttpServletResponse res) {
+	private void putProductIntoCart(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// 大概要改。這邊是假設課程頁會傳該product的column值過來。
 		// 有沒有辦法抓ProductBean呀？
 		ProductBean addedProduct = new ProductBean();
@@ -160,31 +168,36 @@ public class CartControllerServlet extends HttpServlet {
 		// 因為單項課程沒有超過一件的概念...吧？
 		this.cart.add(addedProduct);
 		
-		req.getRequestDispatcher("/product/xxxxxxxx.jsp");	// 返回原頁
+		req.getRequestDispatcher("/product/xxxxxxxx.jsp").forward(req, res);	// 返回原頁
 	}
 
     /**
-     * @Method #03 移除商品
+     * @Method #03 remove > 移除商品
      * @1. 將指定商品自購物車移除
      * @2. 導回購物車頁(CartIndex.jsp)
      * @Database_Connection 不涉及
      **/
-	private void removeProductFromCart(HttpServletRequest req, HttpServletResponse res) {
+	private void removeProductFromCart(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		// 針對一次刪一件寫的，
 		// 萬一一次要刪多件(比方說checkbox傳來多值)要重寫。
 		String P_ID = req.getParameter("P_ID");
-		req.getParameterValues("");
+		String[] pms = req.getParameterValues("checkRemove");
 		
+		if (pms != null) {	for(String element : pms) {System.out.println(element);}	} // debug用
+		
+		
+		req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);	// 返回原頁
 	}
 	
     /**
-     * @Method #04 結帳
+     * @Method #04 checkout > 結帳
      * @1. 導向至結帳頁面(checkout.jsp)
      * @undone 「下一頁」要記得把session invalidate()掉
      * @Database_Connection 不涉及
      **/
-	private void checkout(HttpServletRequest req, HttpServletResponse res) {
+	private void checkout(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
+		req.getRequestDispatcher("/cart/checkout.jsp").forward(req, res);	// 返回原頁
 	}
 
 	/**

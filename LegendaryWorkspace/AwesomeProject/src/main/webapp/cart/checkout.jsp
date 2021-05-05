@@ -7,6 +7,6 @@
 <title>Checkout Page</title>
 </head>
 <body>
-
+	<h1>Checkout Page!!!</h1>
 </body>
 </html>
