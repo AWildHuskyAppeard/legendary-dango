@@ -26,7 +26,7 @@
 		type="javax.sql.DataSource" maxTotal="100" maxIdle="30"
 		maxWaitMillis="10000" username="sa" password="manager"
 		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-		url="jdbc:sqlserver://localhost:1433;databaseName=Project2_V1" />
+		url="jdbc:sqlserver://localhost:1433;databaseName=StudieHub" />
 
 	<!-- yuz's -->
 	<Resource name="jdbc/EmployeeDB" auth="Container"
@@ -41,7 +41,13 @@
 		maxWaitMillis="10000" username="sa" password="manager"
 		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
 		url="jdbc:sqlserver://172.16.29.84:1433;databaseName=Project02" />
-
+	
+	<!-- for all of us <3 -->
+	<Resource name="jdbc/DBDB" auth="Container"
+		type="javax.sql.DataSource" maxTotal="100" maxIdle="30"
+		maxWaitMillis="10000" username="sa" password="manager"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://localhost:1433;databaseName=StudieHub" />
 	<!-- ****************************************************************** -->
 
 	<!-- Default set of monitored resources. If one of these changes, the -->

@@ -14,7 +14,7 @@ public class UserDAO {
 	//建立新的User(新增)
 	public boolean createUser(UserBean userData) {
 		try {
-			String sqlString = "INSERT INTO User_Info_v1 (U_ID, U_Psw, U_Birthday, U_LastName, U_FirstName, U_Email, U_Tel, U_Sex, U_Address)"
+			String sqlString = "INSERT INTO [User_Info] (U_ID, U_Psw, U_Birthday, U_LastName, U_FirstName, U_Email, U_Tel, U_Sex, U_Address)"
 							 + " VALUES ('"+userData.getU_ID()+"','"
 							 + userData.getU_Psw()+"','"
 							 + userData.getU_BirthDay()+"','"
@@ -54,7 +54,7 @@ public class UserDAO {
 		String sqlString = "UPDATE [User_Info_v1]\r\n" //測試
 						 + "   SET [U_Birthday] = ?"
 						 + " WHERE [U_ID] = 1";*/
-		String sqlString = "UPDATE [User_Info_v1]\r\n"
+		String sqlString = "UPDATE [User_Info]\r\n"
 				+ "   SET "+updateColSqlString +" = ?"
 				+ " WHERE [U_ID] = 1";
 //		String d = "2011-12-12";
@@ -93,7 +93,7 @@ public class UserDAO {
 			if (u_BirthDay != null) {
 				System.out.println(u_BirthDay);
 				updateColSqlString = "[U_Birthday]";
-				sqlString = "UPDATE [User_Info_v1]\r\n"
+				sqlString = "UPDATE [User_Info]\r\n"
 						+ "   SET "+updateColSqlString +" = ?"
 						+ " WHERE [U_ID] = 1";
 				System.out.println(updateColSqlString);
@@ -113,7 +113,7 @@ public class UserDAO {
 			if (u_LastName != null) {
 				System.out.println(u_LastName);
 				updateColSqlString = "[U_LastName]";
-				sqlString = "UPDATE [User_Info_v1]\r\n"
+				sqlString = "UPDATE [User_Info]\r\n"
 						+ "   SET "+updateColSqlString +" = ?"
 						+ " WHERE [U_ID] = 1";
 				System.out.println(updateColSqlString);
@@ -133,7 +133,7 @@ public class UserDAO {
 			if (u_FirstName != null) {
 				System.out.println(u_FirstName);
 				updateColSqlString = "[U_FirstName]";
-				sqlString = "UPDATE [User_Info_v1]\r\n"
+				sqlString = "UPDATE [User_Info]\r\n"
 						+ "   SET "+updateColSqlString +" = ?"
 						+ " WHERE [U_ID] = 1";
 				System.out.println(updateColSqlString);
@@ -153,7 +153,7 @@ public class UserDAO {
 			if (u_Email != null) {
 				System.out.println(u_Email);
 				updateColSqlString = "[U_Email]";
-				sqlString = "UPDATE [User_Info_v1]\r\n"
+				sqlString = "UPDATE [User_Info]\r\n"
 						+ "   SET "+updateColSqlString +" = ?"
 						+ " WHERE [U_ID] = 1";
 				System.out.println(updateColSqlString);
@@ -173,7 +173,7 @@ public class UserDAO {
 			if (u_Tel != null) {
 				System.out.println(u_Tel);
 				updateColSqlString = "[U_Tel]";
-				sqlString = "UPDATE [User_Info_v1]\r\n"
+				sqlString = "UPDATE [User_Info]\r\n"
 						+ "   SET "+updateColSqlString +" = ?"
 						+ " WHERE [U_ID] = 1";
 				System.out.println(updateColSqlString);
@@ -193,7 +193,7 @@ public class UserDAO {
 			if (u_Sex != null) {
 				System.out.println(u_Sex);
 				updateColSqlString = "[U_Sex]";
-				sqlString = "UPDATE [User_Info_v1]\r\n"
+				sqlString = "UPDATE [User_Info]\r\n"
 						+ "   SET "+updateColSqlString +" = ?"
 						+ " WHERE [U_ID] = 1";
 				System.out.println(updateColSqlString);
@@ -213,7 +213,7 @@ public class UserDAO {
 			if (u_Address != null) {
 				System.out.println(u_Address);
 				updateColSqlString = "[U_Address]";
-				sqlString = "UPDATE [User_Info_v1]\r\n"
+				sqlString = "UPDATE [User_Info]\r\n"
 						+ "   SET "+updateColSqlString +" = ?"
 						+ " WHERE [U_ID] = 1";
 				System.out.println(updateColSqlString);
