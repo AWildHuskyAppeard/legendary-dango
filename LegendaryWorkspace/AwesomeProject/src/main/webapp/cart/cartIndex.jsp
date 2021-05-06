@@ -11,9 +11,11 @@
 <link rel="stylesheet" href="/AwesomeProject/assets/cartIndex.css">
 </head>
 <body>
-<jsp:useBean id="addedProduct" scope="session" class="cart.ProductBean" />
+<jsp:useBean id="addedProduct" scope="session" class="cart.ProductBean" type="cart.ProductBean" />
 <% List<ProductBean> cart = (ArrayList<ProductBean>)(session.getAttribute("cart")); 
-	int itemQty = cart.size();
+	 int itemQty = 0;
+	 if(cart == null) 
+	 {itemQty = cart.size();}
 %>
 <!-- 1. 顯示當前購物車內容表格 -->
 	<form method="POST" action="/AwesomeProject/CartControllerServlet"> 
