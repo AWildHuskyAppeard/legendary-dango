@@ -1,4 +1,4 @@
-package learningWeb;
+package product;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,7 @@ public interface ProductDAO {
 	//find class by class id
 	ProductBean findProductByProductNo(String P_ID);
 	//find all classes
-	ArrayList<ProductBean>findAllProduct();
+	ArrayList<ProductBean>findAll();
 	//insert class
 	boolean insertProduct(ProductBean Product);
 	//update class
