@@ -100,7 +100,7 @@ public class UserServlet extends HttpServlet {
 		
 		try {
 			ctxt = new InitialContext();
-			ds = (DataSource)ctxt.lookup("java:comp/env/jdbc/ProjectDB");
+			ds = (DataSource)ctxt.lookup("java:comp/env/jdbc/DBDB");
 			conn = ds.getConnection();
 			
 			UserDAO userDAO = new UserDAO(conn); //這邊
@@ -165,7 +165,7 @@ public class UserServlet extends HttpServlet {
 		// call function
 		try {
 			ctxt = new InitialContext();
-			ds = (DataSource)ctxt.lookup("java:comp/env/jdbc/ProjectDB");
+			ds = (DataSource)ctxt.lookup("java:comp/env/jdbc/DBDB");
 			conn = ds.getConnection();
 			UserDAO userDAO = new UserDAO(conn);
 			boolean updateResult = userDAO.updateUser(updateUser);

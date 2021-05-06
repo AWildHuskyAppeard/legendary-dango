@@ -41,7 +41,15 @@
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
-	
+
+	<!-- For all of us <3 -->
+	<resource-ref>
+		<description>DB Connection Pool</description>
+		<res-ref-name>jdbc/DBDB</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+		<res-sharing-scope>Shareable</res-sharing-scope>
+	</resource-ref>
 
 	
 	<!-- ****************************************************************** -->
