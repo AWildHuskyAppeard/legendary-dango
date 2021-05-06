@@ -32,7 +32,7 @@ public class ChatServlet extends HttpServlet {
 	    
 	    try {
 	    	ctxt = new InitialContext();
-	    	ds = ( DataSource ) ctxt.lookup("java:comp/env/jdbc/EmployeeDB");
+	    	ds = ( DataSource ) ctxt.lookup("java:comp/env/jdbc/DBDB");
 	    	conn = ds.getConnection();
 	    	
 	    	ChatDAOImpl chatDAOImpl = new ChatDAOImpl(conn);
