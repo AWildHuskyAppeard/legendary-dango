@@ -7,11 +7,10 @@
 <title>Thanks Page</title>
 </head>
 	<body>
-		<h1>Thank you for registration!</h1>
+		<h1 style="font-size:200%; color: red;">資料修改成功!</h1>
 		<form action="/AwesomeProject/UserServlet" method="Get">
-			<!--<button type="submit" name="thankPageButton" value="thankPageButton">回登入頁面</button>-->
-			<!-- 打完整路徑 -->
-			<a href="/AwesomeProject/userInfo/UserLogin.jsp" title="返回登入">返回登入頁面</a>
+
+			<a href="/AwesomeProject/userInfo/index_test.html" title="首頁">點擊此返回首頁</a>
 		</form>
 	</body>
 </html>

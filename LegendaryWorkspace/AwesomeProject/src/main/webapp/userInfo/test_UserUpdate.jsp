@@ -10,8 +10,8 @@ response.setDateHeader("Expires",-1);
 %>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Sign up Page</title>
+<meta charset="UTF-8" content="text/html; charset=UTF-8">
+<title>修改會員資料</title>
 	<style>
         .UserSignUp_div_1{
             width: 400px;
@@ -27,19 +27,9 @@ response.setDateHeader("Expires",-1);
 </head>
 <body>
 	<div class="UserSignUp_div_1">
-		<h2>註冊資料</h2>
+		<h2>修改會員資料</h2>
 		<form action="/AwesomeProject/UserServlet" method="Get">
 			<table>
-				<tr>
-					<td>User ID:</td>
-					<td><input type="text" name="u_ID" size="20" maxlength="20"
-						autocomplete="off" required></td>
-				</tr>
-				<tr>
-					<td>User Password:</td>
-					<td><input type="password" name="u_Psw" size="20"
-						maxlength="20" required></td>
-				</tr>
 				<tr>
 					<td>Birthday:</td>
 					<td><input type="date" name="u_BirthDay"></td>
@@ -47,22 +37,20 @@ response.setDateHeader("Expires",-1);
 				<tr>
 					<td>Last Name:</td>
 					<td><input type="text" name="u_LastName" size="20"
-						maxlength="20" required></td>
+						maxlength="20"></td>
 				</tr>
 				<tr>
 					<td>First Name:</td>
 					<td><input type="text" name="u_FirstName" size="20"
-						maxlength="20" required></td>
+						maxlength="20"></td>
 				</tr>
 				<tr>
 					<td>E-mail:</td>
-					<td><input type="text" name="u_Email" size="20"
-						maxlength="60" required></td>
+					<td><input type="text" name="u_Email" size="20" maxlength="60"></td>
 				</tr>
 				<tr>
 					<td>Telephone:</td>
-					<td><input type="text" name="u_Tel" size="20"
-						maxlength="15"></td>
+					<td><input type="text" name="u_Tel" size="20" maxlength="15"></td>
 				</tr>
 				<tr>
 					<td>Gender:</td>
@@ -76,14 +64,12 @@ response.setDateHeader("Expires",-1);
 						maxlength="60"></td>
 				</tr>
 				<tr>
-					<td><input type="reset"></td>
-					<td><button type="submit" name="signUpButton" value="signUpButton">確認</td>
-					<!--<td><button name="signUpGotoIndex" value="首頁">回首頁</button></td>-->
+					<td><button type="submit" name="updateButton" value=updateButton>確認修改</td>
 					<td><a href="/AwesomeProject/userInfo/index_test.html" title="首頁">回首頁</a></td>
 				</tr>
 			</table>
+
 		</form>
 	</div>
-
 </body>
 </html>
