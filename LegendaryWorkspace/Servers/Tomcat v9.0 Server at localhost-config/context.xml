@@ -17,9 +17,9 @@
 	<!-- Ken's -->
 	<Resource name="jdbc/EmployeeDB" auth="Container"
 		type="javax.sql.DataSource" maxTotal="100" maxIdle="30"
-		maxWaitMillis="10000" username="ken" password="kenken"
+		maxWaitMillis="10000" username="sa" password="manager"
 		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-		url="jdbc:sqlserver://localhost:1433;databaseName=Project" />
+		url="jdbc:sqlserver://localhost:1433;databaseName=StudieHub" />
 		
 		<!-- Josh's -->
 	<Resource name="jdbc/ProjectDB" auth="Container"

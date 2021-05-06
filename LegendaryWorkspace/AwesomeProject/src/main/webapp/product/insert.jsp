@@ -7,10 +7,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="/AwesomeProject/ControlServlet" method="GET">
+	<form action="/AwesomeProject/ControlServlet?method=insert" method="GET">
             <div>
                 <label>課程編號:</label>
-                <input type="text" name="p_ID" >
+                <input type="text" name="P_ID" >
+            </div>
+            <div>
+                <label>課程名稱:</label>
+                <input required type="text" name="P_Name" >
+            </div>
+            <div>
+                <label>老師帳號:</label>
+                <input required type="text" name="U_ID" >
             </div>
             <div>
                 <label>課程分類:</label>
@@ -34,7 +42,7 @@
             </div>
             <div>
                 <label style="text-align: right; float: left;">課程介紹:</label>
-                <textarea cols="40" rows="8" name="P_DESC" style="resize: none;"></textarea>
+                <textarea required cols="40" rows="8" name="P_DESC" style="resize: none;"></textarea>
             </div>
             <div>
                 <input type="submit" value="確認送出">
