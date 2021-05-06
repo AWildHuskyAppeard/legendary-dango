@@ -11,7 +11,7 @@ response.setDateHeader("Expires",-1);
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Login Page</title>
+<title>GM Login Page</title>
 	<style>
         #UserLogin_div_1{
             width: 300px;
@@ -27,25 +27,26 @@ response.setDateHeader("Expires",-1);
             margin: 10px 0;
             width: 65px;
         }
+        .Admin_body{
+        	background-color: #FAF4FF;
+        }
     </style>
 </head>
-<body>
+<body class="Admin_body">
 	<div id="UserLogin_div_1">
 		<form action="/AwesomeProject/UserServlet" method="Get">
 			
 			
-					User ID:<br>
+					Admin ID:<br>
 					<input type="text" name="u_ID" size="20" maxlength="20"
 						autocomplete="off"><br><br>
 				
 				
-					User Password:<br>
+					Password:<br>
 					<input type="password" name="u_Psw" size="20"
 						maxlength="20"><br>
             <div id="Login_div_2">
-                <input id="Login_div_3" type="submit" value="Login" name="login"><br/>
-                <!--<button id="Login_div_3" type="submit" value="signUp" name="signUp">Sign Up</button>-->
-                <a id="Login_div_3" href="/AwesomeProject/userInfo/UserSignUp.jsp" title="註冊">Sign Up</a>
+                <input id="Login_div_3" type="submit" value="Login" name="adminLogin"><br/>
             </div>
 		</form>
 	</div>

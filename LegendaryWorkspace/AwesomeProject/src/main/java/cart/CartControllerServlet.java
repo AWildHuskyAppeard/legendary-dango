@@ -226,7 +226,7 @@ public class CartControllerServlet extends HttpServlet {
 	    		{	
 		    		ctx = new InitialContext();
 		    		// 改資料庫名稱
-		    		this.ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/ProjectDB");
+		    		this.ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/DBDB");
 	    		}
 	    		this.ds.getConnection();
 			} catch (NamingException e) 
