@@ -168,14 +168,16 @@ public class UserServlet extends HttpServlet {
 			ds = (DataSource)ctxt.lookup("java:comp/env/jdbc/ProjectDB");
 			conn = ds.getConnection();
 			UserDAO userDAO = new UserDAO(conn);
-			userDAO.updateUser(updateUser);
-			if(userDAO.updateUser(updateUser)) {
+			boolean updateResult = userDAO.updateUser(updateUser);
+			System.out.println("IN servlet, after update 測試字串");
+			if(updateResult) {
 				// 看dao裡的updateUser回傳什麼
 				System.out.println("資料修改成功!");
-				request.getRequestDispatcher("/userInfo/index_test.html").forward(request, response);
+//				request.getRequestDispatcher("/userInfo/index_test.html").forward(request, response);
+				request.getRequestDispatcher("/userInfo/test_UpdateWaitPage.jsp").forward(request, response);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			new ServletException(e);
 		} finally {
 			try {
 				if (conn!=null) { conn.close(); }
