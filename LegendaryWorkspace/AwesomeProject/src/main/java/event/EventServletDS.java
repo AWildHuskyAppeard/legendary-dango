@@ -36,7 +36,7 @@ public class EventServletDS extends HttpServlet {
 	      ctxt = new InitialContext();
 
 	      //使用JNDI  API找到DataSource
-	      ds = ( DataSource ) ctxt.lookup("java:comp/env/jdbc/EmployeeDB");
+	      ds = ( DataSource ) ctxt.lookup("java:comp/env/jdbc/DBDB");
 	     
 	      //向DataSource要Connection
 	      conn = ds.getConnection();
@@ -87,7 +87,7 @@ public class EventServletDS extends HttpServlet {
 		String AID = request.getParameter("aid");
 		String ADATE = request.getParameter("adate");
 		String ACOIN = request.getParameter("acoin");
-		
+		//dsadasd
 		EventBean EventBean =new EventBean((Integer.parseInt(UID)), AName, AID, ADATE, ACOIN);
 	    if (EventBean == null) showError(response, "找不到這個uidxxx" + UID);
 	    else {
