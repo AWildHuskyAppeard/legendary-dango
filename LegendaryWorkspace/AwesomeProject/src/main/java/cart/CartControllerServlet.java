@@ -117,11 +117,12 @@ public class CartControllerServlet extends HttpServlet {
     	// session範圍：會員點選「加入購物車」(#add) ~ 付款完成 or 登出為止 
 		this.session = request.getSession();
     	this.cart = (List<ProductBean>) session.getAttribute("cart");
-    	this.session.setAttribute("cart", cart);
+    	this.session.setAttribute("cart", this.cart);
     	
     	// 測試用
     	if(this.cart == null) 
     	{
+    		this.cart = new ArrayList<ProductBean>();
     		this.cart.add(testBean1);
     		this.cart.add(testBean2);
     		this.cart.add(testBean3);

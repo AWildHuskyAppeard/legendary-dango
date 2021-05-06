@@ -13,9 +13,9 @@
 <body>
 <jsp:useBean id="addedProduct" scope="session" class="cart.ProductBean" type="cart.ProductBean" />
 <% List<ProductBean> cart = (ArrayList<ProductBean>)(session.getAttribute("cart")); 
-	 int itemQty = 0;
-	 if(cart == null) 
-	 {itemQty = cart.size();}
+
+	 if(cart == null) cart = new ArrayList<ProductBean>();
+
 %>
 <!-- 1. 顯示當前購物車內容表格 -->
 	<form method="POST" action="/AwesomeProject/CartControllerServlet"> 
@@ -31,8 +31,9 @@
 				</tr>
 			</thead>
 			<tbody>
-			<% for(int i = 0; i < itemQty; i++) {
+			<% for(int i = 0; i < cart.size(); i++) {
 			%>
+			<% if(cart != null){ %>
 			<tr>
 				<td> <%= cart.get(i).getP_Name() %> </td>
 				<td> <%= cart.get(i).getP_ID() %>   </td>
@@ -41,6 +42,7 @@
 				<td> <%= cart.get(i).getU_ID() %>   </td>
 				<td><input type="checkbox" name="checkRemove"></td>
 			</tr>
+			<% } %>
 			<%} 
 			%>
 			</tbody>	
