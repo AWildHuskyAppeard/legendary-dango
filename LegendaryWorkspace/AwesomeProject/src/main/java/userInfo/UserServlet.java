@@ -61,7 +61,9 @@ public class UserServlet extends HttpServlet {
 		} else if (request.getParameter("findByU_ID")!=null) {
 			// GM輸入查詢單筆會員資料(ByU_ID)
 			findByU_ID(request,response);
-		} 
+		} else if (request.getParameter("deleteUser")!=null) {
+			deleteUser(request, response);
+		}
 		
 	}
 	
@@ -244,6 +246,40 @@ public class UserServlet extends HttpServlet {
 			}
 		}
 		
+	}
+	
+	
+	// 刪除使用者
+	public void deleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String u_ID = request.getParameter("u_ID");
+		
+		DataSource ds = null;
+		InitialContext ctxt = null;
+		Connection conn = null;
+		
+		try {
+			ctxt = new InitialContext();
+			ds = (DataSource)ctxt.lookup("java:comp/env/jdbc/DBDB");
+			conn = ds.getConnection();
+			UserDAO userDAO = new UserDAO(conn);
+			boolean deleteResult = userDAO.deleteUser(u_ID);
+			if(deleteResult) {
+				response.getWriter().println("刪除使用者成功!<br><br>");
+				response.getWriter().println("正在導回上一頁.....<br><br>");
+				response.setHeader("refresh", "3; /AwesomeProject/userInfo/test_GM_UserFunction.jsp");
+				response.getWriter().println("<a href=\"/AwesomeProject/userInfo/test_GM_UserFunction.jsp\"><b>點擊返回上一頁</b></a>");
+			} else {
+				System.out.println("GG斯咪搭，沒有刪除到資料");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn!=null) { conn.close(); }
+			} catch (Exception e2) {
+				System.out.println("Connection Pool Error!!!");
+			}
+		}
 	}
 	
 

@@ -226,8 +226,7 @@ public class UserDAO {
 					
 				} catch (SQLException e) {
 					e.printStackTrace();
-				}
-				
+				}				
 			}
 
 			if (updateCount > 0) {
@@ -259,10 +258,29 @@ public class UserDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 		return findResult;
 		
+	}
+	
+	// GM刪除使用者資料
+	public boolean deleteUser(String U_ID) {
+		String deleteUserSqlString = "DELETE FROM [User_Info] WHERE [U_ID] ="+ U_ID;
+		boolean isDelete = false;
+
+		try {
+			Statement cstmt = conn.createStatement();
+			System.out.println(deleteUserSqlString);
+			int deleteCount = cstmt.executeUpdate(deleteUserSqlString);
+			if (deleteCount>0) {
+				isDelete = true;
+			} else {
+				System.out.println("刪除失敗...那欸安內");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return isDelete;
 	}
 	
 	
