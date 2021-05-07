@@ -51,10 +51,7 @@ public class UserDAO {
 	public boolean updateUser(UserBean updateData) {
 		boolean isUpdate = false;
 		String updateColSqlString="";
-		/*
-		String sqlString = "UPDATE [User_Info_v1]\r\n" //測試
-						 + "   SET [U_Birthday] = ?"
-						 + " WHERE [U_ID] = 1";*/
+		
 		String sqlString = "UPDATE [User_Info]\r\n"
 				+ "   SET "+updateColSqlString +" = ?"
 				+ " WHERE [U_ID] = 1";
@@ -242,12 +239,30 @@ public class UserDAO {
 	
 	// GM查看單筆資料
 	public UserBean findUserByU_ID(String U_ID) {
-		String findParam = ""; // 輸入的U_ID參數(request.getParameter)
-		String findUserSqlString = "SELECT * FROM [User_Info] WHERE [U_ID] like \'%" + findParam + "%\'"; 
-		UserBean ub = new UserBean();
+//		String findParam = ""; // 輸入的U_ID參數(request.getParameter)
+		String findUserSqlString = "SELECT [U_ID] ,[U_Birthday] ,[U_LastName] ,[U_FirstName] ,"
+								 + "[U_Email] ,[U_Tel] ,[U_Sex] ,[U_Address] FROM [User_Info] "
+								 + "WHERE [U_ID] like \'%" + U_ID + "%\'"; 
+		UserBean findResult = new UserBean();
 		
+		try {
+			Statement cstmt = conn.createStatement();
+			ResultSet rs = cstmt.executeQuery(findUserSqlString);
+			if(rs.next()) {
+				findResult.setU_ID(rs.getString("U_ID"));
+				findResult.setU_BirthDay(rs.getString("U_Birthday"));
+				findResult.setU_LastName(rs.getString("U_LastName"));
+				findResult.setU_FirstName(rs.getString("U_FirstName"));
+				findResult.setU_Email(rs.getString("U_Email"));
+				findResult.setU_Tel(rs.getString("U_Tel"));
+				findResult.setU_Sex(rs.getString("U_Sex"));
+				findResult.setU_Address(rs.getString("U_Address"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
-		return ub;
+		return findResult;
 		
 	}
 	

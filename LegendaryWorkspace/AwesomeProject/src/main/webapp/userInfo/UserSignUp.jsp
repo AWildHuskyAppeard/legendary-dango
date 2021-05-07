@@ -67,7 +67,7 @@ response.setDateHeader("Expires",-1);
 				<tr>
 					<td>Gender:</td>
 					<td><label><input type="radio" name="u_Sex"
-							value="man">man</label> <label><input type="radio"
+							value="male">man</label> <label><input type="radio"
 							name="u_Sex" value="female">female</label></td>
 				</tr>
 				<tr>

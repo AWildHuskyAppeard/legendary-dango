@@ -43,9 +43,10 @@ response.setDateHeader("Expires",-1);
 					<input type="password" name="u_Psw" size="20"
 						maxlength="20"><br>
             <div id="Login_div_2">
-                <input id="Login_div_3" type="submit" value="Login" name="login"><br/>
+                <input id="Login_div_3" type="submit" value="Login" name="login"><br>
                 <!--<button id="Login_div_3" type="submit" value="signUp" name="signUp">Sign Up</button>-->
-                <a id="Login_div_3" href="/AwesomeProject/userInfo/UserSignUp.jsp" title="註冊">Sign Up</a>
+                <a id="Login_div_3" href="/AwesomeProject/userInfo/UserSignUp.jsp" title="註冊">註冊</a>
+                <a href="/AwesomeProject/userInfo/index_test.html" title="首頁">首頁</a>
             </div>
 		</form>
 	</div>

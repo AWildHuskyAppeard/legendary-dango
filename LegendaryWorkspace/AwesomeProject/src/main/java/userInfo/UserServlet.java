@@ -61,10 +61,13 @@ public class UserServlet extends HttpServlet {
 		}*/ else if (request.getParameter("updateButton")!=null) {
 			// 更新會員資料
 			userUpdateProcess(request, response);
-		} else if(request.getParameter("adminLogin")!=null) {
+		} else if (request.getParameter("adminLogin")!=null) {
 			// GM登入後導向GM首頁
 			gotoGMIndex(request, response);
-		}
+		} else if (request.getParameter("findByU_ID")!=null) {
+			// GM輸入查詢單筆會員資料(ByU_ID)
+			findByU_ID(request,response);
+		} 
 		
 	}
 	
@@ -164,7 +167,7 @@ public class UserServlet extends HttpServlet {
 		updateUser.setU_Address(u_Address);
 		
 		// 設Attribute
-		request.getSession().setAttribute("updateUser", updateUser);
+		request.getSession(true).setAttribute("updateUser", updateUser);
 		
 		DataSource ds = null;
 		InitialContext ctxt = null;
@@ -181,6 +184,7 @@ public class UserServlet extends HttpServlet {
 			if(updateResult) {
 				// 看dao裡的updateUser回傳什麼
 				System.out.println("資料修改成功!");
+				request.getSession().invalidate();
 //				request.getRequestDispatcher("/userInfo/index_test.html").forward(request, response);
 				request.getRequestDispatcher("/userInfo/test_UpdateWaitPage.jsp").forward(request, response);
 			}
@@ -207,6 +211,7 @@ public class UserServlet extends HttpServlet {
 		
 		// 比對admin帳號密碼
 		if(inputAcc.equals(adminID) && inputPsw.equals(adminPSW)) {
+			// 待辦: 把adminID用session存起來
 			response.sendRedirect("/AwesomeProject/userInfo/test_GM_index.html");
 		} else {
 			response.getWriter().println("帳號或密碼錯誤，請重新輸入<br><br>");
@@ -215,6 +220,49 @@ public class UserServlet extends HttpServlet {
 			response.getWriter().println("<a href=\"/AwesomeProject/userInfo/AdminLogin.jsp\"><b>點此返回登入畫面</b></a>");
 		}
 
+	}
+	
+	// GM查詢單筆會員資料(ByU_ID)
+	public void findByU_ID( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 導去jsp show結果
+		String u_ID = request.getParameter("u_ID");
+		UserBean idBean = new UserBean();
+		idBean.setU_ID(u_ID);
+		request.getSession(true).setAttribute("idBean", idBean);
+		
+		DataSource ds = null;
+		InitialContext ctxt = null;
+		Connection conn = null;
+		
+		try {
+			ctxt = new InitialContext();
+			ds = (DataSource)ctxt.lookup("java:comp/env/jdbc/DBDB");
+			conn = ds.getConnection();
+			UserDAO userDAO = new UserDAO(conn);
+			UserBean findResult = userDAO.findUserByU_ID(u_ID);
+			
+			if(findResult==null) {
+				System.out.println("沒有這筆會員資料");
+				response.getWriter().println("沒有這筆會員資料，請重新查詢<br><br>");
+				response.getWriter().println("正在導回上一頁.....<br><br>");
+				response.setHeader("refresh", "3; /AwesomeProject/userInfo/test_GM_UserFunction.jsp");
+				response.getWriter().println("<a href=\"/AwesomeProject/userInfo/test_GM_UserFunction.jsp\"><b>點擊返回上一頁</b></a>");
+			}else {
+				// 有資料show資料
+				request.getSession().setAttribute("findResult", findResult);
+				System.out.println(findResult.getU_ID());
+				request.getRequestDispatcher("/userInfo/AdminFindByU_ID.jsp").forward(request, response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn!=null) { conn.close(); }
+			} catch (Exception e2) {
+				System.out.println("Connection Pool Error!!!");
+			}
+		}
+		
 	}
 	
 
