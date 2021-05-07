@@ -25,84 +25,14 @@ public class CartControllerServlet extends HttpServlet {
 	private HttpSession session; 
 	private List<ProductBean> cart;
 	
-	private ProductBean testBean1 = new ProductBean("ENG003", "Speaking", "ENG", 900, "nice", "mem005", "www", "sss")  ;
-	private ProductBean testBean2 = new ProductBean("ENG015", "Reading", "ENG", 350, "awesome", "mem905", "ww", "ks")  ;
-	private ProductBean testBean3 = new ProductBean("JPN003", "Speaking", "JPN", 99, "subarashii", "mem001", "aaa", "ww")  ;
+	public static ProductBean testBean1 = new ProductBean("ENG003", "Speaking", "ENG", 900, "nice", "mem005", "www", "sss")  ;
+	public static ProductBean testBean2 = new ProductBean("ENG015", "Reading", "ENG", 350, "awesome", "mem905", "ww", "ks")  ;
+	public static ProductBean testBean3 = new ProductBean("JPN003", "Speaking", "JPN", 99, "subarashii", "mem001", "aaa", "ww")  ;
 	
     @Override
     public void init() throws ServletException {
     	super.init();
-
-    	try {
-
-//			InitialContext ctx = new InitialContext();
-//			// 改資料庫名稱
-//			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/ProjectDB");
-//			if (ds == null)
-//				// 改資料庫名稱
-//				throw new ServletException("Unknown DataSource 'jdbc/ProjectDB'");
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-//
-//		Connection conn = null;
-//		Statement stmt = null;
-//		
-//		List<String> P_IDList = new ArrayList<String>(); // PK
-//		List<String> P_NameList = new ArrayList<String>();
-//		List<String> P_ClassList = new ArrayList<String>();
-//		List<Integer> P_PriceList = new ArrayList<Integer>();
-//		List<String> P_DESCList = new ArrayList<String>();
-//		List<String> U_IDList = new ArrayList<String>(); // FK
-//		List<String> P_ImgList = new ArrayList<String>();
-//		List<String> P_VideoList = new ArrayList<String>();
-//
-//		try {
-//			conn = ds.getConnection();
-//			stmt = conn.createStatement(); // 可以改動態sql
-//			// 修改下述語句(table名之類)
-//			String sqlStatement = "SELECT * FROM Product";
-//			ResultSet rset = stmt.executeQuery(sqlStatement);
-//
-//			while (rset.next()) {
-//				P_IDList.add(rset.getString("P_ID"));
-//				P_NameList.add(rset.getString("P_Name"));
-//				P_ClassList.add(rset.getString("P_Class"));
-//				P_PriceList.add(rset.getInt("P_Price"));
-//				P_DESCList.add(rset.getString("P_DESC"));
-//				U_IDList.add(rset.getString("U_ID"));
-//				P_ImgList.add(rset.getString("P_Img"));
-//				P_VideoList.add(rset.getString("P_Video"));
-//			}
-//
-//			/**
-//			 * @toArray() 有兩種return結果
-//			 * @1. 若參數之String size >= ArrayList size > 直接把AL內容物移植進去並return
-//			 * @2. 若參數之String size < ArrayList size > 產生剛好size的Array裝進來並return
-//			 * */
-//			ProductDB.setP_ID((String[])P_IDList.toArray(new String[0]));
-//			ProductDB.setP_Name((String[])P_NameList.toArray(new String[0]));
-//			ProductDB.setP_Class((String[])P_ClassList.toArray(new String[0]));
-//			ProductDB.setP_Price((Integer[])P_PriceList.toArray(new Integer[0]));
-//			ProductDB.setP_DESC((String[])P_DESCList.toArray(new String[0]));
-//			ProductDB.setU_ID((String[])U_IDList.toArray(new String[0]));
-//			ProductDB.setP_Img((String[])P_ImgList.toArray(new String[0]));
-//			ProductDB.setP_Video((String[])P_VideoList.toArray(new String[0]));
-//			
-//		} catch (SQLException ex) {
-//			ex.printStackTrace();
-//		} finally {
-//
-//			// 確定要在這裡關閉連線？
-//			try {
-//				if (stmt != null)
-//					stmt.close();
-//				if (conn != null)
-//					conn.close(); // return to pool
-//			} catch (SQLException ex) {
-//				ex.printStackTrace();
-//			}
-//		}
+    	
     }
 
     @Override
@@ -113,9 +43,8 @@ public class CartControllerServlet extends HttpServlet {
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	// session範圍：會員點選「加入購物車」(#add) ~ 付款完成 or 登出為止 
-		this.session = request.getSession(true);
+    	this.session = request.getSession(true);
     	this.cart = (ArrayList<ProductBean>) session.getAttribute("cart");
-    	this.session.setAttribute("cart", this.cart);
     	
     	// 測試用
     	if(this.cart == null || this.cart.size() == 0) 
@@ -127,21 +56,19 @@ public class CartControllerServlet extends HttpServlet {
     	}
     	
     	String todo = request.getParameter("todo");
+
+    	// 1. 右上角購物車圖示 (from 任何頁面) 
+    	if(todo == null) gotoCartIndexPage(request, response); 
+    	// 2. 加入品項 (from 商品頁面)
+    	else if("add".equals(todo)) putProductIntoCart(request, response);
+    	// 3. 移除品項 (from 購物車頁面)
+    	else if("remove".equals(todo)) removeProductFromCart(request, response);
+    	// 4. 去結帳 (from 購物車頁面) 
+    	else if( "checkout".equals(todo)) checkout(request, response);
+    	// 5. debug用
+    	else response.getWriter().print("Something went wrong! "
+    			+ "todo value = " + todo);
     	
-    	removeProductFromCart(request, response);
-    	
-//    	// 1. 右上角購物車圖示 (from 任何頁面) 
-//    	if(todo == null) gotoCartIndexPage(request, response); 
-//    	// 2. 加入品項 (from 商品頁面)
-//    	else if("add".equals(todo)) putProductIntoCart(request, response);
-//    	// 3. 移除品項 (from 購物車頁面)
-//    	else if("remove".equals(todo)) removeProductFromCart(request, response);
-//    	// 4. 去結帳 (from 購物車頁面) 
-//    	else if( "checkout".equals(todo)) checkout(request, response);
-//    	// 5. debug用
-//    	else response.getWriter().print("Something went wrong! "
-//    			+ "todo value = " + todo);
-//    	
 	}
     /**
      * @Method #01 todo == null > 導向購物車
@@ -194,19 +121,24 @@ public class CartControllerServlet extends HttpServlet {
 		String P_ID = req.getParameter("P_ID");
 		String[] pms = req.getParameterValues("checkRemove");
 		
-		if (pms != null) {	for(String element : pms) {System.out.println(element);}	} // debug用
+//		if (pms != null) {	for(String element : pms) {System.out.println(element);}	} // debug用
 		
 		// 把btn勾選與否列成ArrayList 1 // 用Vector如何？ // 用checkbox的話要怎麼做啊ˊ<_ˋ
 		// 假設cart裡面有5個產品，如此一來下述會生成btn size = 5的ArrayList
 		ArrayList btns = new ArrayList(); 
-		for(int i = 0; i <= cart.size(); i++) {
+		for(int i = 0; i < cart.size(); i++) {
 			btns.add(req.getParameter("btn" + (i + 1)));
 		}
 		// 再來，用getParameters取得所有P_ID值生成並丟進ArrayList 2：
 		// 疑問：會照順序取得嗎？
 		String P_IDArray[] = req.getParameterValues("P_ID");
+		String P_IDTest = req.getParameter("P_ID");
+		String testparam = req.getParameter("www");
+		System.out.println(P_IDArray);
+		System.out.println(P_IDTest);
+		System.out.println(testparam);
 		
-		System.out.println(cart);
+//		System.out.println("cart = " + cart + ";\nbtns = " + btns); // debug用
 		
 		// 最後來對照這兩個ArrayList。只取出btn值 == on的 P_ID，亦即那些勾選刪除的選項：
 		// 從購物車移除掉有打圈的課程
@@ -225,7 +157,8 @@ public class CartControllerServlet extends HttpServlet {
 	    // 問題：radio input好像無法取消勾選
 		
 		System.out.println(cart);
-	    
+    	this.session.setAttribute("cart", this.cart); // xxxxxxxxx
+		
 		req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);	// 返回原頁
 	}
 	
