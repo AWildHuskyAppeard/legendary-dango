@@ -57,6 +57,7 @@
 				<td name="U_ID"    value="<%=cart.get(i).getU_ID   ()%>"> <%= cart.get(i).getU_ID   () %>   </td>
 				<!--  <td><input type="checkbox" name="checkRemove"></td>-->
 				<td><input type="radio" name="btn<%= i + 1%>">取消</td>
+				<% session.setAttribute("P_ID" + i, cart.get(i).getP_ID()); %>
 			</tr>
 			<% } %>
 			<%} 
