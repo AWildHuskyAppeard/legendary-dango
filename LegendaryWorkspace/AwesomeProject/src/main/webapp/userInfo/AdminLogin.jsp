@@ -16,7 +16,7 @@ response.setDateHeader("Expires",-1);
         #UserLogin_div_1{
             width: 300px;
             margin: auto;
-            box-shadow:3px 3px 12px lightgray;
+            box-shadow:3px 3px 12px darkgray;
             padding:20px;
             text-align:center;
         }
@@ -28,7 +28,7 @@ response.setDateHeader("Expires",-1);
             width: 65px;
         }
         .Admin_body{
-        	background-color: #FAF4FF;
+        	background-color: #FFFFB9;
         }
     </style>
 </head>
@@ -38,13 +38,13 @@ response.setDateHeader("Expires",-1);
 			
 			
 					Admin ID:<br>
-					<input type="text" name="u_ID" size="20" maxlength="20"
-						autocomplete="off"><br><br>
+					<input type="text" name="admin_ID" size="20" maxlength="20"
+						autocomplete="off" required><br><br>
 				
 				
 					Password:<br>
-					<input type="password" name="u_Psw" size="20"
-						maxlength="20"><br>
+					<input type="password" name="admin_Psw" size="20"
+						maxlength="20" required><br>
             <div id="Login_div_2">
                 <input id="Login_div_3" type="submit" value="Login" name="adminLogin"><br/>
             </div>

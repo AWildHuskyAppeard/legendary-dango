@@ -3,6 +3,7 @@ package userInfo;
 import java.sql.*;
 
 public class UserDAO {
+//	[U_ID] ,[U_Psw] ,[U_Birthday] ,[U_LastName] ,[U_FirstName] ,[U_Img] ,[U_Email] ,[U_Tel] ,[U_Sex] ,[U_Address]
 	
 	private Connection conn;
 	
@@ -14,7 +15,7 @@ public class UserDAO {
 	//建立新的User(新增)
 	public boolean createUser(UserBean userData) {
 		try {
-			String sqlString = "INSERT INTO [User_Info] (U_ID, U_Psw, U_Birthday, U_LastName, U_FirstName, U_Email, U_Tel, U_Sex, U_Address)"
+			String createSqlString = "INSERT INTO [User_Info] (U_ID, U_Psw, U_Birthday, U_LastName, U_FirstName, U_Email, U_Tel, U_Sex, U_Address)"
 							 + " VALUES ('"+userData.getU_ID()+"','"
 							 + userData.getU_Psw()+"','"
 							 + userData.getU_BirthDay()+"','"
@@ -27,9 +28,9 @@ public class UserDAO {
 			Statement cstmt = conn.createStatement();
 //			PreparedStatement stmt = conn.prepareStatement(sqlString);
 			
-			System.out.println(sqlString); //print out sql語句
+			System.out.println(createSqlString); //print out sql語句
 			
-			int updatecount = cstmt.executeUpdate(sqlString);
+			int updatecount = cstmt.executeUpdate(createSqlString);
 			cstmt.close();
 
 			if(updatecount>0) {
@@ -238,5 +239,17 @@ public class UserDAO {
 			System.out.println(updateCount);
 		return isUpdate;
 	}
+	
+	// GM查看單筆資料
+	public UserBean findUserByU_ID(String U_ID) {
+		String findParam = ""; // 輸入的U_ID參數(request.getParameter)
+		String findUserSqlString = "SELECT * FROM [User_Info] WHERE [U_ID] like \'%" + findParam + "%\'"; 
+		UserBean ub = new UserBean();
+		
+		
+		return ub;
+		
+	}
+	
 	
 }

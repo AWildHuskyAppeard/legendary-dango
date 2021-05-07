@@ -1,7 +1,5 @@
 package userInfo;
 
-
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,6 +7,7 @@ import java.sql.SQLException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,13 @@ import javax.sql.DataSource;
 /**
  * Servlet implementation class UserServlet
  */
-@WebServlet("/UserServlet")
+@WebServlet(
+		urlPatterns = { "/UserServlet" }, 
+		initParams = { 
+				@WebInitParam(name = "adminID", value = "admin"), 
+				@WebInitParam(name = "adminPSW", value = "samanager")
+		})
+
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -56,6 +61,9 @@ public class UserServlet extends HttpServlet {
 		}*/ else if (request.getParameter("updateButton")!=null) {
 			// 更新會員資料
 			userUpdateProcess(request, response);
+		} else if(request.getParameter("adminLogin")!=null) {
+			// GM登入後導向GM首頁
+			gotoGMIndex(request, response);
 		}
 		
 	}
@@ -63,7 +71,7 @@ public class UserServlet extends HttpServlet {
 	
 	//登入
 	public void gotoIndexPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//待補充
+		//待補充判斷帳號密碼(從資料庫撈出來比對)，再導向首頁
 	}
 	
 	
@@ -185,12 +193,29 @@ public class UserServlet extends HttpServlet {
 				System.out.println("Connection Pool Error!!!");
 			}
 		}
-		
-		
-		
-		
 	}
 	
+	// 導向GM首頁
+	public void gotoGMIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 比對GM帳號密碼(從init-param)撈資料，再導向GM首頁
+//		request.getRequestDispatcher("/userInfo/test_GM_index.html").forward(request, response);
+		String adminID = getInitParameter("adminID");
+		String adminPSW = getInitParameter("adminPSW");
+		
+		String inputAcc = request.getParameter("admin_ID");
+		String inputPsw = request.getParameter("admin_Psw");
+		
+		// 比對admin帳號密碼
+		if(inputAcc.equals(adminID) && inputPsw.equals(adminPSW)) {
+			response.sendRedirect("/AwesomeProject/userInfo/test_GM_index.html");
+		} else {
+			response.getWriter().println("帳號或密碼錯誤，請重新輸入<br><br>");
+			response.getWriter().println("正在導回登入頁面.....<br><br>");
+			response.setHeader("refresh", "3; /AwesomeProject/userInfo/AdminLogin.jsp");
+			response.getWriter().println("<a href=\"/AwesomeProject/userInfo/AdminLogin.jsp\"><b>點此返回登入畫面</b></a>");
+		}
+
+	}
 	
 
 
