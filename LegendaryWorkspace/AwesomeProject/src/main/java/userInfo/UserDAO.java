@@ -239,7 +239,6 @@ public class UserDAO {
 	
 	// GM查看單筆資料
 	public UserBean findUserByU_ID(String U_ID) {
-//		String findParam = ""; // 輸入的U_ID參數(request.getParameter)
 		String findUserSqlString = "SELECT [U_ID] ,[U_Birthday] ,[U_LastName] ,[U_FirstName] ,"
 								 + "[U_Email] ,[U_Tel] ,[U_Sex] ,[U_Address] FROM [User_Info] "
 								 + "WHERE [U_ID] like \'%" + U_ID + "%\'"; 

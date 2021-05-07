@@ -22,18 +22,8 @@ response.setDateHeader("Expires",-1);
             <br>
             <br>
         </form>
+        <jsp:useBean id="findResult" class="userInfo.UserBean" scope="session" />
 
-		<%
-		UserBean ub = (UserBean)session.getAttribute("findResult");
-		String U_ID = String.valueOf(ub.getU_ID());
-		String U_LastName = String.valueOf(ub.getU_LastName());
-		String U_FirstName = String.valueOf(ub.getU_FirstName());
-		String U_Birthday = String.valueOf(ub.getU_BirthDay());
-		String U_Email = String.valueOf(ub.getU_Email());
-		String U_Tel = String.valueOf(ub.getU_Tel());
-		String U_Sex = String.valueOf(ub.getU_Sex());
-		String U_Address = String.valueOf(ub.getU_Address());
-		%>
 		<h2>查詢結果</h2>
 		<table border="1">
 			<th>User_ID</th>
@@ -45,14 +35,14 @@ response.setDateHeader("Expires",-1);
 			<th>Gender</th>
 			<th>Address</th>
 				<tr>
-					<td><%= U_ID %></td>
-					<td><%= U_LastName %></td>
-					<td><%= U_FirstName %></td>
-					<td><%= U_Birthday %></td>
-					<td><%= U_Email %></td>
-					<td><%= U_Tel %></td>
-					<td><%= U_Sex %></td>
-					<td><%= U_Address %></td>
+					<td><jsp:getProperty name="findResult" property="u_ID"/></td>
+					<td><jsp:getProperty name="findResult" property="u_LastName"/></td>
+					<td><jsp:getProperty name="findResult" property="u_FirstName"/></td>
+					<td><jsp:getProperty name="findResult" property="u_BirthDay"/></td>
+					<td><jsp:getProperty name="findResult" property="u_Tel"/></td>
+					<td><jsp:getProperty name="findResult" property="u_Email"/></td>
+					<td><jsp:getProperty name="findResult" property="u_Sex"/></td>
+					<td><jsp:getProperty name="findResult" property="u_Address"/></td>
 				</tr>
 
 		</table>

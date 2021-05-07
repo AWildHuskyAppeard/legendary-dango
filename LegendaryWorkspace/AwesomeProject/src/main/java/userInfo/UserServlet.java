@@ -37,16 +37,13 @@ public class UserServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType(CONTENT_TYPE);
 		
 		//新增註冊資料
 		if(request.getParameter("login")!=null) {
 			gotoIndexPage(request, response);
-		} /*else if(request.getParameter("signUp")!=null) {
-			gotoSignUpPage(request, response);
-		}*/ else if (request.getParameter("signUpButton")!=null) {
+		} else if (request.getParameter("signUpButton")!=null) {
 			//註冊頁面確認，去確認頁面(同時拿參數進來放入Bean)
 			gotoConfirmPage(request,response);
 		}/* else if (request.getParameter("signUpGotoIndex")!=null) {
@@ -55,10 +52,7 @@ public class UserServlet extends HttpServlet {
 		}*/ else if (request.getParameter("confirmButton")!=null) {
 			//確認註冊資料，去ThanksPage，資料匯入DB
 			gotoThankPage(request, response);
-		}/* else if (request.getParameter("thankPageButton")!=null) {
-			//感謝頁面，導回登入頁面
-			gotoLoginPage(request, response);
-		}*/ else if (request.getParameter("updateButton")!=null) {
+		} else if (request.getParameter("updateButton")!=null) {
 			// 更新會員資料
 			userUpdateProcess(request, response);
 		} else if (request.getParameter("adminLogin")!=null) {
@@ -76,15 +70,7 @@ public class UserServlet extends HttpServlet {
 	public void gotoIndexPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//待補充判斷帳號密碼(從資料庫撈出來比對)，再導向首頁
 	}
-	
-	
-	/*
-	//註冊
-	public void gotoSignUpPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/userInfo/UserSignUp.jsp").forward(request, response);
-	}
-	*/
-	
+		
 	//註冊確認頁面
 	public void gotoConfirmPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -185,7 +171,6 @@ public class UserServlet extends HttpServlet {
 				// 看dao裡的updateUser回傳什麼
 				System.out.println("資料修改成功!");
 				request.getSession().invalidate();
-//				request.getRequestDispatcher("/userInfo/index_test.html").forward(request, response);
 				request.getRequestDispatcher("/userInfo/test_UpdateWaitPage.jsp").forward(request, response);
 			}
 		} catch (Exception e) {
@@ -202,7 +187,6 @@ public class UserServlet extends HttpServlet {
 	// 導向GM首頁
 	public void gotoGMIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 比對GM帳號密碼(從init-param)撈資料，再導向GM首頁
-//		request.getRequestDispatcher("/userInfo/test_GM_index.html").forward(request, response);
 		String adminID = getInitParameter("adminID");
 		String adminPSW = getInitParameter("adminPSW");
 		
@@ -226,9 +210,6 @@ public class UserServlet extends HttpServlet {
 	public void findByU_ID( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 導去jsp show結果
 		String u_ID = request.getParameter("u_ID");
-		UserBean idBean = new UserBean();
-		idBean.setU_ID(u_ID);
-		request.getSession(true).setAttribute("idBean", idBean);
 		
 		DataSource ds = null;
 		InitialContext ctxt = null;
@@ -249,7 +230,7 @@ public class UserServlet extends HttpServlet {
 				response.getWriter().println("<a href=\"/AwesomeProject/userInfo/test_GM_UserFunction.jsp\"><b>點擊返回上一頁</b></a>");
 			}else {
 				// 有資料show資料
-				request.getSession().setAttribute("findResult", findResult);
+				request.getSession(true).setAttribute("findResult", findResult);
 				System.out.println(findResult.getU_ID());
 				request.getRequestDispatcher("/userInfo/AdminFindByU_ID.jsp").forward(request, response);
 			}
