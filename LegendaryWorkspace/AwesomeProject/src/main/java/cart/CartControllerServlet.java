@@ -142,18 +142,25 @@ public class CartControllerServlet extends HttpServlet {
 		
 		// 最後來對照這兩個ArrayList。只取出btn值 == on的 P_ID，亦即那些勾選刪除的選項：
 		// 從購物車移除掉有打圈的課程
+		ArrayList<Integer> toBeRmvd = new ArrayList<Integer>();
 	    if(cart != null || cart.size() != 0) {
 		    for(int i = 0; i < cart.size() ; i++){
 		        if("on".equals(btns.get(i))){
 		            for(int j = 0; j < cart.size(); j++){
-		                if(cart.get(j).getP_ID().equals(P_IDArray[i])){
-		                    cart.remove(j); // remove()用法不確定
-		                    i--;
+		            	String aa = (String)session.getAttribute("P_ID" + i);
+		                if(cart.get(j).getP_ID().equals(aa)){
+		                    toBeRmvd.add(j);
 		                }
 		            }
 		        }
+		        session.removeAttribute("P_ID" + i);
 		    }
 		}
+	    if(cart.size() != 0) {    	
+		    for(int i = 0; i < toBeRmvd.size(); i++) {
+		    	cart.remove(cart.get(toBeRmvd.get(i) - i));
+		    }
+	    }
 	    // 問題：radio input好像無法取消勾選
 		
 		System.out.println(cart);
