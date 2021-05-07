@@ -40,7 +40,8 @@
 				<td> <%= cart.get(i).getP_Price() %></td>
 				<td> <%= cart.get(i).getP_DESC() %> </td>
 				<td> <%= cart.get(i).getU_ID() %>   </td>
-				<td><input type="checkbox" name="checkRemove"></td>
+				<!--  <td><input type="checkbox" name="checkRemove"></td>-->
+				<td><input type="button" name="btn<%= i + 1%>"></td>
 			</tr>
 			<% } %>
 			<%} 
@@ -53,11 +54,13 @@
 		<hr>
 <!-- 2. 按鈕導向各頁 -->
 		<button name="todo" value="remove">移除</button>
-		<button name="todo" value="checkout">結帳</button>
+		<button name="todo" value="checkout">去結帳</button>
 		<button name="" value="">回首頁</button>
-		<input type="checkbox" name="checkRemove">
-		<input type="checkbox" name="checkRemove">
-		<input type="checkbox" name="checkRemove">
+		<hr>
+		<input type="radio" name="ttt">測試用radio<br>
+		<input type="checkbox" name="checkRemove" value="off">測試用<br>
+		<input type="checkbox" name="checkRemove">測試用<br>
+		<input type="checkbox" name="checkRemove">測試用<br>
 	</form>
 </body>
 </html>

@@ -196,6 +196,22 @@ public class CartControllerServlet extends HttpServlet {
 		
 		if (pms != null) {	for(String element : pms) {System.out.println(element);}	} // debug用
 		
+		// 把btn勾選與否列成ArrayList 1 // 用Vector如何？ // 用checkbox的話要怎麼做啊ˊ<_ˋ
+		// 假設cart裡面有5個產品，如此一來下述會生成btn size = 5的ArrayList
+		ArrayList btns = new ArrayList(); 
+		for(int i = 0; i <= cart.size(); i++) {
+			btns.add(req.getParameter("btn" + (i + 1)));
+		}
+		// 再來，用getParameters取得所有P_ID值生成並丟進ArrayList 2：
+		// 疑問：會照順序取得嗎？
+		String P_IDArray[] = req.getParameterValues("P_ID");
+		
+		HashMap<String, String> hm = new HashMap<String, String>();
+		for(int i = 0; i <= cart.size(); i++) {
+			hm.put((String)btns.get(i), P_IDArray[i]);
+		}
+		
+		// 最後來對照這兩個ArrayList。只取出btn值 == on的 P_ID，亦即那些勾選刪除的選項：
 		
 		req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);	// 返回原頁
 	}
