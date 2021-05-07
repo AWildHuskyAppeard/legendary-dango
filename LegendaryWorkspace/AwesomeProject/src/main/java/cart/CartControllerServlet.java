@@ -107,20 +107,18 @@ public class CartControllerServlet extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=UTF-8");
-		response.getWriter().print("Use POST, sir.");
+    	doPost(request, response);
 	}
 
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	// session範圍：會員點選「加入購物車」(#add) ~ 付款完成 or 登出為止 
-		this.session = request.getSession();
-    	this.cart = (List<ProductBean>) session.getAttribute("cart");
+		this.session = request.getSession(true);
+    	this.cart = (ArrayList<ProductBean>) session.getAttribute("cart");
     	this.session.setAttribute("cart", this.cart);
     	
     	// 測試用
-    	if(this.cart == null) 
+    	if(this.cart == null || this.cart.size() == 0) 
     	{
     		this.cart = new ArrayList<ProductBean>();
     		this.cart.add(testBean1);
@@ -130,18 +128,20 @@ public class CartControllerServlet extends HttpServlet {
     	
     	String todo = request.getParameter("todo");
     	
-    	// 1. 右上角購物車圖示 (from 任何頁面) 
-    	if(todo == null) gotoCartIndexPage(request, response); 
-    	// 2. 加入品項 (from 商品頁面)
-    	else if("add".equals(todo)) putProductIntoCart(request, response);
-    	// 3. 移除品項 (from 購物車頁面)
-    	else if("remove".equals(todo)) removeProductFromCart(request, response);
-    	// 4. 去結帳 (from 購物車頁面) 
-    	else if( "checkout".equals(todo)) checkout(request, response);
-    	// 5. debug用
-    	else response.getWriter().print("Something went wrong! "
-    			+ "todo value = " + todo);
+    	removeProductFromCart(request, response);
     	
+//    	// 1. 右上角購物車圖示 (from 任何頁面) 
+//    	if(todo == null) gotoCartIndexPage(request, response); 
+//    	// 2. 加入品項 (from 商品頁面)
+//    	else if("add".equals(todo)) putProductIntoCart(request, response);
+//    	// 3. 移除品項 (from 購物車頁面)
+//    	else if("remove".equals(todo)) removeProductFromCart(request, response);
+//    	// 4. 去結帳 (from 購物車頁面) 
+//    	else if( "checkout".equals(todo)) checkout(request, response);
+//    	// 5. debug用
+//    	else response.getWriter().print("Something went wrong! "
+//    			+ "todo value = " + todo);
+//    	
 	}
     /**
      * @Method #01 todo == null > 導向購物車
@@ -206,13 +206,26 @@ public class CartControllerServlet extends HttpServlet {
 		// 疑問：會照順序取得嗎？
 		String P_IDArray[] = req.getParameterValues("P_ID");
 		
-		HashMap<String, String> hm = new HashMap<String, String>();
-		for(int i = 0; i <= cart.size(); i++) {
-			hm.put((String)btns.get(i), P_IDArray[i]);
-		}
+		System.out.println(cart);
 		
 		// 最後來對照這兩個ArrayList。只取出btn值 == on的 P_ID，亦即那些勾選刪除的選項：
+		// 從購物車移除掉有打圈的課程
+	    if(cart != null || cart.size() != 0) {
+		    for(int i = 0; i < cart.size() ; i++){
+		        if("on".equals(btns.get(i))){
+		            for(int j = 0; j < cart.size(); j++){
+		                if(cart.get(j).getP_ID().equals(P_IDArray[i])){
+		                    cart.remove(j); // remove()用法不確定
+		                    i--;
+		                }
+		            }
+		        }
+		    }
+		}
+	    // 問題：radio input好像無法取消勾選
 		
+		System.out.println(cart);
+	    
 		req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);	// 返回原頁
 	}
 	

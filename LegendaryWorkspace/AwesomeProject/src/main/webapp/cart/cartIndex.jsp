@@ -12,11 +12,17 @@
 </head>
 <body>
 <jsp:useBean id="addedProduct" scope="session" class="cart.ProductBean" type="cart.ProductBean" />
-<% List<ProductBean> cart = (ArrayList<ProductBean>)(session.getAttribute("cart")); 
-
-	 if(cart == null) cart = new ArrayList<ProductBean>();
-
+<%  
+	request.getSession(true);
+	List<ProductBean> cart = (ArrayList<ProductBean>)(session.getAttribute("cart")); 
 %>
+	<h1><%= (session.getAttribute("cart")) %></h1>
+<%	
+	session.setAttribute("cart", cart);
+	if(cart == null) cart = new ArrayList<ProductBean>();
+%>
+<h1><%=	cart%></h1>
+
 <!-- 1. 顯示當前購物車內容表格 -->
 	<form method="POST" action="/AwesomeProject/CartControllerServlet"> 
 		<table>
@@ -57,10 +63,12 @@
 		<button name="todo" value="checkout">去結帳</button>
 		<button name="" value="">回首頁</button>
 		<hr>
+		<!-- 
 		<input type="radio" name="ttt">測試用radio<br>
 		<input type="checkbox" name="checkRemove" value="off">測試用<br>
 		<input type="checkbox" name="checkRemove">測試用<br>
 		<input type="checkbox" name="checkRemove">測試用<br>
+		 -->
 	</form>
 </body>
 </html>
