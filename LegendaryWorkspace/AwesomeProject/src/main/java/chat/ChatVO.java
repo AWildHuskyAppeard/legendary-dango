@@ -9,20 +9,13 @@ public class ChatVO implements Serializable{
 	 */
 	private static final long serialVersionUID = -5659132712338439027L;
 	
-	private int C_ID, U_ID;
-	private String C_Date, C_Class, C_Title, C_Conts;
+	private String C_ID, C_Date, C_Class, C_Title, C_Conts, U_ID;
 	
-	public int getC_ID() {
+	public String getC_ID() {
 		return C_ID;
 	}
-	public void setC_ID(int c_ID) {
+	public void setC_ID(String c_ID) {
 		C_ID = c_ID;
-	}
-	public int getU_ID() {
-		return U_ID;
-	}
-	public void setU_ID(int u_ID) {
-		U_ID = u_ID;
 	}
 	public String getC_Date() {
 		return C_Date;
@@ -47,6 +40,12 @@ public class ChatVO implements Serializable{
 	}
 	public void setC_Conts(String c_Conts) {
 		C_Conts = c_Conts;
+	}
+	public String getU_ID() {
+		return U_ID;
+	}
+	public void setU_ID(String u_ID) {
+		U_ID = u_ID;
 	}
 	
 	@Override

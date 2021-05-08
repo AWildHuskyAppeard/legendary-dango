@@ -29,12 +29,12 @@ private Connection conn;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
-			stmt.setInt(1, chat.getC_ID());
+			stmt.setString(1, chat.getC_ID());
 			stmt.setString(2, chat.getC_Date());
 			stmt.setString(3, chat.getC_Class());
 			stmt.setString(4, chat.getC_Title());
 			stmt.setString(5, chat.getC_Conts());
-			stmt.setInt(6, chat.getU_ID());
+			stmt.setString(6, chat.getU_ID());
 			int i=stmt.executeUpdate();
 			if(i>0) {
 				isInsert=true;
@@ -77,7 +77,7 @@ private Connection conn;
 		boolean isUpdate=false;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(5, chat.getC_ID());
+			stmt.setString(5, chat.getC_ID());
 			stmt.setString(1, chat.getC_Date());
 			stmt.setString(2, chat.getC_Class());
 			stmt.setString(3, chat.getC_Title());
