@@ -13,7 +13,7 @@
 
 	<!-- ****************************************************************** -->
 	<!-- 大家各自的實體連線標籤請直接追加在這個區塊，小心別覆蓋掉別人的！統整的話我們之後再找個時間用:^) -->
-	
+
 	<!-- Ken's -->
 	<Resource name="jdbc/EmployeeDB" auth="Container"
 		type="javax.sql.DataSource" maxTotal="100" maxIdle="30"
@@ -26,10 +26,30 @@
 		type="javax.sql.DataSource" maxTotal="100" maxIdle="30"
 		maxWaitMillis="10000" username="sa" password="manager"
 		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-		url="jdbc:sqlserver://localhost:1433;databaseName=Project2_V1" />
+		url="jdbc:sqlserver://localhost:1433;databaseName=StudieHub" />
 
-	<!-- ****************************************************************** -->
+	<!-- yuz's -->
+	<Resource name="jdbc/EmployeeDB" auth="Container"
+		type="javax.sql.DataSource" maxTotal="100" maxIdle="30"
+		maxWaitMillis="10000" username="sa" password="manager"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://localhost:1433;databaseName=Event" />
 	
+	<!-- yen's -->
+	<Resource name="jdbc/ChatDB" auth="Container"
+		type="javax.sql.DataSource" maxTotal="100" maxIdle="30"
+		maxWaitMillis="10000" username="sa" password="manager"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://172.16.29.84:1433;databaseName=Project02" />
+	
+	<!-- for all of us <3 -->
+	<Resource name="jdbc/DBDB" auth="Container"
+		type="javax.sql.DataSource" maxTotal="100" maxIdle="30"
+		maxWaitMillis="10000" username="sa" password="manager"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://localhost:1433;databaseName=StudieHub" />
+	<!-- ****************************************************************** -->
+
 	<!-- Default set of monitored resources. If one of these changes, the -->
 	<!-- web application will be reloaded. -->
 	<WatchedResource>WEB-INF/web.xml</WatchedResource>
