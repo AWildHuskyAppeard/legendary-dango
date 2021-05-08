@@ -22,6 +22,12 @@
         }
     </style>
     <body>
+        <form action="/AwesomeProject/ControlServlet" method="POST">
+            <label>搜尋課程ID:</label>
+            <input type="text" name="P_ID"><input type="submit" name="findByID" value="搜尋">
+           
+        </form>
+
 		<h2>課程列表</h2>
 		<table align="center" border="1">
 			<tr>

@@ -12,19 +12,21 @@ import javax.sql.DataSource;
 
 public class ProductDAOImpl implements ProductDAO{
 	
-	DataSource ds;
-	Connection conn = null;
-	PreparedStatement stmt = null;
+	private Connection conn;
+	
+	public ProductDAOImpl(Connection conn) {
+		this.conn = conn;
+	}
+	
+	
+	
 
 	@Override
 	public ProductBean findProductByProductNo(String P_ID) {
 		String sql = "select * from Product where P_ID =?";
 		ProductBean pBean = new ProductBean();
 		try {
-			InitialContext ctx = new InitialContext();
-			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/EmployeeDB");
-			conn = ds.getConnection();
-			stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, P_ID);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -37,19 +39,11 @@ public class ProductDAOImpl implements ProductDAO{
 				pBean.setP_Video(rs.getString("P_Video"));
 				pBean.setU_ID(rs.getString("U_ID"));
 			}
+			stmt.close();
+			rs.close();
 			
 		}catch (SQLException ex) {
 			ex.printStackTrace();
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (stmt != null)stmt.close();
-				if(conn != null)conn.close();
-				
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
 		}
 		return pBean;
 	}
@@ -59,10 +53,7 @@ public class ProductDAOImpl implements ProductDAO{
 		String sql = "select * from Product";
 		ArrayList<ProductBean> list = new ArrayList<ProductBean>();
 		try {
-			InitialContext ctx = new InitialContext();
-			ds =  (DataSource) ctx.lookup("java:comp/env/jdbc/EmployeeDB");
-			conn = ds.getConnection();
-			stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				ProductBean pBean = new ProductBean();
@@ -76,18 +67,10 @@ public class ProductDAOImpl implements ProductDAO{
 				pBean.setU_ID(rs.getString("U_ID"));
 				list.add(pBean);
 			}
+			stmt.close();
+			rs.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (stmt != null)stmt.close();
-				if(conn != null)conn.close();
-				
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
 		}
 		return list;
 	}
@@ -107,9 +90,6 @@ public class ProductDAOImpl implements ProductDAO{
 				+ "     VALUES (?,?,?,?,?,?,?,?)";
 		boolean isInsert = false;
 		try {
-			InitialContext ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/EmployeeDB");
-			conn = ds.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, Product.getP_ID());
 			stmt.setString(2, Product.getP_Name());
@@ -123,19 +103,11 @@ public class ProductDAOImpl implements ProductDAO{
 			if (i>0) {
 				isInsert=true;
 			}
+			stmt.close();
 			
-		} catch (NamingException e) {
-			e.printStackTrace();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (stmt != null)stmt.close();
-				if(conn != null)conn.close();
-				
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
 		}
 		return isInsert;
 	}
@@ -152,9 +124,6 @@ public class ProductDAOImpl implements ProductDAO{
 				+ " WHERE [P_ID] = ?";
 		boolean isUpdate = false;
 		try {
-			InitialContext ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/EmployeeDB");
-			Connection conn = ds.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, Product.getP_ID());
 			stmt.setString(2, Product.getP_Name());
@@ -168,18 +137,10 @@ public class ProductDAOImpl implements ProductDAO{
 			if (i>0) {
 				isUpdate=true;
 			}
-		} catch (NamingException e) {
-			e.printStackTrace();
+			stmt.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			try {
-				if (stmt != null)stmt.close();
-				if(conn != null)conn.close();
-				
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
 		}
 		return isUpdate;
 	}
@@ -190,27 +151,16 @@ public class ProductDAOImpl implements ProductDAO{
 				+ "      WHERE [P_ID] = ?";
 		boolean isDelete = false;
 		try {
-			InitialContext ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/EmployeeDB");
-			Connection conn = ds.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, P_ID);
 			int i = stmt.executeUpdate();
 			if (i>0) {
 				isDelete = true;
 			}
-		} catch (NamingException e) {
-			e.printStackTrace();
+			stmt.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (stmt != null)stmt.close();
-				if(conn != null)conn.close();
-				
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
 		}
 		return isDelete;
 	}
