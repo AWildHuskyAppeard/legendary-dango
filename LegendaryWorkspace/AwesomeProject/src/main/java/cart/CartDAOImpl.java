@@ -110,7 +110,7 @@ public class CartDAOImpl implements CartDAO {
 	@Override
 	public int updateOrder(OrderBean orderBean, Object obj3, Object obj4) {
 		int updateStatus = 0;
-		Object obj1 = null, obj2 = null; obj3 = null; obj4 = null;
+		Object obj1 = null, obj2 = null;
 		String updateCmd = "UPDATE [Order_Info] SET " + obj1 + " = " + obj2
 				+ " WHERE " + obj3 + " = " + obj4; // ***
 		Statement cStmt = null;
@@ -118,7 +118,11 @@ public class CartDAOImpl implements CartDAO {
 //		obj3 == 管理者想用來下去查的參數，obj4 == 其值
 		try {
 			cStmt = conn.createStatement();
-			cStmt.
+			for(int i = 0; i <= columnNames.length; i++) {
+				obj1 = columnNames[i];
+				obj2 = orderBean.take(i);
+				cStmt.
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

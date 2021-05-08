@@ -56,46 +56,47 @@ public class OrderBean {
 	public void setO_Amt(Integer o_Amt) {O_Amt = o_Amt;}
 	
 	// ˊ<_ˋ
-	public String get(int index) {
+	public String take(int index) {
+		String returnedString = null;
 		switch (index) {
 		case 1:
-			return getO_ID();
+			returnedString = getO_ID();
 			break;
 		case 2:
-			return getP_ID();
+			returnedString = getP_ID();
 			break;
 		case 3:
-			return getP_Name();
+			returnedString = getP_Name();
 			break;
 		case 4:
-			return String.valueOf(getP_Price());
+			returnedString = String.valueOf(getP_Price());
 			break;
 		case 5:
-			return getU_ID();
+			returnedString = getU_ID();
 			break;
-		case :
-			return;
+		case 6:
+			returnedString = getU_FirstName();
 			break;
-		case :
-			return;
+		case 7:
+			returnedString = getU_LastName();
 			break;
-		case :
-			return;
+		case 8:
+			returnedString = getU_Email();
 			break;
-		case :
-			return;
+		case 9:
+			returnedString = getO_Status();
 			break;
-		case :
-			return;
+		case 10:
+			returnedString = getO_Date();
 			break;
-		case :
-			return;
+		case 11:
+			returnedString = String.valueOf(getO_Amt());
 			break;
 
 		default:
 			break;
 		}
-		getO_ID();
+		return returnedString;
 	}
 	
 }
