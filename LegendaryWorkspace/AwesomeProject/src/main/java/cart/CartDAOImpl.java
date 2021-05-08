@@ -10,7 +10,7 @@ public class CartDAOImpl implements CartDAO {
 		this.conn = conn;
 	}
 	public static OrderBean odBean01 = new OrderBean("od001", "p001", "EngSpeaking", 300, "elf01", "fl", "b", "w@w", "cancelled", "1999-12-01 00:00:00", 1 );
-	private Object columnNames[] = {"O_ID, P_ID, P_Name, P_Price, U_ID, U_FirstName, U_LastName",
+	private String columnNames[] = {"O_ID, P_ID, P_Name, P_Price, U_ID, U_FirstName, U_LastName",
 			"U_Email", "O_Status", "O_Date", "O_Amt"};
 	
 	
@@ -108,20 +108,23 @@ public class CartDAOImpl implements CartDAO {
 	*@2. 預計以P_ID作為WHERE過濾方法 = obj3變數
 	**/
 	@Override
-	public int updateOrder(OrderBean orderBean, Object obj3, Object obj4) {
+	public int updateOrder(OrderBean orderBean, String str3, Object obj4) {
 		int updateStatus = 0;
-		Object obj1 = null, obj2 = null;
-		String updateCmd = "UPDATE [Order_Info] SET " + obj1 + " = " + obj2
-				+ " WHERE " + obj3 + " = " + obj4; // ***
+		Object str1 = null, obj2 = null;
+		String updateCmdTemplate = "UPDATE [Order_Info] SET " + str1 + " = " + obj2
+				+ " WHERE " + str3 + " = " + obj4 + " ;\r\n"; // ***
+		String finalUpdateCmd = "";
 		Statement cStmt = null;
 		ResultSet rs = null;
 //		obj3 == 管理者想用來下去查的參數，obj4 == 其值
+		// 對付obj4(查詢參數值)型態
 		try {
 			cStmt = conn.createStatement();
 			for(int i = 0; i <= columnNames.length; i++) {
-				obj1 = columnNames[i];
+				str1 = columnNames[i];
 				obj2 = orderBean.take(i);
-				cStmt.
+				// 對付obj2(修改參數值)型態
+				finalUpdateCmd = finalUpdateCmd + updateCmdTemplate;
 			}
 			
 		} catch (SQLException e) {
