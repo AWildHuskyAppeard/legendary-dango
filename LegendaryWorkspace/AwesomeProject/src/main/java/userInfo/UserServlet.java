@@ -91,17 +91,22 @@ public class UserServlet extends HttpServlet {
 			conn = ds.getConnection();
 			UserDAO userDAO = new UserDAO(conn);
 			UserBean userLoginBean = userDAO.userLogin(inputID);
+			System.out.println(userLoginBean.getU_ID());
+			// 把userid存進javaBean裡面，做後續動作
+			request.getSession(true).setAttribute("inputID", userLoginBean.getU_ID());
+//			System.out.println(request.getSession().getAttribute(String.valueOf("inputID")));
 			System.out.println("id: "+userLoginBean.getU_ID());  //print出id
 			System.out.println("psw: "+userLoginBean.getU_Psw()); //print出psw
 			// 判斷帳號密碼
 			if ( (userLoginBean.getU_ID()).equals(inputID) && (userLoginBean.getU_Psw()).equals(inputPsw) ) {
 				// 密碼正確，導回首頁
 				System.out.println("Hello, "+inputID);
+//				request.getServletContext().setAttribute("input", userLoginBean.getU_ID());
+				
 				response.getWriter().println("<h2>Hello, <span  style=\"color: blue;\">"+ inputID +" </span>登入成功!</h2><br><br>");
 				response.getWriter().println("正在導回首頁.....<br><br>");
 				response.setHeader("refresh", "3; /AwesomeProject/userInfo/index_test.html");
 				response.getWriter().println("<a href=\"/AwesomeProject/userInfo/index_test.html\"><b>點擊返回首頁</b></a>");
-				//
 			} else if ( (userLoginBean.getU_ID()).equals(inputID) && !(userLoginBean.getU_Psw()).equals(inputPsw) ) {
 				System.out.println("密碼錯誤");
 				response.getWriter().println("<h2 style=\"color: red;\">密碼輸入錯誤，請再試一次!</h2><br><br>");
@@ -192,8 +197,13 @@ public class UserServlet extends HttpServlet {
 		String u_Sex = request.getParameter("u_Sex");
 		String u_Address = request.getParameter("u_Address");
 		
+		// 拿登入的session裡的user id
+		String u_ID = String.valueOf(request.getSession().getAttribute("inputID"));
+		System.out.println(u_ID); //測試session取值
+		
 		// 把取到的參數放入Bean
 		UserBean updateUser = new UserBean();
+		updateUser.setU_ID(u_ID);
 		updateUser.setU_BirthDay(u_BirthDay);
 		updateUser.setU_LastName(u_LastName);
 		updateUser.setU_FirstName(u_FirstName);

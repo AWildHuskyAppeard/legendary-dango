@@ -82,29 +82,11 @@ public class UserDAO {
 		
 		String sqlString = "UPDATE [User_Info]\r\n"
 				+ "   SET "+updateColSqlString +" = ?"
-				+ " WHERE [U_ID] = 1";
-//		String d = "2011-12-12";
-//		String d = updateData.getU_BirthDay();
-		
-		/*
-		PreparedStatement prestmt;
-		try {
-			prestmt = conn.prepareStatement(sqlString);
-			prestmt.setString(1, d);
-			int upNum = prestmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		
-		/*   //之後用preparedstatement拿user id的參數 & session 取user id
-		 * 		String sqlString = "UPDATE [User_Info_v1]\r\n"
-								 + "   SET " + updateColSqlString + " = ?\r\n"
-								 + " WHERE [U_ID] = ?";
-		 * */
+				+ " WHERE [U_ID] =?";
+
 			
 		PreparedStatement pstmt;
-		
+			String u_ID = updateData.getU_ID();
 			String u_BirthDay = updateData.getU_BirthDay();
 			String u_LastName = updateData.getU_LastName();
 			String u_FirstName = updateData.getU_FirstName();
@@ -121,12 +103,14 @@ public class UserDAO {
 				updateColSqlString = "[U_Birthday]";
 				sqlString = "UPDATE [User_Info]\r\n"
 						+ "   SET "+updateColSqlString +" = ?"
-						+ " WHERE [U_ID] = 1";
+						+ " WHERE [U_ID] =?";
 				System.out.println(updateColSqlString);
 				try {
 					pstmt = conn.prepareStatement(sqlString);
 					System.out.println(sqlString);
 					pstmt.setString(1,u_BirthDay);
+					pstmt.setString(2, u_ID);
+					System.out.println(u_ID); //測試
 					int ct = pstmt.executeUpdate();
 					if (ct>0) {
 						updateCount++;
@@ -141,12 +125,14 @@ public class UserDAO {
 				updateColSqlString = "[U_LastName]";
 				sqlString = "UPDATE [User_Info]\r\n"
 						+ "   SET "+updateColSqlString +" = ?"
-						+ " WHERE [U_ID] = 1";
+						+ " WHERE [U_ID] =?";
 				System.out.println(updateColSqlString);
 				try {
 					pstmt = conn.prepareStatement(sqlString);
 					System.out.println(sqlString);
 					pstmt.setString(1,u_LastName);
+					pstmt.setString(2, u_ID);
+					System.out.println(u_ID); //測試
 					int ct = pstmt.executeUpdate();
 					if (ct>0) {
 						updateCount++;
@@ -161,12 +147,14 @@ public class UserDAO {
 				updateColSqlString = "[U_FirstName]";
 				sqlString = "UPDATE [User_Info]\r\n"
 						+ "   SET "+updateColSqlString +" = ?"
-						+ " WHERE [U_ID] = 1";
+						+ " WHERE [U_ID] =?";
 				System.out.println(updateColSqlString);
 				try {
 					pstmt = conn.prepareStatement(sqlString);
 					System.out.println(sqlString);
 					pstmt.setString(1,u_FirstName);
+					pstmt.setString(2, u_ID);
+					System.out.println(u_ID); //測試
 					int ct = pstmt.executeUpdate();
 					if (ct>0) {
 						updateCount++;
@@ -181,12 +169,14 @@ public class UserDAO {
 				updateColSqlString = "[U_Email]";
 				sqlString = "UPDATE [User_Info]\r\n"
 						+ "   SET "+updateColSqlString +" = ?"
-						+ " WHERE [U_ID] = 1";
+						+ " WHERE [U_ID] =?";
 				System.out.println(updateColSqlString);
 				try {
 					pstmt = conn.prepareStatement(sqlString);
 					System.out.println(sqlString);
 					pstmt.setString(1,u_Email);
+					pstmt.setString(2, u_ID);
+					System.out.println(u_ID); //測試
 					int ct = pstmt.executeUpdate();
 					if (ct>0) {
 						updateCount++;
@@ -201,12 +191,14 @@ public class UserDAO {
 				updateColSqlString = "[U_Tel]";
 				sqlString = "UPDATE [User_Info]\r\n"
 						+ "   SET "+updateColSqlString +" = ?"
-						+ " WHERE [U_ID] = 1";
+						+ " WHERE [U_ID] =?";
 				System.out.println(updateColSqlString);
 				try {
 					pstmt = conn.prepareStatement(sqlString);
 					System.out.println(sqlString);
 					pstmt.setString(1,u_Tel);
+					pstmt.setString(2, u_ID);
+					System.out.println(u_ID); //測試
 					int ct = pstmt.executeUpdate();
 					if (ct>0) {
 						updateCount++;
@@ -221,12 +213,14 @@ public class UserDAO {
 				updateColSqlString = "[U_Sex]";
 				sqlString = "UPDATE [User_Info]\r\n"
 						+ "   SET "+updateColSqlString +" = ?"
-						+ " WHERE [U_ID] = 1";
+						+ " WHERE [U_ID] =?";
 				System.out.println(updateColSqlString);
 				try {
 					pstmt = conn.prepareStatement(sqlString);
 					System.out.println(sqlString);
 					pstmt.setString(1,u_Sex);
+					pstmt.setString(2, u_ID);
+					System.out.println(u_ID); //測試
 					int ct = pstmt.executeUpdate();
 					if (ct>0) {
 						updateCount++;
@@ -241,12 +235,14 @@ public class UserDAO {
 				updateColSqlString = "[U_Address]";
 				sqlString = "UPDATE [User_Info]\r\n"
 						+ "   SET "+updateColSqlString +" = ?"
-						+ " WHERE [U_ID] = 1";
+						+ " WHERE [U_ID] =?";
 				System.out.println(updateColSqlString);
 				try {
 					pstmt = conn.prepareStatement(sqlString);
 					System.out.println(sqlString);
 					pstmt.setString(1,u_Address);
+					pstmt.setString(2, u_ID);
+					System.out.println(u_ID); //測試
 					int ct = pstmt.executeUpdate();
 					if (ct>0) {
 						updateCount++;
