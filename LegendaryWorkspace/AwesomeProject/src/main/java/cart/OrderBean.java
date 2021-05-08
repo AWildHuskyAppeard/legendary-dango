@@ -56,9 +56,9 @@ public class OrderBean {
 	public void setO_Amt(Integer o_Amt) {O_Amt = o_Amt;}
 	
 	// ˊ<_ˋ
-	public String take(int index) {
+	public String take(int SQLindex) {
 		String returnedString = null;
-		switch (index) {
+		switch (SQLindex) {
 		case 1:
 			returnedString = getO_ID();
 			break;
