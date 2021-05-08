@@ -30,11 +30,10 @@ public class CartControllerServlet extends HttpServlet {
 	public static ProductBean testBean3 = new ProductBean("JPN003", "Speaking", "JPN", 99, "subarashii", "mem001", "aaa", "ww")  ;
 	
     @Override
-    public void init() throws ServletException {
-    	super.init();
-    	
-    }
-
+	public void init() throws ServletException {
+		super.init();
+	}
+    
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	doPost(request, response);
