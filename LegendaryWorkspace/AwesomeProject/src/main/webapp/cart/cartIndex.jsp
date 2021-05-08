@@ -25,12 +25,12 @@
 		cart.add(CartControllerServlet.testBean3);
 	}
 %>
-	<h1><%= (session.getAttribute("cart")) %></h1>
+	
 <%	
 	session.setAttribute("cart", cart);
 	if(cart == null) cart = new ArrayList<ProductBean>();
 %>
-<h1><%=	cart%></h1>
+
 
 <!-- 1. 顯示當前購物車內容表格 -->
 	<form method="POST" action="/AwesomeProject/CartControllerServlet"> 

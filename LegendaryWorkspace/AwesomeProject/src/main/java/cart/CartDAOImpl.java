@@ -135,7 +135,7 @@ public class CartDAOImpl implements CartDAO {
 			}
 			// 2. data
 			while(rs.next()) {
-				ArrayList<String> dataArray    = new ArrayList<String>();
+				ArrayList<String> dataArray = new ArrayList<String>();
 				for(int i = 1; i <= md.getColumnCount(); i++) {
 //					System.out.println(rs.getString(i));
 					dataArray.add(rs.getString(i));
@@ -203,6 +203,45 @@ public class CartDAOImpl implements CartDAO {
 		
 		
 		return updateStatus;
+	}
+	/************************************************************************************
+	*@Delete_By_Admins
+	*@1. 用P_ID來刪
+	************************************************************************************/
+	@Override
+	public boolean deleteOrder(OrderBean orderBean) {
+		boolean deleteStatus = false;
+		int deletedRows;
+		Statement cStmt = null;
+		String deleteCmd = "DELETE FROM [Order_Info] "
+				+ "WHERE P_ID = '" + orderBean.getP_ID() + "';";
+		
+		
+		
+		try {
+			cStmt = conn.createStatement();
+			deletedRows = cStmt.executeUpdate(deleteCmd);
+			
+			if(deletedRows != 0) deleteStatus = true;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				cStmt.close();
+//				conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return deleteStatus;
+	}
+	
+	public void printSELECT(ArrayList<ArrayList<String>> dataArrays) {
+		// (還沒決定這方法要做什麼)
 	}
 
 }

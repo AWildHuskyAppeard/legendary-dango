@@ -11,6 +11,6 @@ public interface CartDAO {
 	boolean updateOrder(OrderBean orderBean, String str3, Object obj4); 
 	
 	// order只會修正資料，紀錄會一直留下
-//	boolean deleteOrder(OrderBean orderBean); 
+	boolean deleteOrder(OrderBean orderBean); 
 	
 }

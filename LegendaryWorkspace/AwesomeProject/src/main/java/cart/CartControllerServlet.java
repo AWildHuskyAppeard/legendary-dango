@@ -64,7 +64,11 @@ public class CartControllerServlet extends HttpServlet {
     	else if("remove".equals(todo)) removeProductFromCart(request, response);
     	// 4. 去結帳 (from 購物車頁面) 
     	else if( "checkout".equals(todo)) checkout(request, response);
-    	// 5. debug用
+    	// 5. 回購物車頁面 (from 結帳頁面) 
+    	else if( "back".equals(todo)) backToPreviousPage(request, response);
+    	// 6. 確定付款 (from 結帳頁面) 
+    	else if( "pay".equals(todo)) pay(request, response);
+    	// debug用
     	else response.getWriter().print("Something went wrong! "
     			+ "todo value = " + todo);
     	
@@ -176,9 +180,47 @@ public class CartControllerServlet extends HttpServlet {
      **/
 	private void checkout(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-		req.getRequestDispatcher("/cart/checkout.jsp").forward(req, res);	// 返回原頁
+		req.getRequestDispatcher("/cart/checkout.jsp").forward(req, res);	// 去結帳
 	}
-
+    /**
+     * @Method #05 back > 回購物車頁面
+     * @Database_Connection 不涉及
+     **/
+	private void backToPreviousPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
+		req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);	// 回上一頁
+	}
+    /**
+     * @Method #06 pay > 確定付款
+     * @1. 
+     * @undone 要記得把session invalidate()掉
+     * @Database_Connection 不涉及
+     **/
+	private void pay(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
+		Connection conn = getConnection();
+		CartDAOImpl insertor = new CartDAOImpl(conn);
+		insertor.insertOrder(new OrderBean);
+		
+		try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		this.cart = new ArrayList<ProductBean>();
+		session.setAttribute("cart", this.cart);
+//		session.invalidate();
+		
+		req.getRequestDispatcher("").forward(req, res);	// 
+	}
+	
 	/**
      * @SubMethod #01 取得連線
      * @undone 使用此方法的方法要在最後記得關閉
