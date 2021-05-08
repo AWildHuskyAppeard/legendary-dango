@@ -12,6 +12,34 @@ public class UserDAO {
 		this.conn = conn;
 	}
 	
+	// User登入，去DB撈資料，把帳號密碼回傳給Servlet
+	public UserBean userLogin (String u_ID) {
+		/* SELECT [U_ID] ,[U_Psw] ,[U_Birthday] ,[U_LastName] ,[U_FirstName] ,[U_Email] ,
+		[U_Tel] ,[U_Sex] ,[U_Address] FROM [User_Info] WEHRE [U_ID] = PARAM */
+		
+		String loginSqlString = "SELECT [U_ID],[U_Psw] FROM User_Info WHERE [U_ID] =?";
+		UserBean loginBean = new UserBean();
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(loginSqlString);
+			pstmt.setString(1, u_ID);
+			System.out.println(u_ID); //測試
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				loginBean.setU_ID(rs.getString("U_ID"));
+				loginBean.setU_Psw(rs.getString("U_Psw"));
+			} else {
+				loginBean = null;
+			}
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+		return loginBean;
+		
+	}
+	
 	//建立新的User(新增)
 	public boolean createUser(UserBean userData) {
 		try {

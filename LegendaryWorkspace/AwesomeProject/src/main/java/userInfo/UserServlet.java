@@ -40,8 +40,10 @@ public class UserServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType(CONTENT_TYPE);
 		
-		//新增註冊資料
-		if(request.getParameter("login")!=null) {
+		
+		if(request.getParameter("userLogin")!=null) {
+			// user登入後導向首頁
+			// 用u_ID去資料庫撈使用者資訊
 			gotoIndexPage(request, response);
 		} else if (request.getParameter("signUpButton")!=null) {
 			//註冊頁面確認，去確認頁面(同時拿參數進來放入Bean)
@@ -63,14 +65,64 @@ public class UserServlet extends HttpServlet {
 			findByU_ID(request,response);
 		} else if (request.getParameter("deleteUser")!=null) {
 			deleteUser(request, response);
-		}
+		} 
 		
 	}
 	
 	
 	//登入
+	// user登入後導向首頁，把user id用session存起來
 	public void gotoIndexPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//待補充判斷帳號密碼(從資料庫撈出來比對)，再導向首頁
+		String inputID = request.getParameter("u_ID");
+		String inputPsw = request.getParameter("u_Psw");
+		
+//		UserBean ub = new UserBean();
+//		ub.setU_ID(inputID);
+//		ub.setU_Psw(inputPsw);
+		
+		DataSource ds = null;
+		InitialContext ctxt = null;
+		Connection conn = null;
+		// 去dao連資料庫拿使用者資訊，要拿密碼比對
+		try {
+			ctxt = new InitialContext();
+			ds = (DataSource)ctxt.lookup("java:comp/env/jdbc/DBDB");
+			conn = ds.getConnection();
+			UserDAO userDAO = new UserDAO(conn);
+			UserBean userLoginBean = userDAO.userLogin(inputID);
+			System.out.println("id: "+userLoginBean.getU_ID());  //print出id
+			System.out.println("psw: "+userLoginBean.getU_Psw()); //print出psw
+			// 判斷帳號密碼
+			if ( (userLoginBean.getU_ID()).equals(inputID) && (userLoginBean.getU_Psw()).equals(inputPsw) ) {
+				// 密碼正確，導回首頁
+				System.out.println("Hello, "+inputID);
+				response.getWriter().println("<h2>Hello, <span  style=\"color: blue;\">"+ inputID +" </span>登入成功!</h2><br><br>");
+				response.getWriter().println("正在導回首頁.....<br><br>");
+				response.setHeader("refresh", "3; /AwesomeProject/userInfo/index_test.html");
+				response.getWriter().println("<a href=\"/AwesomeProject/userInfo/index_test.html\"><b>點擊返回首頁</b></a>");
+				//
+			} else if ( (userLoginBean.getU_ID()).equals(inputID) && !(userLoginBean.getU_Psw()).equals(inputPsw) ) {
+				System.out.println("密碼錯誤");
+				response.getWriter().println("<h2 style=\"color: red;\">密碼輸入錯誤，請再試一次!</h2><br><br>");
+				response.getWriter().println("正在導回登入畫面.....<br><br>");
+				response.setHeader("refresh", "3; /AwesomeProject/userInfo/UserLogin.jsp");
+				response.getWriter().println("<a href=\"/AwesomeProject/userInfo/UserLogin.jsp\"><b>點擊重新登入</b></a>");
+			}
+			
+		} catch (Exception e) {
+			response.getWriter().println("<h2 style=\"color: red;\">帳號不存在! 請先註冊!</h2><br><br>");
+			response.getWriter().println("正在導向註冊頁面.....<br><br>");
+			response.setHeader("refresh", "3; /AwesomeProject/userInfo/UserSignUp.jsp");
+//			e.printStackTrace();
+		} finally {
+			try {
+				if (conn!=null) { conn.close(); }
+			} catch (Exception e2) {
+				System.out.println("Connection Pool Error!!!");
+			}
+		}
+		
 	}
 		
 	//註冊確認頁面
@@ -127,11 +179,7 @@ public class UserServlet extends HttpServlet {
 		
 	}
 	
-	/*
-	//回登入頁面
-	public void gotoLoginPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/userInfo/UserLogin.jsp").forward(request, response);
-	}*/
+
 	
 	// 修改會員資料
 	public void userUpdateProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -185,6 +233,7 @@ public class UserServlet extends HttpServlet {
 			}
 		}
 	}
+
 	
 	// 導向GM首頁
 	public void gotoGMIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
