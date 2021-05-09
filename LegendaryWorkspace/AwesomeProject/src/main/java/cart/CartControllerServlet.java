@@ -64,7 +64,11 @@ public class CartControllerServlet extends HttpServlet {
     	else if("remove".equals(todo)) removeProductFromCart(request, response);
     	// 4. 去結帳 (from 購物車頁面) 
     	else if( "checkout".equals(todo)) checkout(request, response);
-    	// 5. debug用
+    	// 5. 回購物車頁面 (from 結帳頁面) 
+    	else if( "back".equals(todo)) backToPreviousPage(request, response);
+    	// 6. 確定付款 (from 結帳頁面) 
+    	else if( "pay".equals(todo)) pay(request, response);
+    	// debug用
     	else response.getWriter().print("Something went wrong! "
     			+ "todo value = " + todo);
     	
@@ -176,9 +180,69 @@ public class CartControllerServlet extends HttpServlet {
      **/
 	private void checkout(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-		req.getRequestDispatcher("/cart/checkout.jsp").forward(req, res);	// 返回原頁
+		req.getRequestDispatcher("/cart/checkout.jsp").forward(req, res);	// 去結帳
 	}
-
+    /**
+     * @Method #05 back > 回購物車頁面
+     * @Database_Connection 不涉及
+     **/
+	private void backToPreviousPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
+		req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);	// 回上一頁
+	}
+    /**
+     * @Method #06 pay > 確定付款
+     * @1. 
+     * @undone 要記得把session invalidate()掉
+     * @undone 尚缺O_ID，O_Amt，U_ID，U_FirstName，U_LastName，U_mail，O_Status，O_Date
+     * @Database_Connection 不涉及
+     **/
+	private void pay(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
+		Connection conn = getConnection();
+		CartDAOImpl crudor = new CartDAOImpl(conn);
+		// ＊生成OrderBean
+		crudor.selectAllOrder();
+		ArrayList<ArrayList<String>> dataArrays = CartDAOImpl.dataArrays;
+		// (1) 查出所有O_ID、找出最大值，以產生+1號的O_ID
+		ArrayList<String> O_IDStrings = new ArrayList<String>();
+		ArrayList<Integer> O_IDs = new ArrayList<Integer>();
+		for(ArrayList<String> dataArray : dataArrays) {
+			O_IDStrings.add(dataArray.get(0));
+		}
+		for(String O_IDString : O_IDStrings) {
+			stripNonDigits(O_IDString);
+			O_IDs.add(Integer.parseInt(O_IDString));
+		}
+		Integer latestO_ID = maxNum(O_IDs);
+		String newO_ID = "Order" + String.valueOf(latestO_ID + 1);
+		
+		// (2) 取得U_ID，U_FirstName，U_LastName，U_Email
+		
+		
+		
+		// 把OrderBean的資料寫進去Dababase
+		crudor.insertOrder(new OrderBean());
+		
+		try {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		this.cart = new ArrayList<ProductBean>();
+		session.setAttribute("cart", this.cart);
+//		session.invalidate();
+		
+		req.getRequestDispatcher("").forward(req, res);	// 
+	}
+	
 	/**
      * @SubMethod #01 取得連線
      * @undone 使用此方法的方法要在最後記得關閉
@@ -207,5 +271,43 @@ public class CartControllerServlet extends HttpServlet {
 			}
     	
     	return conn;
+    }
+	/**
+     * @SubMethod #02 萃取數字
+     * @抄自Stackoverflow https://reurl.cc/qm7Z8q
+     * @Example public static void main(String[] args) {
+	 *			    String input = "0-123-abc-456-xyz-789";
+	 *			    String result = stripNonDigits(input);
+	 *			    System.out.println(result);
+	 *			}
+	 * @補充 Integar.parseInt("00077")的結果會跑出77
+     **/
+    public static String stripNonDigits(CharSequence input){
+	     StringBuilder sb = new StringBuilder(input.length());
+	    for(int i = 0; i < input.length(); i++){
+	        char c = input.charAt(i);
+	        if(c > 47 && c < 58){
+	            sb.append(c);
+	        }
+	    }
+	    return sb.toString();
+    }
+	/**
+     * @SubMethod #03 取最大值
+     **/
+    public static int maxNum(ArrayList<Integer> intArrayList) {
+    	// clone()前後ArrayList記憶體位置會不一樣、不會互相影響
+    	ArrayList<Integer> cloned = (ArrayList<Integer>)intArrayList.clone();
+    	while (cloned.size() > 1) {
+    		for(int i = 0; i < cloned.size(); i++) {
+    			for(int j = 0; j < cloned.size(); j++) {
+    				if(cloned.get(i) > cloned.get(j)) {					
+    					cloned.remove(j);
+    				} 
+    			}
+    		}
+		}
+		int maxNum =cloned.get(0);
+    	return maxNum;
     }
 }
