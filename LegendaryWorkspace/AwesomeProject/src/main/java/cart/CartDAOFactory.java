@@ -1,5 +1,7 @@
 package cart;
 
+// 目前沒什麼用處。提醒自己太閒的話有優化的空間而已。
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

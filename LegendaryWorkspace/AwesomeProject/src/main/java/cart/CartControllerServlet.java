@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.naming.InitialContext;
@@ -13,6 +14,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
+
+import userInfo.UserBean;
 /**
  * @Q1. 重新導向過去的網址有誤(理應是.jsp卻顯示此controller)
  * @Q2. 
@@ -195,7 +198,7 @@ public class CartControllerServlet extends HttpServlet {
      * @1. 
      * @undone 要記得把session invalidate()掉
      * @undone 尚缺O_ID，O_Amt，U_ID，U_FirstName，U_LastName，U_mail，O_Status，O_Date
-     * @Database_Connection 不涉及
+     * @Database_Connection 預計會SELECT + INSERT
      **/
 	private void pay(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
@@ -218,11 +221,23 @@ public class CartControllerServlet extends HttpServlet {
 		String newO_ID = "Order" + String.valueOf(latestO_ID + 1);
 		
 		// (2) 取得U_ID，U_FirstName，U_LastName，U_Email
-		
+		// 之後請若安把已登入會員的Bean幫我塞進session Attribute內，取出如下
+		// UserBean userBean = (UserBean)this.session.getArrtibute("userBean", userBean);
+		// 以下為測試用，要換掉
+		UserBean fakeUserBean = new UserBean("user01", "omegaLUL", "1999-12-31", "b", "F", "L@UL", "0987", "M", "www");
 		
 		
 		// 把OrderBean的資料寫進去Dababase
-		crudor.insertOrder(new OrderBean());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(System.currentTimeMillis());
+		String now = sdf.format(calendar.getTime());
+		
+		for(int i = 0; i <= cart.size(); i++) {
+			OrderBean orderBean = new OrderBean(newO_ID, cart.get(i).getP_ID(), cart.get(i).getP_Name(), 
+				cart.get(i).getP_Price(), fakeUserBean.getU_ID(), fakeUserBean.getU_FirstName(), fakeUserBean.getU_LastName(), fakeUserBean.getU_Email(), "confirmed", now, 1);
+			crudor.insertOrder(orderBean);
+		}
 		
 		try {
 			
