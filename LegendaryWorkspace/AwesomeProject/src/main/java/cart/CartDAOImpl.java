@@ -5,7 +5,9 @@ import java.util.ArrayList;
 
 public class CartDAOImpl implements CartDAO {
 	private Connection conn;
-	private ArrayList<ArrayList<String>> dataArrays;
+	// dataArrays在每次執行selectAllOrder()或selectOrder()時都會先被重製，
+	// 其他需要重製的時候需要手動重製。
+	public static ArrayList<ArrayList<String>> dataArrays;
 	
 	public CartDAOImpl(Connection conn) {
 		this.conn = conn;
@@ -62,7 +64,7 @@ public class CartDAOImpl implements CartDAO {
 	*@Select_All_Rows
 	************************************************************************************/
 	@Override
-	public boolean selectAllOrder(OrderBean orderBean) {
+	public boolean selectAllOrder() {
 		boolean selectAllStatus = false;
 		String selectAllCmd = "SELECT * FROM [Order_Info];";
 		Statement cStmt = null;
@@ -115,7 +117,7 @@ public class CartDAOImpl implements CartDAO {
 	*@Q1. 用P_ID還是O_ID比較好？
 	************************************************************************************/
 	@Override
-	public boolean selectOrder(OrderBean orderBean) {
+	public boolean selectOrder(String P_ID) {
 		boolean selectStatus = false;
 		String selectCmd = "SELECT * FROM [Order_Info] WHERE P_ID = ?;"; // ***
 		PreparedStatement pStmt = null;
@@ -124,7 +126,7 @@ public class CartDAOImpl implements CartDAO {
 		this.dataArrays = new ArrayList<ArrayList<String>>();
 		try {
 			pStmt = conn.prepareStatement(selectCmd);
-			pStmt.setString(1, orderBean.getP_ID());
+			pStmt.setString(1, P_ID);
 			rs = pStmt.executeQuery();
 			ResultSetMetaData md = rs.getMetaData();
 			
