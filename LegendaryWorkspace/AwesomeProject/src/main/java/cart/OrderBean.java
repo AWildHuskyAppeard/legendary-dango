@@ -13,6 +13,7 @@ public class OrderBean {
 	private String O_Status;
 	private String O_Date; // Date()會不會更好？
 	private Integer O_Amt;
+	
 	// constructors
 	public OrderBean() {};
 	public OrderBean(String o_ID, String p_ID, String p_Name, Integer p_Price, String u_ID, String u_FirstName,
@@ -30,6 +31,7 @@ public class OrderBean {
 		setO_Date       (o_Date     );
 		setO_Amt        (o_Amt      );
 	}                    
+	
 	// getters
 	public String getO_ID() {return O_ID;}
 	public String getP_ID() {return P_ID;}
@@ -42,6 +44,7 @@ public class OrderBean {
 	public String getO_Status() {return O_Status;}
 	public String getO_Date() {return O_Date;}
 	public Integer getO_Amt() {return O_Amt;}
+	
 	// setters
 	public void setO_ID(String o_ID) {	O_ID = o_ID;}
 	public void setP_ID(String p_ID) {P_ID = p_ID;}
