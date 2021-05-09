@@ -28,7 +28,7 @@ response.setDateHeader("Expires",-1);
 <body>
 	<div class="UserSignUp_div_1">
 		<h2>修改會員資料</h2>
-		<form action="/AwesomeProject/UserServlet" method="Get">
+		<form action="/AwesomeProject/UserServlet" method="POST">
 			<table>
 				<tr>
 					<td>Birthday:</td>

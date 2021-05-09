@@ -34,7 +34,7 @@ response.setDateHeader("Expires",-1);
 </head>
 <body class="Admin_body">
 	<div id="UserLogin_div_1">
-		<form action="/AwesomeProject/UserServlet" method="Get">
+		<form action="/AwesomeProject/UserServlet" method="POST">
 			
 			
 					Admin ID:<br>
