@@ -207,7 +207,7 @@ public class CartControllerServlet extends HttpServlet {
 		// ＊生成OrderBean
 		crudor.selectAllOrder();
 		ArrayList<ArrayList<String>> dataArrays = CartDAOImpl.dataArrays;
-		// (1) 查出所有O_ID、找出最大值，以產生+1號的O_ID
+		// (1) 取得O_ID：查出所有O_ID、找出最大值，以產生+1號的O_ID
 		ArrayList<String> O_IDStrings = new ArrayList<String>();
 		ArrayList<Integer> O_IDs = new ArrayList<Integer>();
 		for(ArrayList<String> dataArray : dataArrays) {
@@ -221,18 +221,18 @@ public class CartControllerServlet extends HttpServlet {
 		String newO_ID = "Order" + String.valueOf(latestO_ID + 1);
 		
 		// (2) 取得U_ID，U_FirstName，U_LastName，U_Email
-		// 之後請若安把已登入會員的Bean幫我塞進session Attribute內，取出如下
+		// 之後請若安把已登入會員的Bean幫我塞進session Attribute內，取出語句如下：
 		// UserBean userBean = (UserBean)this.session.getArrtibute("userBean", userBean);
 		// 以下為測試用，要換掉
 		UserBean fakeUserBean = new UserBean("user01", "omegaLUL", "1999-12-31", "b", "F", "L@UL", "0987", "M", "www");
 		
-		
-		// 把OrderBean的資料寫進去Dababase
+		// (3) 取得O_Date (使用SimpleDateFormat)
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(System.currentTimeMillis());
 		String now = sdf.format(calendar.getTime());
 		
+		// 把OrderBean的資料寫進去Dababase
 		for(int i = 0; i <= cart.size(); i++) {
 			OrderBean orderBean = new OrderBean(newO_ID, cart.get(i).getP_ID(), cart.get(i).getP_Name(), 
 				cart.get(i).getP_Price(), fakeUserBean.getU_ID(), fakeUserBean.getU_FirstName(), fakeUserBean.getU_LastName(), fakeUserBean.getU_Email(), "confirmed", now, 1);

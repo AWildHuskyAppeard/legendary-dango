@@ -65,7 +65,7 @@
 <!-- 2. 補充Order_Info所需要的所有資訊................................. -->
 <!-- 缺O_ID，O_Amt，U_ID，U_FirstName，U_LastName，U_mail，O_Status，O_Date -->
 		<input type="text">
-
+		<h1>LULLL</h1>
 		
 		<hr>
 <!-- 3. 按鈕導向各頁................................................... -->
@@ -73,5 +73,15 @@
 		<button name="todo" value="pay">確定結帳</button>
 		<hr>
 	</form>
+	<script src="../assets/jquery-3.6.0.min.js"></script>
+	<script>
+		$(function(){
+
+
+
+
+
+		})
+	</script>
 </body>
 </html>
