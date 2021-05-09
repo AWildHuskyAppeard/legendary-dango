@@ -289,7 +289,7 @@ public class UserDAO {
 	
 	// GM刪除使用者資料
 	public boolean deleteUser(String U_ID) {
-		String deleteUserSqlString = "DELETE FROM [User_Info] WHERE [U_ID] ="+ U_ID;
+		String deleteUserSqlString = "DELETE FROM [User_Info] WHERE [U_ID] =\'"+ U_ID +"\'";
 		boolean isDelete = false;
 
 		try {
