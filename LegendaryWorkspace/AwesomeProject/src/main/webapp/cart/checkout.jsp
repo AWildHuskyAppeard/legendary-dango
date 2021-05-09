@@ -2,9 +2,15 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="cart.ProductBean"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+request.setCharacterEncoding("UTF-8");
+response.setContentType("text/html;charset=UTF-8");
+response.setHeader("Cache-Control", "no-cache");
+response.setHeader("Pragma","no-cache");
+response.setDateHeader("Expires",-1);
+%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -62,7 +68,7 @@
 		</table>
 		<h1>總計：<%= totalPrice %></h1>
 		<hr>
-<!-- 2. 補充Order_Info所需要的所有資訊................................. -->
+<!-- 2. 確認購買者資訊(從userBean獲取)................................. -->
 <!-- 缺O_ID，O_Amt，U_ID，U_FirstName，U_LastName，U_mail，O_Status，O_Date -->
 		<input type="text">
 		<h1>LULLL</h1>
