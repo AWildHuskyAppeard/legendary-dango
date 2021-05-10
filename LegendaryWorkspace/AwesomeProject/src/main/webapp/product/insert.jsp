@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="/AwesomeProject/ControlServlet?method=insert" method="GET">
+	<form action="/AwesomeProject/ControlServlet" method="POST" enctype="multipart/form-data">
             <div>
                 <label>課程編號:</label>
                 <input type="text" name="P_ID" >
@@ -45,7 +45,8 @@
                 <textarea required cols="40" rows="8" name="P_DESC" style="resize: none;"></textarea>
             </div>
             <div>
-                <input type="submit" value="確認送出">
+                <input type="submit" value="新增課程" name="insertProduct">
+                <input type="submit" value="更新課程" name="updateProduct">
                 <input type="reset" value="重新輸入">
             </div>
            

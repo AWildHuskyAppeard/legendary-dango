@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="">
         <%
         ArrayList<ProductBean> list = (ArrayList<ProductBean>)session.getAttribute("list");
+        ProductBean findByID = (ProductBean)session.getAttribute("find");
         //System.out.println(list);
         %>
     </head>
@@ -23,10 +24,18 @@
     </style>
     <body>
         <form action="/AwesomeProject/ControlServlet" method="POST">
+            <label>搜尋全部課程:</label>
+            <input type="submit" name="findAll" value="搜尋全部">
             <label>搜尋課程ID:</label>
             <input type="text" name="P_ID"><input type="submit" name="findByID" value="搜尋">
-           
         </form>
+        <form action="/AwesomeProject/ControlServlet" method="POST">
+            <label>刪除課程ID:</label>
+            <input type="text" name="P_ID"><input type="submit" name="deleteProduct" value="刪除">
+        </form>
+        
+    <a href="/AwesomeProject/product/insert.jsp">新增課程/更新課程</a>
+           
 
 		<h2>課程列表</h2>
 		<table align="center" border="1">
@@ -41,6 +50,18 @@
                 <th>授課者ID</th>
             </tr>
             <%
+            if(findByID != null){ %>
+            <tr>
+            	<th><%=findByID.getP_ID() %></th>
+            	<th><%=findByID.getP_Name() %></th>
+            	<th><%=findByID.getP_Class() %></th>
+            	<th><%=findByID.getP_DESC() %></th>
+            	<th><%=findByID.getP_Price() %></th>
+            	<th><%=findByID.getP_Img() %></th>
+            	<th><%=findByID.getP_Video() %></th>
+            	<th><%=findByID.getU_ID() %></th>
+            </tr>
+           <% }else{
             for (int i=0;i<list.size();i++){
             	
             	ProductBean p = list.get(i);
@@ -56,7 +77,8 @@
             	<th><%=p.getU_ID() %></th>
             </tr>
             <% 
-            }
+            }}
+            session.invalidate();
             %>
             
        

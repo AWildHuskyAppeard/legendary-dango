@@ -121,18 +121,19 @@ public class ProductDAOImpl implements ProductDAO{
 				+ "      ,[P_DESC] = ?\r\n"
 				+ "      ,[P_Img] = ?\r\n"
 				+ "      ,[P_Video] = ?\r\n"
+				+ "      ,[U_ID] = ?\r\n"
 				+ " WHERE [P_ID] = ?";
 		boolean isUpdate = false;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, Product.getP_ID());
-			stmt.setString(2, Product.getP_Name());
-			stmt.setString(3, Product.getP_Class());
-			stmt.setInt(4, Product.getP_Price());
-			stmt.setString(5, Product.getP_DESC());
-			stmt.setString(6, Product.getP_Img());
-			stmt.setString(7, Product.getP_Video());
-			stmt.setString(8, Product.getU_ID());
+			stmt.setString(8, Product.getP_ID());
+			stmt.setString(1, Product.getP_Name());
+			stmt.setString(2, Product.getP_Class());
+			stmt.setInt(3, Product.getP_Price());
+			stmt.setString(4, Product.getP_DESC());
+			stmt.setString(5, Product.getP_Img());
+			stmt.setString(6, Product.getP_Video());
+			stmt.setString(7, Product.getU_ID());
 			int i = stmt.executeUpdate();
 			if (i>0) {
 				isUpdate=true;
