@@ -1,7 +1,6 @@
-<%@page import="cart.OrderBean"%>
+<%@page import="cart.*"%>
 <%@page import="javax.naming.*"%>
 <%@page import="java.util.*"%>
-<%@page import="cart.CartDAOImpl"%>
 <%@page import="java.sql.*"%>
 <%@page import="javax.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -12,33 +11,33 @@
 	private Connection conn = null;
 	private ArrayList<ArrayList<String>> dataArrays = null;%>    
 <%
-try 
-{
-	if (this.ds == null) 
-	{	
-		ctx = new InitialContext();
-		// 改資料庫名稱
-		this.ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/DBDB");
-	}
-	this.conn = this.ds.getConnection();
-} catch (NamingException e) 
-{
-	e.printStackTrace();
-} catch (SQLException e) 
-{
-	e.printStackTrace();
-} 
-CartDAOImpl dao = new CartDAOImpl(conn);
-dao.selectAllOrder();
-dataArrays = CartDAOImpl.dataArrays;
+	try 
+	{
+		if (this.ds == null) 
+		{	
+			ctx = new InitialContext();
+			// 改資料庫名稱
+			this.ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/DBDB");
+		}
+		this.conn = this.ds.getConnection();
+	} catch (NamingException e) 
+	{
+		e.printStackTrace();
+	} catch (SQLException e) 
+	{
+		e.printStackTrace();
+	} 
+	CartDAOImpl dao = new CartDAOImpl(conn);
+	dao.selectAllOrder();
+	dataArrays = CartDAOImpl.dataArrays;
 %>
 <!DOCTYPE html>
 <%
-request.setCharacterEncoding("UTF-8");
-response.setContentType("text/html;charset=UTF-8");
-response.setHeader("Cache-Control", "no-cache");
-response.setHeader("Pragma","no-cache");
-response.setDateHeader("Expires",-1);
+	request.setCharacterEncoding("UTF-8");
+	response.setContentType("text/html;charset=UTF-8");
+	response.setHeader("Cache-Control", "no-cache");
+	response.setHeader("Pragma","no-cache");
+	response.setDateHeader("Expires",-1);
 %>
 <html>
 	<head>
@@ -46,12 +45,13 @@ response.setDateHeader("Expires",-1);
 		<title>Cart Administrator Page</title>
 	</head>
 	<body>
+		<h1>管理者頁面</h1>
 		<button id="newRow">添加空白訂單列</button>
 		<form method="POST" action="/AwesomeProject/CartControllerServlet"> 
-		<!-- 秀出所有Order_Info + 每20項分一頁 -->
-			<table border="1">
+		<!-- 秀出所有Order_Info (希望之後能每20項分一頁) -->
+			<table border="2px">
 				<thead>
-					<th style="background: aquamarine;">Order ID<br>(READ-ONLY)</th>
+					<th style="background: aquamarine;" >Order ID<br>(READ-ONLY)</th>
 					<th>Product ID</th>
 					<th>Product Name</th>
 					<th>Product Price</th>
@@ -81,15 +81,15 @@ response.setDateHeader("Expires",-1);
 							<td><input name="<%=i+"8"%>"  type="text" value="<%=dataArrays.get(i).get(8)%>" ></td>
 							<td><input name="<%=i+"9"%>"  type="text" value="<%=dataArrays.get(i).get(9)%>" ></td>
 							<td><input name="<%=i+"10"%>" type="text" value="<%=dataArrays.get(i).get(10)%>"></td>
-							<td><input name="" type="radio"></td>
+							<td></td>
 					<%
 						}
 					%>
 						</tr>
-						<hr>
 
 				</tbody>
 			</table>
+			<hr>
 			<input id="counter" name="counter" value="" readonly>
 			<hr>
 
@@ -98,8 +98,10 @@ response.setDateHeader("Expires",-1);
 			<button name="todo" value="updateAdmin">修改</button>
 			
 			<hr>
-			<hr>
+			
 		</form>
+		
+		<a href="../index_test.html">回首頁</a>
 		
 		<script src="../assets/jquery-3.6.0.min.js"></script>
 		<script>
@@ -112,18 +114,18 @@ response.setDateHeader("Expires",-1);
 				let date = d.getDate(); // 
 				let monthIndex = d.getMonth();
 				let months = {
-						0: 　'01',　　
-						1: 　'02',　　
-						2: 　'03',　　
-						3: 　'04',　　　
-						4: 　'05',　　　
-						5: 　'06',　　　
-						6: 　'07',　　　
-						7: 　'08',　　　
-						8: 　'09',　　　
-						9: 　'10',　　
-						10:　'11',　　
-						11:　'12'　　　
+						0: 　'01',
+						1: 　'02',
+						2: 　'03',
+						3: 　'04',
+						4: 　'05',
+						5: 　'06',
+						6: 　'07',
+						7: 　'08',
+						8: 　'09',
+						9: 　'10',
+						10:　'11',
+						11:　'12'
 				};
 				let month = months[monthIndex];
 				let hour = d.getHours();
@@ -132,11 +134,17 @@ response.setDateHeader("Expires",-1);
 				if(second < 10){
 					second = '0' + second
 				};
+				if(minute < 10) {
+					minute = '0' + minute
+				};
+				if(hour < 10) {
+					hour = '0' + hour
+				}
 				
 				let formatted = year + '-' + month + '-' + 
 				date + '&nbsp;' + hour + ':' + 
 				minute + ':' + second + '.0';
-				// console.log(formatted);
+				let fs = formatted.toString();
 				// -----------------------------------------------------------------
 				$('#newRow').on('click', function(){
 					counter++;
@@ -153,13 +161,12 @@ response.setDateHeader("Expires",-1);
 							<td><input type='text' name='new` + bla + `6'></td>
 							<td><input type='text' name='new` + bla + `7'></td>
 							<td><input type='text' name='new` + bla + `8'></td>
-							<td><input type='text' name='new` + bla + `9' value=` + formatted + ` readonly></td>
+							<td><input type='text' name='new` + bla + `9' value=` /* + fs (有bug，無法正確新增)*/ + `></td>
 							<td><input type='text' name='new` + bla + `10' value='1' readonly></td>
 							<td><input name='' type="radio"></td>
 						</tr>
 						`;
 					$('#newRowsBelow').append(content)
-					// console.log("counter = " + counter)
 				})
 			})
 		</script>
