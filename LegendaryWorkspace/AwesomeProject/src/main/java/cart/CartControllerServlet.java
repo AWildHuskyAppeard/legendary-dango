@@ -331,11 +331,12 @@ public class CartControllerServlet extends HttpServlet {
 		
 //		System.out.println("counter = " + req.getParameter("counter"));
 //		System.out.println("Class = " + req.getParameter("counter").getClass());
-		
-		for(int i =0; i < Integer.parseInt(req.getParameter("counter")); i++) {
+		Integer up = Integer.parseInt(req.getParameter("counter"));
+		for(int i =0; i < up; i++) {
 			OrderBean adminBean = new OrderBean();
 			for(int j = 0; j < CartDAOImpl.columnNames.length; j++) { // CartDAOImpl.columnNames.length = 11
-				adminBean.assign(j + 1, req.getParameter("new" + String.valueOf(i) + String.valueOf(j)));
+				String pmValue = req.getParameter("new" + String.valueOf(i) + String.valueOf(j));
+				adminBean.assign(j + 1, pmValue);
 			}
 			System.out.println(adminBean.take(1)); // debug用
 			crudor.insertOrder(adminBean);
