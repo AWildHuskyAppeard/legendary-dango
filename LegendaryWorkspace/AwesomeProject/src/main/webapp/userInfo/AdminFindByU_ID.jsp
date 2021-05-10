@@ -42,12 +42,11 @@ response.setDateHeader("Expires",-1);
 				<td><jsp:getProperty name="findResult" property="u_Email" /></td>
 				<td><jsp:getProperty name="findResult" property="u_Sex" /></td>
 				<td><jsp:getProperty name="findResult" property="u_Address" /></td>
-				<td style="text-align: center;"><input type="text" name="u_ID" size="3"
-				 placeholder="user id.." style="margin: 4px 5px;"><button type="submit" 
-				 name="deleteUser">確認刪除</button></td>
+				<td style="text-align: center;"><input type="hidden" name="u_ID" value="<jsp:getProperty name="findResult" property="u_ID" />"><button type="submit" 
+				 name="deleteUser">刪除會員</button></td>
 			</tr>
 		</table>
-		<h5 style="color: red; font-style: italic;">請在文字框輸入欲刪除的USER ID</h5>
+		<h5 style="color: red; font-style: italic;">如需刪除會員，請點選DELETE USER</h5>
 		</form>
 	</center>
 </body>
