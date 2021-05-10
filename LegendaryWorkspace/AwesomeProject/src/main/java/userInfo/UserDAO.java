@@ -98,7 +98,7 @@ public class UserDAO {
 //			int updateCount = pstmt.executeUpdate();
 			int updateCount = 0;
 			
-			if (u_BirthDay != null) {
+			if (u_BirthDay != null && u_BirthDay.length()>0) {
 				System.out.println(u_BirthDay);
 				updateColSqlString = "[U_Birthday]";
 				sqlString = "UPDATE [User_Info]\r\n"
@@ -120,7 +120,7 @@ public class UserDAO {
 					e.printStackTrace();
 				}
 			}
-			if (u_LastName != null) {
+			if (u_LastName != null && u_LastName.length()>0) {
 				System.out.println(u_LastName);
 				updateColSqlString = "[U_LastName]";
 				sqlString = "UPDATE [User_Info]\r\n"
@@ -142,7 +142,7 @@ public class UserDAO {
 					e.printStackTrace();
 				}
 			}
-			if (u_FirstName != null) {
+			if (u_FirstName != null && u_FirstName.length()>0) {
 				System.out.println(u_FirstName);
 				updateColSqlString = "[U_FirstName]";
 				sqlString = "UPDATE [User_Info]\r\n"
@@ -164,7 +164,7 @@ public class UserDAO {
 					e.printStackTrace();
 				}
 			}
-			if (u_Email != null) {
+			if (u_Email != null && u_Email.length()>0) {
 				System.out.println(u_Email);
 				updateColSqlString = "[U_Email]";
 				sqlString = "UPDATE [User_Info]\r\n"
@@ -186,7 +186,7 @@ public class UserDAO {
 					e.printStackTrace();
 				}
 			}
-			if (u_Tel != null) {
+			if (u_Tel != null && u_Tel.length()>0) {
 				System.out.println(u_Tel);
 				updateColSqlString = "[U_Tel]";
 				sqlString = "UPDATE [User_Info]\r\n"
@@ -230,7 +230,7 @@ public class UserDAO {
 					e.printStackTrace();
 				}
 			}
-			if (u_Address != null) {
+			if (u_Address != null && u_Address.length()>0) {
 				System.out.println(u_Address);
 				updateColSqlString = "[U_Address]";
 				sqlString = "UPDATE [User_Info]\r\n"
