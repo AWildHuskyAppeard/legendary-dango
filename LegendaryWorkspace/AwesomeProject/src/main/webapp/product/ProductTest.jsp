@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <form action="/AwesomeProject/ControlServlet">
-        <input type="submit" name="findAll" value="商品列表">
-    </form>
+<form action="/AwesomeProject/ControlServlet" method="POST">
+    <label>搜尋課程ID:</label>
+    <input type="text" name="P_ID"><input type="submit" name="findByID" value="搜尋">
+</form>
 </body>
 </html>
