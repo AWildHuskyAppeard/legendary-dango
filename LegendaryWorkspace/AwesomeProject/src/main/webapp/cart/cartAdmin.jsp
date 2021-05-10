@@ -103,29 +103,63 @@ response.setDateHeader("Expires",-1);
 		
 		<script src="../assets/jquery-3.6.0.min.js"></script>
 		<script>
+			let counter = 0;
 			$(function(){
-				let counter = -1;
+				// 以下只是自訂日期(為了smalldatetime)
+				let d = new Date();
+				let year = d.getFullYear(); // 
+				console.log("year = " + year);
+				let date = d.getDate(); // 
+				let monthIndex = d.getMonth();
+				let months = {
+						0: 　'01',　　
+						1: 　'02',　　
+						2: 　'03',　　
+						3: 　'04',　　　
+						4: 　'05',　　　
+						5: 　'06',　　　
+						6: 　'07',　　　
+						7: 　'08',　　　
+						8: 　'09',　　　
+						9: 　'10',　　
+						10:　'11',　　
+						11:　'12'　　　
+				};
+				let month = months[monthIndex];
+				let hour = d.getHours();
+				let minute = d.getMinutes();
+				let second = d.getSeconds().toString();
+				if(second < 10){
+					second = '0' + second
+				};
+				
+				let formatted = year + '-' + month + '-' + 
+				date + '&nbsp;' + hour + ':' + 
+				minute + ':' + second + '.0';
+				// console.log(formatted);
+				// -----------------------------------------------------------------
 				$('#newRow').on('click', function(){
 					counter++;
-					$('#counter').text(counter);
-					$('#newRowsBelow').append(
-						`
+					$('#counter').attr('value', counter);
+					let bla = counter - 1;
+					let content = `
 						<tr>
-							<td><input type="text" name="n${counter}0"></td>
-							<td><input type="text" name="n${counter}1"></td>
-							<td><input type="text" name="n${counter}2"></td>
-							<td><input type="text" name="n${counter}3"></td>
-							<td><input type="text" name="n${counter}4"></td>
-							<td><input type="text" name="n${counter}5"></td>
-							<td><input type="text" name="n${counter}6"></td>
-							<td><input type="text" name="n${counter}7"></td>
-							<td><input type="text" name="n${counter}8"></td>
-							<td><input type="text" name="n${counter}9"></td>
-							<td><input type="text" name="n${counter}10"></td>
-							<td><input name="" type="radio"></td>
+							<td><input type='text' name='new` + bla + `0'></td>
+							<td><input type='text' name='new` + bla + `1'></td>
+							<td><input type='text' name='new` + bla + `2'></td>
+							<td><input type='text' name='new` + bla + `3'></td>
+							<td><input type='text' name='new` + bla + `4'></td>
+							<td><input type='text' name='new` + bla + `5'></td>
+							<td><input type='text' name='new` + bla + `6'></td>
+							<td><input type='text' name='new` + bla + `7'></td>
+							<td><input type='text' name='new` + bla + `8'></td>
+							<td><input type='text' name='new` + bla + `9' value=` + formatted + ` readonly></td>
+							<td><input type='text' name='new` + bla + `10' value='1' readonly></td>
+							<td><input name='' type="radio"></td>
 						</tr>
-						`
-					)
+						`;
+					$('#newRowsBelow').append(content)
+					// console.log("counter = " + counter)
 
 				})
 

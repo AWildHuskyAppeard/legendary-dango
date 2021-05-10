@@ -115,7 +115,7 @@ public class OrderBean {
 			setP_Name(value);
 			break;
 		case 4:
-			setP_Price(Integer.parseInt(value));;
+			setP_Price(Integer.parseInt(value));
 			break;
 		case 5:
 			setU_ID(value);

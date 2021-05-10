@@ -36,7 +36,9 @@ public class CartControllerServlet extends HttpServlet {
     
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	doPost(request, response);
+    	request.setCharacterEncoding("UTF-8");
+    	response.setContentType("text/html;charset=UTF-8");
+    	response.getWriter().print("LUL");
 	}
 
     @Override
@@ -297,7 +299,7 @@ public class CartControllerServlet extends HttpServlet {
 			for(int j = 0; j < CartDAOImpl.columnNames.length; j++) {
 				adminBean.assign(j + 1, req.getParameter(String.valueOf(i)+String.valueOf(j)));
 			}
-			System.out.println(adminBean.take(1));
+			System.out.println(adminBean.take(1)); // debug用
 			adminBeans.add(adminBean);
 			crudor.updateOrder(adminBeans.get(i), "O_ID", adminBeans.get(i).getO_ID());
 		}
@@ -327,16 +329,18 @@ public class CartControllerServlet extends HttpServlet {
 		Connection conn = getConnection();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 		
-//		ArrayList<OrderBean> adminBeans = new ArrayList<OrderBean>();
-//		for(int i =0; i < CartDAOImpl.dataArrays.size(); i++) {
-//			OrderBean adminBean = new OrderBean();
-//			for(int j = 0; j < CartDAOImpl.columnNames.length; j++) {
-//				adminBean.assign(j + 1, req.getParameter(String.valueOf(i)+String.valueOf(j)));
-//			}
-//			System.out.println(adminBean.take(1));
-//			adminBeans.add(adminBean);
-//			crudor.updateOrder(adminBeans.get(i), "O_ID", adminBeans.get(i).getO_ID());
-//		}
+//		System.out.println("counter = " + req.getParameter("counter"));
+//		System.out.println("Class = " + req.getParameter("counter").getClass());
+		Integer up = Integer.parseInt(req.getParameter("counter"));
+		for(int i =0; i < up; i++) {
+			OrderBean adminBean = new OrderBean();
+			for(int j = 0; j < CartDAOImpl.columnNames.length; j++) { // CartDAOImpl.columnNames.length = 11
+				String pmValue = req.getParameter("new" + String.valueOf(i) + String.valueOf(j));
+				adminBean.assign(j + 1, pmValue);
+			}
+			System.out.println(adminBean.take(1)); // debug用
+			crudor.insertOrder(adminBean);
+		}
 		
 		try {
 			
