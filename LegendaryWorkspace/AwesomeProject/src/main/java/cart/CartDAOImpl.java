@@ -13,7 +13,7 @@ public class CartDAOImpl implements CartDAO {
 		this.conn = conn;
 	}
 	public static OrderBean odBean01 = new OrderBean("od001", "p001", "EngSpeaking", 300, "elf01", "fl", "b", "w@w", "cancelled", "1999-12-01 00:00:00", 1 );
-	private String columnNames[] = {"O_ID, P_ID, P_Name, P_Price, U_ID, U_FirstName, U_LastName",
+	private String columnNames[] = {"O_ID", "P_ID", "P_Name", "P_Price", "U_ID", "U_FirstName", "U_LastName",
 			"U_Email", "O_Status", "O_Date", "O_Amt"};
 	
 	/************************************************************************************
@@ -175,8 +175,7 @@ public class CartDAOImpl implements CartDAO {
 		boolean updateStatus = false;
 		Object str1 = null, str2 = null;
 		String str4 = String.valueOf(obj4);
-		String updateCmdTemplate = "UPDATE [Order_Info] SET " + str1 + " = " + str2
-				+ " WHERE " + str3 + " = " + str4 + " ;\r\n"; // ***
+		String updateCmdTemplate;
 		String finalUpdateCmd = "";
 		Statement cStmt = null;
 //		obj3 == 管理者想用來下去查的參數，obj4 == 其值
@@ -184,11 +183,13 @@ public class CartDAOImpl implements CartDAO {
 		if(!"P_Price".equals(str3) && !"O_Amt".equals(str3) ) str4 = "'" + str4 + "'";
 		try {
 			cStmt = conn.createStatement();
-			for(int i = 0; i <= columnNames.length; i++) {
+			for(int i = 0; i < columnNames.length; i++) {
 				str1 = columnNames[i];
 				str2 = orderBean.take(i + 1);
 				// 對付obj2(修改參數值)型態
 				if(!"P_Price".equals(str2) && !"O_Amt".equals(str2)) str2 = "'" + str2 + "'";
+				updateCmdTemplate = "UPDATE [Order_Info] SET " + str1 + " = " + str2
+						+ " WHERE " + str3 + " = " + str4 + " ;\r\n"; // ***
 				finalUpdateCmd = finalUpdateCmd + updateCmdTemplate;
 			}
 			// 執行超長UPDATE語句
@@ -200,7 +201,9 @@ public class CartDAOImpl implements CartDAO {
 		} finally {
 			try {
 				cStmt.close();
-			} catch (Exception e) {e.printStackTrace();}
+			} catch (Exception e) {
+					e.printStackTrace();
+				}
 		}
 		
 		
