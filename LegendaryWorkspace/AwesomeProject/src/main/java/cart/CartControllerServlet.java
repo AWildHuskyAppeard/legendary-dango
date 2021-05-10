@@ -196,7 +196,7 @@ public class CartControllerServlet extends HttpServlet {
      * @1. 
      * @undone 要記得把session invalidate()掉
      * @undone 尚缺O_ID，O_Amt，U_ID，U_FirstName，U_LastName，U_mail，O_Status，O_Date
-     * @Database_Connection 預計會SELECT + INSERT
+     * @Database_Connection SELECT + INSERT
      **/
 	private void pay(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
@@ -284,7 +284,7 @@ public class CartControllerServlet extends HttpServlet {
 	
     /**
      * @Method #08 updateAdmin 
-	 * @Database_Connection 涉及
+	 * @Database_Connection UPDATE
 	 **/		
 	private void updateByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Connection conn = getConnection();
@@ -323,7 +323,7 @@ public class CartControllerServlet extends HttpServlet {
 	
     /**
      * @Method #09 insertAdmin 
-	 * @Database_Connection 涉及
+	 * @Database_Connection INSERT
 	 **/
 	private void insertByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Connection conn = getConnection();
