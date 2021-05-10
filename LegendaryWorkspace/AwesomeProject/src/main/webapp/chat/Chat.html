@@ -3,14 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Chat</title>
+<style>
+div#index{
+text-align: center;
+}
+</style>
 </head>
 <body bgcolor="lightblue">
-<form action="../ChatServlet">
 <center>
 <header>
 <h1>Chat</h1>
 </header>
 </center>
+<form action="../ChatServlet">
 <label>C_ID:</label>
 <input type="text" name="文章編號"><br><br>
 <label>U_ID:</label>
@@ -27,8 +32,10 @@
 <input type="submit" value="刪除文章" name="delete">
 <input type="submit" value="更新文章" name="update">
 <input type="submit" value="查詢文章" name="find">
+</form><hr>
+<div id="index">
 <a href="/AwesomeProject/index_test.html"><b>討論區</b></a>
-</form>
+</div>
 
 </body>
 </html>
