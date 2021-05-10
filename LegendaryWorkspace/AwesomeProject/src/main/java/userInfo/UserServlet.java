@@ -160,6 +160,7 @@ public class UserServlet extends HttpServlet {
 				//去感謝頁面
 				request.getRequestDispatcher("/userInfo/ThankPage.jsp").forward(request, response);
 			} else {
+				// 使用者已存在
 				response.getWriter().println("<h2 style=\"color: red; font-size:150%\">此帳號已存在，請使用其他名稱</h2><br><br>");
 				response.getWriter().println("正在導回註冊頁面.....<br><br>");
 				response.setHeader("refresh", "3; /AwesomeProject/userInfo/UserSignUp.jsp");
