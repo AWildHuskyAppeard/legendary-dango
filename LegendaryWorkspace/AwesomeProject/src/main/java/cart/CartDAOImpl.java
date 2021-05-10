@@ -56,7 +56,7 @@ public class CartDAOImpl implements CartDAO {
 			}
 		}
 		
-		System.out.println("Updated " + insertStatus + " rows of data.");
+		System.out.println("Inserted " + insertStatus + " rows of data.");
 		return insertStatus;
 	}
 	
@@ -191,6 +191,7 @@ public class CartDAOImpl implements CartDAO {
 				updateCmdTemplate = "UPDATE [Order_Info] SET " + str1 + " = " + str2
 						+ " WHERE " + str3 + " = " + str4 + " ;\r\n"; // ***
 				finalUpdateCmd = finalUpdateCmd + updateCmdTemplate;
+				System.out.println("Updated a row(OrderBean).");
 			}
 			// 執行超長UPDATE語句
 			int indicator = cStmt.executeUpdate(finalUpdateCmd);
@@ -205,7 +206,6 @@ public class CartDAOImpl implements CartDAO {
 					e.printStackTrace();
 				}
 		}
-		
 		
 		return updateStatus;
 	}

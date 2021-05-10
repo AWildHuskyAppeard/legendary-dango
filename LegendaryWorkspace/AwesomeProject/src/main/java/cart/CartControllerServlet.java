@@ -84,6 +84,7 @@ public class CartControllerServlet extends HttpServlet {
     /**
      * @Method #01 todo == null > 導向購物車
      * @1. 導向購物車頁(CartIndex.jsp)
+     * @2. 六種類別的頁面都可以連過來(只要todo參數不符合或根本沒有todo參數的都符合條件)
      * @Database_Connection 不涉及
      **/
     private void gotoCartIndexPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -96,8 +97,7 @@ public class CartControllerServlet extends HttpServlet {
 	 * @1. 將品項加入購物車
 	 * @2. 返回該商品頁
 	 * @undone 返回原頁的參數
-	 * @Database_Connection 不涉及?
-	 * @Problem1. 要有剩餘名額嗎？會影響到此方法要不要連DB
+	 * @Database_Connection 不涉及
 	 **/
 	private void putProductIntoCart(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// 大概要改。這邊是假設課程頁會傳該product的column值過來。
@@ -127,32 +127,24 @@ public class CartControllerServlet extends HttpServlet {
      * @Database_Connection 不涉及
      **/
 	private void removeProductFromCart(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-		// 把btn勾選與否列成ArrayList 1 // 用Vector如何？ // 用checkbox的話要怎麼做啊ˊ<_ˋ
-		// 假設cart裡面有5個產品，如此一來下述會生成btn size = 5的ArrayList
-		ArrayList btns = new ArrayList(); 
-		for(int i = 0; i < cart.size(); i++) {
-			btns.add(req.getParameter("btn" + (i + 1)));
-		}
-		// 再來，用getParameters取得所有P_ID值生成並丟進ArrayList 2：
-		// 疑問：會照順序取得嗎？
-		String P_IDArray[] = req.getParameterValues("P_ID");
-		String P_IDTest = req.getParameter("P_ID");
-		String testparam = req.getParameter("www");
-		System.out.println(P_IDArray);
-		System.out.println(P_IDTest);
-		System.out.println(testparam);
+		// 用Vector如何？ 
+		// 問題：radio input好像無法取消勾選	
+		// 用checkbox的話要怎麼做啊ˊ<_ˋ
+
+
 		
-//		System.out.println("cart = " + cart + ";\nbtns = " + btns); // debug用
-		
-		// 最後來對照這兩個ArrayList。只取出btn值 == on的 P_ID，亦即那些勾選刪除的選項：
+		// 對照button狀態ArrayList(btns)和要移除的品項ArrayList(toBeRmvd)
+		// 只取出btn值 == on的 P_ID，亦即那些勾選刪除的選項：
 		// 從購物車移除掉有打圈的課程
+		ArrayList btns = new ArrayList(); 
 		ArrayList<Integer> toBeRmvd = new ArrayList<Integer>();
 	    if(cart != null || cart.size() != 0) {
-		    for(int i = 0; i < cart.size() ; i++){
-		        if("on".equals(btns.get(i))){
-		            for(int j = 0; j < cart.size(); j++){
+		    for(int i = 0; i < cart.size() ; i++) {
+		    	btns.add(req.getParameter("btn" + (i + 1)));
+		        if("on".equals(btns.get(i))) {
+		            for(int j = 0; j < cart.size(); j++) {
 		            	String aa = (String)session.getAttribute("P_ID" + i);
-		                if(cart.get(j).getP_ID().equals(aa)){
+		                if(cart.get(j).getP_ID().equals(aa)) {
 		                    toBeRmvd.add(j);
 		                }
 		            }
@@ -165,7 +157,6 @@ public class CartControllerServlet extends HttpServlet {
 		    	cart.remove(cart.get(toBeRmvd.get(i) - i));
 		    }
 	    }
-	    // 問題：radio input好像無法取消勾選
 		
 		System.out.println(cart);
     	this.session.setAttribute("cart", this.cart); // xxxxxxxxx
@@ -196,7 +187,7 @@ public class CartControllerServlet extends HttpServlet {
      * @1. 
      * @undone 要記得把session invalidate()掉
      * @undone 尚缺O_ID，O_Amt，U_ID，U_FirstName，U_LastName，U_mail，O_Status，O_Date
-     * @Database_Connection 預計會SELECT + INSERT
+     * @Database_Connection SELECT + INSERT
      **/
 	private void pay(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
@@ -284,7 +275,7 @@ public class CartControllerServlet extends HttpServlet {
 	
     /**
      * @Method #08 updateAdmin 
-	 * @Database_Connection 涉及
+	 * @Database_Connection UPDATE
 	 **/		
 	private void updateByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Connection conn = getConnection();
@@ -323,14 +314,12 @@ public class CartControllerServlet extends HttpServlet {
 	
     /**
      * @Method #09 insertAdmin 
-	 * @Database_Connection 涉及
+	 * @Database_Connection INSERT
 	 **/
 	private void insertByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Connection conn = getConnection();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 		
-//		System.out.println("counter = " + req.getParameter("counter"));
-//		System.out.println("Class = " + req.getParameter("counter").getClass());
 		Integer up = Integer.parseInt(req.getParameter("counter"));
 		for(int i =0; i < up; i++) {
 			OrderBean adminBean = new OrderBean();
