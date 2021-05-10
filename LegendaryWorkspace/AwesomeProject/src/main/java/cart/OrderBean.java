@@ -102,6 +102,48 @@ public class OrderBean {
 		return returnedString;
 	}
 	
+	// ˊ<_ˋ
+	public void assign(int SQLindex, String value) {
+		switch (SQLindex) {
+		case 1:
+			setO_ID(value);
+			break;
+		case 2:
+			setP_ID(value);
+			break;
+		case 3:
+			setP_Name(value);
+			break;
+		case 4:
+			setP_Price(Integer.parseInt(value));;
+			break;
+		case 5:
+			setU_ID(value);
+			break;
+		case 6:
+			setU_FirstName(value);
+			break;
+		case 7:
+			setU_LastName(value);
+			break;
+		case 8:
+			setU_Email(value);
+			break;
+		case 9:
+			setO_Status(value);
+			break;
+		case 10:
+			setO_Date(value);
+			break;
+		case 11:
+			setO_Amt(Integer.parseInt(value));
+			break;
+
+		default:
+			break;
+		}
+	}
+	
 }
 /* Database table
 	訂單編號	O_ID	int
