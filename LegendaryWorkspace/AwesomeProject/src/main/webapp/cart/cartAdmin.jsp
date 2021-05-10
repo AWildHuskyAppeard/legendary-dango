@@ -104,24 +104,24 @@ response.setDateHeader("Expires",-1);
 		<script src="../assets/jquery-3.6.0.min.js"></script>
 		<script>
 			$(function(){
-				let counter = -1;
+				let counter = 0;
 				$('#newRow').on('click', function(){
 					counter++;
-					$('#counter').text(counter);
+					$('#counter').html(`<input type="text" id="counter" name="counter" value="${counter}" readonly>`);
 					$('#newRowsBelow').append(
 						`
 						<tr>
-							<td><input type="text" name="n${counter}0"></td>
-							<td><input type="text" name="n${counter}1"></td>
-							<td><input type="text" name="n${counter}2"></td>
-							<td><input type="text" name="n${counter}3"></td>
-							<td><input type="text" name="n${counter}4"></td>
-							<td><input type="text" name="n${counter}5"></td>
-							<td><input type="text" name="n${counter}6"></td>
-							<td><input type="text" name="n${counter}7"></td>
-							<td><input type="text" name="n${counter}8"></td>
-							<td><input type="text" name="n${counter}9"></td>
-							<td><input type="text" name="n${counter}10"></td>
+							<td><input type="text" name="new${counter}0"></td>
+							<td><input type="text" name="new${counter}1"></td>
+							<td><input type="text" name="new${counter}2"></td>
+							<td><input type="text" name="new${counter}3"></td>
+							<td><input type="text" name="new${counter}4"></td>
+							<td><input type="text" name="new${counter}5"></td>
+							<td><input type="text" name="new${counter}6"></td>
+							<td><input type="text" name="new${counter}7"></td>
+							<td><input type="text" name="new${counter}8"></td>
+							<td><input type="text" name="new${counter}9"></td>
+							<td><input type="text" name="new${counter}10"></td>
 							<td><input name="" type="radio"></td>
 						</tr>
 						`

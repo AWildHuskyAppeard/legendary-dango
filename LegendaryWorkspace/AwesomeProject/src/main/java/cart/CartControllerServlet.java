@@ -297,7 +297,7 @@ public class CartControllerServlet extends HttpServlet {
 			for(int j = 0; j < CartDAOImpl.columnNames.length; j++) {
 				adminBean.assign(j + 1, req.getParameter(String.valueOf(i)+String.valueOf(j)));
 			}
-			System.out.println(adminBean.take(1));
+			System.out.println(adminBean.take(1)); // debug用
 			adminBeans.add(adminBean);
 			crudor.updateOrder(adminBeans.get(i), "O_ID", adminBeans.get(i).getO_ID());
 		}
@@ -327,16 +327,14 @@ public class CartControllerServlet extends HttpServlet {
 		Connection conn = getConnection();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 		
-//		ArrayList<OrderBean> adminBeans = new ArrayList<OrderBean>();
-//		for(int i =0; i < CartDAOImpl.dataArrays.size(); i++) {
-//			OrderBean adminBean = new OrderBean();
-//			for(int j = 0; j < CartDAOImpl.columnNames.length; j++) {
-//				adminBean.assign(j + 1, req.getParameter(String.valueOf(i)+String.valueOf(j)));
-//			}
-//			System.out.println(adminBean.take(1));
-//			adminBeans.add(adminBean);
-//			crudor.updateOrder(adminBeans.get(i), "O_ID", adminBeans.get(i).getO_ID());
-//		}
+		for(int i =0; i < Integer.parseInt(req.getParameter("counter")); i++) {
+			OrderBean adminBean = new OrderBean();
+			for(int j = 0; j < CartDAOImpl.columnNames.length; j++) { // CartDAOImpl.columnNames.length = 11
+				adminBean.assign(j + 1, req.getParameter("new" + String.valueOf(i) + String.valueOf(j)));
+			}
+			System.out.println(adminBean.take(1)); // debug用
+			crudor.insertOrder(adminBean);
+		}
 		
 		try {
 			
