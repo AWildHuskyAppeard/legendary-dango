@@ -159,11 +159,11 @@ public class ChatServlet extends HttpServlet {
 	    		+ "    border-bottom: 1px solid blue;\r\n"
 	    		+ "    }");
 	    out.println("td#class{\r\n"
-	    		+ "        width: 15%;\r\n"
+	    		+ "        width: 80px;\r\n"
 	    		+ "        text-align: center;\r\n"
 	    		+ "    }");
 	    out.println("td#time{\r\n"
-	    		+ "        width: 15%;\r\n"
+	    		+ "        width: 100px;\r\n"
 	    		+ "        text-align: center;\r\n"
 	    		+ "    }");
 	    out.println("</style>");
