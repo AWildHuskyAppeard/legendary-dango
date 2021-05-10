@@ -48,10 +48,7 @@ public class UserServlet extends HttpServlet {
 		} else if (request.getParameter("signUpButton")!=null) {
 			//註冊頁面確認，去確認頁面(同時拿參數進來放入Bean)
 			gotoConfirmPage(request,response);
-		}/* else if (request.getParameter("signUpGotoIndex")!=null) {
-			//註冊頁面按:回首頁
-			//gotoIndexPage
-		}*/ else if (request.getParameter("confirmButton")!=null) {
+		} else if (request.getParameter("confirmButton")!=null) {
 			//確認註冊資料，去ThanksPage，資料匯入DB
 			gotoThankPage(request, response);
 		} else if (request.getParameter("updateButton")!=null) {
@@ -100,8 +97,8 @@ public class UserServlet extends HttpServlet {
 				
 				response.getWriter().println("<h2>Hello, <span  style=\"color: blue;\">"+ inputID +" </span>登入成功!</h2><br><br>");
 				response.getWriter().println("正在導回首頁.....<br><br>");
-				response.setHeader("refresh", "3; /AwesomeProject/userInfo/index_test.html");
-				response.getWriter().println("<a href=\"/AwesomeProject/userInfo/index_test.html\"><b>點擊返回首頁</b></a>");
+				response.setHeader("refresh", "3; /AwesomeProject/index_test.html");
+				response.getWriter().println("<a href=\"/AwesomeProject/index_test.html\"><b>點擊返回首頁</b></a>");
 			} else if ( (userLoginBean.getU_ID()).equals(inputID) && !(userLoginBean.getU_Psw()).equals(inputPsw) ) {
 				System.out.println("密碼錯誤");
 				response.getWriter().println("<h2 style=\"color: red;\">密碼輸入錯誤，請再試一次!</h2><br><br>");

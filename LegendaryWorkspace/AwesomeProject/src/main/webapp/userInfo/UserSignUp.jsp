@@ -78,8 +78,7 @@ response.setDateHeader("Expires",-1);
 				<tr>
 					<td><input type="reset"></td>
 					<td><button type="submit" name="signUpButton" value="signUpButton">確認</td>
-					<!--<td><button name="signUpGotoIndex" value="首頁">回首頁</button></td>-->
-					<td><a href="/AwesomeProject/userInfo/index_test.html" title="首頁">回首頁</a></td>
+					<td><a href="/AwesomeProject/index_test.html" title="首頁">回首頁</a></td>
 				</tr>
 			</table>
 		</form>

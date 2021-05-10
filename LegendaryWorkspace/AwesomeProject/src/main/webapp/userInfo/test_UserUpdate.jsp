@@ -65,7 +65,7 @@ response.setDateHeader("Expires",-1);
 				</tr>
 				<tr>
 					<td><button type="submit" name="updateButton" value=updateButton>確認修改</td>
-					<td><a href="/AwesomeProject/userInfo/index_test.html" title="首頁">回首頁</a></td>
+					<td><a href="/AwesomeProject/index_test.html" title="首頁">回首頁</a></td>
 				</tr>
 			</table>
 
