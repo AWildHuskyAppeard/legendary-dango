@@ -1,10 +1,7 @@
 package cart;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -71,6 +68,12 @@ public class CartControllerServlet extends HttpServlet {
     	else if( "back".equals(todo)) backToPreviousPage(request, response);
     	// 6. 確定付款 (from 結帳頁面) 
     	else if( "pay".equals(todo)) pay(request, response);
+    	// 7. [管理員] 刪除
+    	else if( "deleteAdmin".equals(todo)) deleteAdmin(request, response);
+    	// 8. [管理員] 修改
+    	else if( "updateAdmin".equals(todo)) updateAdmin(request, response);
+    	// 9. [管理員] 新增
+    	else if( "insertAdmin".equals(todo)) insertAdmin(request, response);
     	// debug用
     	else response.getWriter().print("Something went wrong! "
     			+ "todo value = " + todo);
@@ -122,13 +125,6 @@ public class CartControllerServlet extends HttpServlet {
      * @Database_Connection 不涉及
      **/
 	private void removeProductFromCart(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-		// 針對一次刪一件寫的，
-		// 萬一一次要刪多件(比方說checkbox傳來多值)要重寫。
-		String P_ID = req.getParameter("P_ID");
-		String[] pms = req.getParameterValues("checkRemove");
-		
-//		if (pms != null) {	for(String element : pms) {System.out.println(element);}	} // debug用
-		
 		// 把btn勾選與否列成ArrayList 1 // 用Vector如何？ // 用checkbox的話要怎麼做啊ˊ<_ˋ
 		// 假設cart裡面有5個產品，如此一來下述會生成btn size = 5的ArrayList
 		ArrayList btns = new ArrayList(); 
@@ -259,6 +255,99 @@ public class CartControllerServlet extends HttpServlet {
 		req.getRequestDispatcher("/cart/cartThanks.jsp").forward(req, res);	// 
 	}
 	
+    /**
+     * @Method #07 deleteAdmin 
+	 * @Database_Connection 涉及
+	 **/
+	private void deleteAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		Connection conn = getConnection();
+		CartDAOImpl crudor = new CartDAOImpl(conn);
+
+		
+		
+		try {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+//				session.removeAttribute(O_ID~~~, e);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		req.getRequestDispatcher("/cart/cartAdmin.jsp").forward(req, res);	// 
+	}
+	
+    /**
+     * @Method #08 updateAdmin 
+	 * @Database_Connection 涉及
+	 **/		
+	private void updateAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		Connection conn = getConnection();
+		CartDAOImpl crudor = new CartDAOImpl(conn);
+//		ArrayList<OrderBean> adminBeans = (ArrayList<OrderBean>)session.getAttribute("adminBeans");
+//		for(int i = 0; i < adminBeans.size(); i++) {
+//			crudor.updateOrder(adminBeans.get(i), "O_ID", adminBeans.get(i).getO_ID());
+//		}
+		ArrayList<OrderBean> adminBeans = new ArrayList<OrderBean>();
+		for(int i =0; i < CartDAOImpl.dataArrays.size(); i++) {
+			OrderBean adminBean = new OrderBean();
+			for(int j = 0; j < CartDAOImpl.columnNames.length; j++) {
+				adminBean.assign(j + 1, req.getParameter(String.valueOf(i)+String.valueOf(j)));
+			}
+			System.out.println(adminBean.take(1));
+			adminBeans.add(adminBean);
+			crudor.updateOrder(adminBeans.get(i), "O_ID", adminBeans.get(i).getO_ID());
+		}
+		
+		try {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+				this.session.removeAttribute("adminBeans");
+//				session.removeAttribute(O_ID~~~, e);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		req.getRequestDispatcher("/cart/cartAdmin.jsp").forward(req, res);	// 
+	}
+	
+    /**
+     * @Method #09 insertAdmin 
+	 * @Database_Connection 涉及
+	 **/
+	private void insertAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		Connection conn = getConnection();
+		CartDAOImpl crudor = new CartDAOImpl(conn);
+		
+		
+		
+		try {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+//				session.removeAttribute(O_ID~~~, e);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		
+		req.getRequestDispatcher("/cart/cartAdmin.jsp").forward(req, res);	// 
+	}
+	
+	/********************************************************************************************************************************************/
+	
 	/**
      * @SubMethod #01 取得連線
      * @undone 使用此方法的方法要在最後記得關閉
@@ -277,7 +366,7 @@ public class CartControllerServlet extends HttpServlet {
 		    		// 改資料庫名稱
 		    		this.ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/DBDB");
 	    		}
-	    		this.ds.getConnection();
+	    		conn = this.ds.getConnection();
 			} catch (NamingException e) 
 	    	{
 				e.printStackTrace();

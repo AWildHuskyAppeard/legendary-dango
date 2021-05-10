@@ -6,3 +6,8 @@ tr td {
     border: 1.5px dashed gray;
     border-collapse: collapse;
 }
+
+th td {
+    border: 1.5px dashed gray;
+    border-collapse: collapse;
+}

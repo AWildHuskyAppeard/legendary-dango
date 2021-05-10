@@ -120,6 +120,7 @@ private Connection conn;
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		
 		return chat;
 	}
 
