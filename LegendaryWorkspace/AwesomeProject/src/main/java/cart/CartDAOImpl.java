@@ -13,7 +13,7 @@ public class CartDAOImpl implements CartDAO {
 		this.conn = conn;
 	}
 	public static OrderBean odBean01 = new OrderBean("od001", "p001", "EngSpeaking", 300, "elf01", "fl", "b", "w@w", "cancelled", "1999-12-01 00:00:00", 1 );
-	private String columnNames[] = {"O_ID", "P_ID", "P_Name", "P_Price", "U_ID", "U_FirstName", "U_LastName",
+	public static final String columnNames[] = {"O_ID", "P_ID", "P_Name", "P_Price", "U_ID", "U_FirstName", "U_LastName",
 			"U_Email", "O_Status", "O_Date", "O_Amt"};
 	
 	/************************************************************************************

@@ -265,7 +265,6 @@ public class CartControllerServlet extends HttpServlet {
 
 		
 		
-		
 		try {
 			
 		} catch (Exception e) {
@@ -288,11 +287,20 @@ public class CartControllerServlet extends HttpServlet {
 	private void updateAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Connection conn = getConnection();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
-		ArrayList<OrderBean> adminBeans = (ArrayList<OrderBean>)session.getAttribute("adminBeans");
-		for(int i = 0; i < adminBeans.size(); i++) {
+//		ArrayList<OrderBean> adminBeans = (ArrayList<OrderBean>)session.getAttribute("adminBeans");
+//		for(int i = 0; i < adminBeans.size(); i++) {
+//			crudor.updateOrder(adminBeans.get(i), "O_ID", adminBeans.get(i).getO_ID());
+//		}
+		ArrayList<OrderBean> adminBeans = new ArrayList<OrderBean>();
+		for(int i =0; i < CartDAOImpl.dataArrays.size(); i++) {
+			OrderBean adminBean = new OrderBean();
+			for(int j = 0; j < CartDAOImpl.columnNames.length; j++) {
+				adminBean.assign(j + 1, req.getParameter(String.valueOf(i)+String.valueOf(j)));
+			}
+			System.out.println(adminBean.take(1));
+			adminBeans.add(adminBean);
 			crudor.updateOrder(adminBeans.get(i), "O_ID", adminBeans.get(i).getO_ID());
 		}
-		
 		
 		try {
 			

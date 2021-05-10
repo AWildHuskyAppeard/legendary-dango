@@ -72,17 +72,17 @@ response.setDateHeader("Expires",-1);
 
 					<tr>
 					<% // String beanName = "O_ID" + dataArrays.get(i).get(0);%>
-						<td><input name="" type="text" value="<%=dataArrays.get(i).get(0)%>"></td>
-						<td><input name="" type="text" value="<%=dataArrays.get(i).get(1)%>"></td>
-						<td><input name="" type="text" value="<%=dataArrays.get(i).get(2)%>"></td>
-						<td><input name="" type="text" value="<%=dataArrays.get(i).get(3)%>"></td>
-						<td><input name="" type="text" value="<%=dataArrays.get(i).get(4)%>"></td>
-						<td><input name="" type="text" value="<%=dataArrays.get(i).get(5)%>"></td>
-						<td><input name="" type="text" value="<%=dataArrays.get(i).get(6)%>"></td>
-						<td><input name="" type="text" value="<%=dataArrays.get(i).get(7)%>"></td>
-						<td><input name="" type="text" value="<%=dataArrays.get(i).get(8)%>"></td>
-						<td><input name="" type="text" value="<%=dataArrays.get(i).get(9)%>"></td>
-						<td><input name="" type="text" value="<%=dataArrays.get(i).get(10)%>"></td>
+						<td><input name="<%=i+"0"%>" type="text" value="<%=dataArrays.get(i).get(0)%>"></td>
+						<td><input name="<%=i+"1"%>" type="text" value="<%=dataArrays.get(i).get(1)%>"></td>
+						<td><input name="<%=i+"2"%>" type="text" value="<%=dataArrays.get(i).get(2)%>"></td>
+						<td><input name="<%=i+"3"%>" type="text" value="<%=dataArrays.get(i).get(3)%>"></td>
+						<td><input name="<%=i+"4"%>" type="text" value="<%=dataArrays.get(i).get(4)%>"></td>
+						<td><input name="<%=i+"5"%>" type="text" value="<%=dataArrays.get(i).get(5)%>"></td>
+						<td><input name="<%=i+"6"%>" type="text" value="<%=dataArrays.get(i).get(6)%>"></td>
+						<td><input name="<%=i+"7"%>" type="text" value="<%=dataArrays.get(i).get(7)%>"></td>
+						<td><input name="<%=i+"8"%>" type="text" value="<%=dataArrays.get(i).get(8)%>"></td>
+						<td><input name="<%=i+"9"%>" type="text" value="<%=dataArrays.get(i).get(9)%>"></td>
+						<td><input name="<%=i+"10"%>" type="text" value="<%=dataArrays.get(i).get(10)%>"></td>
 						<td><input name="" type="radio"></td>
 						<% 
 							OrderBean xxx =  new OrderBean(dataArrays.get(i).get(0),
