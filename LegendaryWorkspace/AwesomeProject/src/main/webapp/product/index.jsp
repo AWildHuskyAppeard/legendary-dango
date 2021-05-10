@@ -8,7 +8,8 @@
 </head>
 <body>
     <form action="/AwesomeProject/ControlServlet">
-        <input type="submit" name="findAll" value="商品列表">
+        <input type="submit" name="findAll" value="商品管理">
+        <input type="submit" name="findAllToUser"  value="商品列表">
     </form>
 </body>
 </html>
