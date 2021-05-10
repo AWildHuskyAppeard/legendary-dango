@@ -1,5 +1,6 @@
 // DAO: Database Access Object
 // 專責與Dept Table之新增,修改,刪除與查詢
+package questions;
 
 import java.sql.*;
 
