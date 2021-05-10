@@ -70,9 +70,14 @@ public class ChatServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 	    out.println("<head><title>Chat</title></head>");
+	    out.println("<style>");
+	    out.println("body{\r\n"
+	    		+ "        text-align: center;\r\n"
+	    		+ "    }");
+	    out.println("</style>");
 	    out.println("<body bgcolor=\"lightblue\">");
 	    if(chatDAOImpl.insertChat(newchatvo)==true) {
-	    	out.println("文章新增完畢");	    	
+	    	out.println("<h3>文章新增完畢</h3>");
 	    }
 		out.println("</body></html>");
 	    out.close();
