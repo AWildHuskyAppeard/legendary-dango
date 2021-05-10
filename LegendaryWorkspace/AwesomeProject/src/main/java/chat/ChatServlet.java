@@ -59,28 +59,59 @@ public class ChatServlet extends HttpServlet {
 	    }
 	}
 	private void processInsert(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException{
-		String C_ID = request.getParameter("文章編號");
-		String U_ID = request.getParameter("帳號");
-		String C_Date = request.getParameter("日期");
-		String C_Class = request.getParameter("類別");
-		String C_Title = request.getParameter("標題");
-		String C_Conts = request.getParameter("內容");
+		response.setContentType("text/html;charset=UTF-8");
+		ChatVO newchatvo = new ChatVO();
+		newchatvo.setC_ID(request.getParameter("文章編號"));
+		newchatvo.setU_ID(request.getParameter("帳號"));
+		newchatvo.setC_Date(request.getParameter("日期"));
+		newchatvo.setC_Class(request.getParameter("類別"));
+		newchatvo.setC_Title(request.getParameter("標題"));
+		newchatvo.setC_Conts(request.getParameter("內容"));
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 	    out.println("<head><title>Chat</title></head>");
 	    out.println("<body bgcolor=\"lightblue\">");
+	    if(chatDAOImpl.insertChat(newchatvo)==true) {
+	    	out.println("文章新增完畢");	    	
+	    }
 		out.println("</body></html>");
 	    out.close();
-		
 	}
 	private void processFind(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException{
 		response.setContentType("text/html;charset=UTF-8");
 		ArrayList<ChatVO> chat = chatDAOImpl.findAllChat();
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
-	    out.println("<head><title>Chat</title></head>");
+	    out.println("<head><title>Chat</title>");
+	    out.println("<style>");
+	    out.println("body{\r\n"
+	    		+ "        text-align: center;\r\n"
+	    		+ "    }");
+	    out.println("table{\r\n"
+	    		+ "        width: 60%;\r\n"
+	    		+ "        border: 2px solid black;\r\n"
+	    		+ "        margin: auto;\r\n"
+	    		+ "        background-color: white;\r\n"
+	    		+ "    }");
+	    out.println("td{\r\n"
+	    		+ "    border-bottom: 1px solid blue;\r\n"
+	    		+ "    }");
+	    out.println("td#class{\r\n"
+	    		+ "        width: 15%;\r\n"
+	    		+ "        text-align: center;\r\n"
+	    		+ "    }");
+	    out.println("td#time{\r\n"
+	    		+ "        width: 15%;\r\n"
+	    		+ "        text-align: center;\r\n"
+	    		+ "    }");
+	    out.println("</style>");
+	    out.println("</head>");
 	    out.println("<body bgcolor=\"lightblue\">");
-		out.print(chat);
+	    out.println("<header><h1>StudieHub 討論區</h1></header>");
+	    out.println("<table>");
+	    String chat1 = chat.toString();
+		out.print(chat1.replaceAll(",", "").replace("[","").replace("]", ""));
+		out.println("</table>");
 		out.println("</body></html>");
 	    out.close();
 	}
