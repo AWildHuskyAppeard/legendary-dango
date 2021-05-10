@@ -159,6 +159,11 @@ public class UserServlet extends HttpServlet {
 				request.getSession(true).invalidate();
 				//去感謝頁面
 				request.getRequestDispatcher("/userInfo/ThankPage.jsp").forward(request, response);
+			} else {
+				response.getWriter().println("<h2 style=\"color: red; font-size:150%\">此帳號已存在，請使用其他名稱</h2><br><br>");
+				response.getWriter().println("正在導回註冊頁面.....<br><br>");
+				response.setHeader("refresh", "3; /AwesomeProject/userInfo/UserSignUp.jsp");
+				response.getWriter().println("<a href=\"/AwesomeProject/userInfo/UserSignUp.jsp\"><b>點此返回註冊頁面</b></a>");
 			}
 			
 		} catch (NamingException ne) {
@@ -224,7 +229,10 @@ public class UserServlet extends HttpServlet {
 				// 看dao裡的updateUser回傳什麼
 				System.out.println("資料修改成功!");
 				request.getSession().invalidate();
-				request.getRequestDispatcher("/userInfo/test_UpdateWaitPage.jsp").forward(request, response);
+				response.getWriter().println("<h2 style=\"color: blue; font-size:150%\">資料修改成功</h2><br><br>");
+				response.getWriter().println("正在導回首頁.....<br><br>");
+				response.setHeader("refresh", "3; /AwesomeProject/index_test.html");
+				response.getWriter().println("<a href=\"/AwesomeProject/index_test.html\"><b>點此返回首頁</b></a>");
 			}
 		} catch (Exception e) {
 			new ServletException(e);
