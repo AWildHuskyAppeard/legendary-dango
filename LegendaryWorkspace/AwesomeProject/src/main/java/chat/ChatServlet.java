@@ -78,9 +78,31 @@ public class ChatServlet extends HttpServlet {
 		ArrayList<ChatVO> chat = chatDAOImpl.findAllChat();
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
-	    out.println("<head><title>Chat</title></head>");
+	    out.println("<head><title>Chat</title>");
+	    out.println("<style>");
+	    out.println("body{\r\n"
+	    		+ "        text-align: center;\r\n"
+	    		+ "    }");
+	    out.println("table{\r\n"
+	    		+ "        width: 60%;\r\n"
+	    		+ "        border: 2px solid black;\r\n"
+	    		+ "        margin: auto;\r\n"
+	    		+ "        background-color: white;\r\n"
+	    		+ "    }");
+	    out.println("td{\r\n"
+	    		+ "    border-bottom: 1px solid blue;\r\n"
+	    		+ "    }");
+	    out.println("td#time{\r\n"
+	    		+ "        width: 20%;\r\n"
+	    		+ "    }");
+	    out.println("</style>");
+	    out.println("</head>");
 	    out.println("<body bgcolor=\"lightblue\">");
-		out.print(chat);
+	    out.println("<header><h1>StudieHub 討論區</h1></header>");
+	    out.println("<table>");
+	    String chat1 = chat.toString();
+		out.print(chat1.replaceAll(",", "").replace("[","").replace("]", ""));
+		out.println("</table>");
 		out.println("</body></html>");
 	    out.close();
 	}
