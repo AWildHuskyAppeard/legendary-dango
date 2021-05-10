@@ -81,6 +81,12 @@ public class ChatServlet extends HttpServlet {
 	    }
 		out.println("</body></html>");
 	    out.close();
+	    try {
+	    	Thread.sleep(1000);
+	    }catch(InterruptedException e){
+	    	e.printStackTrace();
+	    }
+	    
 	}
 	private void processFind(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException{
 		response.setContentType("text/html;charset=UTF-8");
