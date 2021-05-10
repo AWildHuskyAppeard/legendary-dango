@@ -69,11 +69,11 @@ public class CartControllerServlet extends HttpServlet {
     	// 6. 確定付款 (from 結帳頁面) 
     	else if( "pay".equals(todo)) pay(request, response);
     	// 7. [管理員] 刪除
-    	else if( "deleteAdmin".equals(todo)) deleteAdmin(request, response);
+    	else if( "deleteAdmin".equals(todo)) deleteByAdmin(request, response);
     	// 8. [管理員] 修改
-    	else if( "updateAdmin".equals(todo)) updateAdmin(request, response);
+    	else if( "updateAdmin".equals(todo)) updateByAdmin(request, response);
     	// 9. [管理員] 新增
-    	else if( "insertAdmin".equals(todo)) insertAdmin(request, response);
+    	else if( "insertAdmin".equals(todo)) insertByAdmin(request, response);
     	// debug用
     	else response.getWriter().print("Something went wrong! "
     			+ "todo value = " + todo);
@@ -259,7 +259,7 @@ public class CartControllerServlet extends HttpServlet {
      * @Method #07 deleteAdmin 
 	 * @Database_Connection 涉及
 	 **/
-	private void deleteAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	private void deleteByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Connection conn = getConnection();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 
@@ -284,7 +284,7 @@ public class CartControllerServlet extends HttpServlet {
      * @Method #08 updateAdmin 
 	 * @Database_Connection 涉及
 	 **/		
-	private void updateAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	private void updateByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Connection conn = getConnection();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 //		ArrayList<OrderBean> adminBeans = (ArrayList<OrderBean>)session.getAttribute("adminBeans");
@@ -323,11 +323,20 @@ public class CartControllerServlet extends HttpServlet {
      * @Method #09 insertAdmin 
 	 * @Database_Connection 涉及
 	 **/
-	private void insertAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	private void insertByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Connection conn = getConnection();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 		
-		
+//		ArrayList<OrderBean> adminBeans = new ArrayList<OrderBean>();
+//		for(int i =0; i < CartDAOImpl.dataArrays.size(); i++) {
+//			OrderBean adminBean = new OrderBean();
+//			for(int j = 0; j < CartDAOImpl.columnNames.length; j++) {
+//				adminBean.assign(j + 1, req.getParameter(String.valueOf(i)+String.valueOf(j)));
+//			}
+//			System.out.println(adminBean.take(1));
+//			adminBeans.add(adminBean);
+//			crudor.updateOrder(adminBeans.get(i), "O_ID", adminBeans.get(i).getO_ID());
+//		}
 		
 		try {
 			
