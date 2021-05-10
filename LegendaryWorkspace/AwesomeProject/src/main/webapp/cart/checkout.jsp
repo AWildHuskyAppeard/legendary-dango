@@ -79,6 +79,9 @@ response.setDateHeader("Expires",-1);
 		<button name="todo" value="pay">確定結帳</button>
 		<hr>
 	</form>
+	<form method="POST" action="/AwesomeProject/index_test.html">
+		<button name="" value="">回首頁</button>
+	</form>
 	<script src="../assets/jquery-3.6.0.min.js"></script>
 	<script>
 		$(function(){

@@ -31,7 +31,7 @@
 	if(cart == null) cart = new ArrayList<ProductBean>();
 %>
 
-
+<h1>您的購物車內有：</h1>
 <!-- 1. 顯示當前購物車內容表格 -->
 	<form method="POST" action="/AwesomeProject/CartControllerServlet"> 
 		<table>
@@ -71,7 +71,6 @@
 <!-- 2. 按鈕導向各頁 -->
 		<button name="todo" value="remove">移除</button>
 		<button name="todo" value="checkout">去結帳</button>
-		<button name="" value="">回首頁</button>
 		<hr>
 		<!-- 
 		<input type="radio" name="ttt">測試用radio<br>
@@ -79,6 +78,9 @@
 		<input type="checkbox" name="checkRemove">測試用<br>
 		<input type="checkbox" name="checkRemove">測試用<br>
 		 -->
+	</form>
+	<form method="POST" action="/AwesomeProject/index_test.html">
+		<button name="" value="">回首頁</button>
 	</form>
 </body>
 </html>
