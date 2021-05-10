@@ -42,6 +42,12 @@ public class ChatServlet extends HttpServlet {
 	    	if (request.getParameter("insert") != null) {
 	            processInsert(request,response,chatDAOImpl);
 	    	}
+	    	if (request.getParameter("delete") != null) {
+	    		processDelete(request,response,chatDAOImpl);
+	    	}
+	    	if (request.getParameter("update") != null) {
+	    		processUpdate(request,response,chatDAOImpl);
+	    	}
 	    	if (request.getParameter("find") != null) {
 	    		processFind(request,response,chatDAOImpl);
 	    	}
@@ -58,7 +64,7 @@ public class ChatServlet extends HttpServlet {
 	            }
 	    }
 	}
-	private void processInsert(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException{
+	private void processInsert(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException, ServletException{
 		response.setContentType("text/html;charset=UTF-8");
 		ChatVO newchatvo = new ChatVO();
 		newchatvo.setC_ID(request.getParameter("文章編號"));
@@ -80,13 +86,49 @@ public class ChatServlet extends HttpServlet {
 	    	out.println("<h3>文章新增完畢</h3>");
 	    }
 		out.println("</body></html>");
-	    out.close();
-	    try {
-	    	Thread.sleep(1000);
-	    }catch(InterruptedException e){
-	    	e.printStackTrace();
+		out.close();
+	}
+	private void processDelete(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException, ServletException{
+		response.setContentType("text/html;charset=UTF-8");
+		ChatVO delechatvo = new ChatVO();
+		delechatvo.setC_ID(request.getParameter("文章編號"));
+		PrintWriter out = response.getWriter();
+		out.println("<html>");
+	    out.println("<head><title>Chat</title></head>");
+	    out.println("<style>");
+	    out.println("body{\r\n"
+	    		+ "        text-align: center;\r\n"
+	    		+ "    }");
+	    out.println("</style>");
+	    out.println("<body bgcolor=\"lightblue\">");
+	    if(chatDAOImpl.deleteChat(delechatvo)==true) {
+	    	out.println("<h3>文章刪除完畢</h3>");
 	    }
-	    
+		out.println("</body></html>");
+		out.close();
+	}
+	private void processUpdate(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException, ServletException{
+		response.setContentType("text/html;charset=UTF-8");
+		ChatVO updatechatvo = new ChatVO();
+		updatechatvo.setC_ID(request.getParameter("文章編號"));
+		updatechatvo.setC_Date(request.getParameter("日期"));
+		updatechatvo.setC_Class(request.getParameter("類別"));
+		updatechatvo.setC_Title(request.getParameter("標題"));
+		updatechatvo.setC_Conts(request.getParameter("內容"));
+		PrintWriter out = response.getWriter();
+		out.println("<html>");
+	    out.println("<head><title>Chat</title></head>");
+	    out.println("<style>");
+	    out.println("body{\r\n"
+	    		+ "        text-align: center;\r\n"
+	    		+ "    }");
+	    out.println("</style>");
+	    out.println("<body bgcolor=\"lightblue\">");
+	    if(chatDAOImpl.updateChat(updatechatvo)==true) {
+	    	out.println("<h3>文章更新完畢</h3>");
+	    }
+		out.println("</body></html>");
+		out.close();
 	}
 	private void processFind(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException{
 		response.setContentType("text/html;charset=UTF-8");

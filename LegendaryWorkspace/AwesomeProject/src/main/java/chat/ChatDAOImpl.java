@@ -50,14 +50,14 @@ private Connection conn;
 	}
 
 	@Override
-	public boolean deleteChat(Integer C_ID) {
+	public boolean deleteChat(String C_ID) {
 		String sql="DELETE FROM [dbo].[Chat]\r\n"
 				+ "      WHERE [C_ID] = ?";
 		boolean isDelete=false;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
-			stmt.setInt(1, C_ID);
+			stmt.setString(1, C_ID);
 			int i=stmt.executeUpdate();
 			if(i>0) {
 				isDelete=true;
@@ -89,7 +89,9 @@ private Connection conn;
 			if(i>0) {
 				isUpdate=true;
 			}
-			
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
