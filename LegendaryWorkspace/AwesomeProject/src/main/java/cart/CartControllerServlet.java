@@ -122,13 +122,6 @@ public class CartControllerServlet extends HttpServlet {
      * @Database_Connection 不涉及
      **/
 	private void removeProductFromCart(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-		// 針對一次刪一件寫的，
-		// 萬一一次要刪多件(比方說checkbox傳來多值)要重寫。
-		String P_ID = req.getParameter("P_ID");
-		String[] pms = req.getParameterValues("checkRemove");
-		
-//		if (pms != null) {	for(String element : pms) {System.out.println(element);}	} // debug用
-		
 		// 把btn勾選與否列成ArrayList 1 // 用Vector如何？ // 用checkbox的話要怎麼做啊ˊ<_ˋ
 		// 假設cart裡面有5個產品，如此一來下述會生成btn size = 5的ArrayList
 		ArrayList btns = new ArrayList(); 
