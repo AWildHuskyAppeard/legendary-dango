@@ -3,6 +3,7 @@ package chat;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -39,7 +40,9 @@ private Connection conn;
 			if(i>0) {
 				isInsert=true;
 			}
-			
+			conn.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
 		}catch(Exception e){
 			e.printStackTrace();
 		}

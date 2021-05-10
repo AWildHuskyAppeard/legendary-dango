@@ -50,7 +50,7 @@ public class ChatVO implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "<tr><td>"+C_Class + "</td><td><b>" + C_Title + "</td><td id=\"time\">" + C_Date + "</td></tr>";
+		return "<tr><td id=\"class\">"+C_Class + "</td><td><b>" + C_Title + "</td><td id=\"time\">" + C_Date + "</td></tr>";
 	}
 
 }
