@@ -84,6 +84,8 @@ public class ChatServlet extends HttpServlet {
 	    out.println("<body bgcolor=\"lightblue\">");
 	    if(chatDAOImpl.insertChat(newchatvo)==true) {
 	    	out.println("<h3>文章新增完畢</h3>");
+	    }else {
+	    	out.println("<h3>發生錯誤</h3>");	    	
 	    }
 		out.println("</body></html>");
 		out.close();
@@ -103,6 +105,8 @@ public class ChatServlet extends HttpServlet {
 	    out.println("<body bgcolor=\"lightblue\">");
 	    if(chatDAOImpl.deleteChat(delechatvo)==true) {
 	    	out.println("<h3>文章刪除完畢</h3>");
+	    }else {
+	    	out.println("<h3>發生錯誤</h3>");	    	
 	    }
 		out.println("</body></html>");
 		out.close();
@@ -126,6 +130,8 @@ public class ChatServlet extends HttpServlet {
 	    out.println("<body bgcolor=\"lightblue\">");
 	    if(chatDAOImpl.updateChat(updatechatvo)==true) {
 	    	out.println("<h3>文章更新完畢</h3>");
+	    }else {
+	    	out.println("<h3>發生錯誤</h3>");	    	
 	    }
 		out.println("</body></html>");
 		out.close();
