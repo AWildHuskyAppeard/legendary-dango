@@ -88,6 +88,7 @@ public class ChatServlet extends HttpServlet {
 	    	out.println("<h3>發生錯誤</h3>");	    	
 	    }
 		out.println("</body></html>");
+		response.setHeader("refresh", "2;/AwesomeProject/chat/Chat.html");
 		out.close();
 	}
 	private void processDelete(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException, ServletException{
@@ -109,6 +110,7 @@ public class ChatServlet extends HttpServlet {
 	    	out.println("<h3>發生錯誤</h3>");	    	
 	    }
 		out.println("</body></html>");
+		response.setHeader("refresh", "2;/AwesomeProject/chat/Chat.html");
 		out.close();
 	}
 	private void processUpdate(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException, ServletException{
@@ -134,6 +136,7 @@ public class ChatServlet extends HttpServlet {
 	    	out.println("<h3>發生錯誤</h3>");	    	
 	    }
 		out.println("</body></html>");
+		response.setHeader("refresh", "2;/AwesomeProject/chat/Chat.html");
 		out.close();
 	}
 	private void processFind(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException{
