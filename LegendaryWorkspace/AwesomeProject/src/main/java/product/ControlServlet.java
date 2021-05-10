@@ -1,8 +1,15 @@
 package product;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.StringBufferInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,9 +36,9 @@ import com.sun.org.apache.bcel.internal.generic.Select;
  * Servlet implementation class ControlServlet
  */
 @WebServlet("/ControlServlet")
-@MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
-maxFileSize=1024*1024*10,      // 10MB
-maxRequestSize=1024*1024*50) 
+@MultipartConfig(fileSizeThreshold=1024*1024*200, // 2MB
+maxFileSize=1024*1024*1000,      
+maxRequestSize=1024*1024*500) 
 
 public class ControlServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -74,6 +81,7 @@ public class ControlServlet extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		try {
 			ProductDAOImpl pDao = new ProductDAOImpl(conn);
@@ -134,12 +142,36 @@ public class ControlServlet extends HttpServlet {
 	}
 
 	protected void insert(HttpServletRequest request, HttpServletResponse response, ProductDAOImpl pDao)	throws ServletException, IOException {
+		Part partFile = request.getPart("P_Video");
+		String imgName = request.getParameter("P_ID");
+		String fileName = partFile.getSubmittedFileName();
+		String fileType = partFile.getContentType();
+		String type = "." + fileType.split("/")[1];
+		String savePath = "D:\\Program\\legendary-repository\\LegendaryWorkspace\\AwesomeProject\\src\\main\\java\\product\\File"+ File.separator + imgName+ type;
+		File fileSaveDir = new File(savePath);
+		
+		
+		InputStream in = partFile.getInputStream();
+		OutputStream out = new FileOutputStream(savePath);
+	
+		byte[] buffer = new byte[1024];
+		int length = -1;
+		while ((length = in.read(buffer))!=-1) {
+			out.write(buffer,0,length);
+		}
+		
+		
+		
+		
+		
 //		Part partFile = request.getPart("P_Img");
 //		String a = partFile.getSubmittedFileName();
+//		System.out.println(a);
 //		String imgName = request.getParameter("P_ID");
-////		String[] b = a.split(".");
-////		String imgtaype = b[1];
-//		String savePath = "D:\\Program\\legendary-repository\\LegendaryWorkspace\\AwesomeProject\\src\\main\\java\\product\\File"+ File.separator + imgName+ ".jpg";
+//		String[] b = a.split(".");
+//		String imgtype = b[1];
+//		System.out.println(imgtype);
+//		String savePath = "D:\\Program\\legendary-repository\\LegendaryWorkspace\\AwesomeProject\\src\\main\\java\\product\\File"+ File.separator + imgName+ imgtype;
 //		File fileSaveDir = new File(savePath);
 //		for (Part part : request.getParts()) {
 //			part.write(savePath);
