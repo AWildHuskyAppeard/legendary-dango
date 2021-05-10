@@ -36,7 +36,9 @@ public class CartControllerServlet extends HttpServlet {
     
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	doPost(request, response);
+    	request.setCharacterEncoding("UTF-8");
+    	response.setContentType("text/html;charset=UTF-8");
+    	response.getWriter().print("LUL");
 	}
 
     @Override
@@ -326,6 +328,9 @@ public class CartControllerServlet extends HttpServlet {
 	private void insertByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Connection conn = getConnection();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
+		
+//		System.out.println("counter = " + req.getParameter("counter"));
+//		System.out.println("Class = " + req.getParameter("counter").getClass());
 		
 		for(int i =0; i < Integer.parseInt(req.getParameter("counter")); i++) {
 			OrderBean adminBean = new OrderBean();

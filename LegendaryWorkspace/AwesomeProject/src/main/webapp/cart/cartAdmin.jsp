@@ -107,7 +107,8 @@ response.setDateHeader("Expires",-1);
 				let counter = 0;
 				$('#newRow').on('click', function(){
 					counter++;
-					$('#counter').html(`<input type="text" id="counter" name="counter" value="${counter}" readonly>`);
+					console.log(counter);
+					$('#counter').attr('value', counter);
 					$('#newRowsBelow').append(
 						`
 						<tr>
