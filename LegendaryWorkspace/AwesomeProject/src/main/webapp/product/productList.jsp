@@ -14,7 +14,6 @@
         <%
         ArrayList<ProductBean> list = (ArrayList<ProductBean>)session.getAttribute("list");
         ProductBean findByID = (ProductBean)session.getAttribute("find");
-        //System.out.println(list);
         %>
     </head>
     <style>
