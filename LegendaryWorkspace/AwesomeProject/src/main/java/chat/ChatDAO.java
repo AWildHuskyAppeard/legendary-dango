@@ -6,7 +6,7 @@ public interface ChatDAO {
 	
 	boolean insertChat(ChatVO chat);
 	
-    boolean deleteChat(String C_ID);
+    boolean deleteChat(ChatVO chat);
 	
 	boolean updateChat(ChatVO chat);
 	
