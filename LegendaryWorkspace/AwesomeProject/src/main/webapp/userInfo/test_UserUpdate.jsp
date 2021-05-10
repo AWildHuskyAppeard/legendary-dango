@@ -28,7 +28,7 @@ response.setDateHeader("Expires",-1);
 <body>
 	<div class="UserSignUp_div_1">
 		<h2>修改會員資料</h2>
-		<form action="/AwesomeProject/UserServlet" method="Get">
+		<form action="/AwesomeProject/UserServlet" method="POST">
 			<table>
 				<tr>
 					<td>Birthday:</td>
@@ -65,7 +65,7 @@ response.setDateHeader("Expires",-1);
 				</tr>
 				<tr>
 					<td><button type="submit" name="updateButton" value=updateButton>確認修改</td>
-					<td><a href="/AwesomeProject/userInfo/index_test.html" title="首頁">回首頁</a></td>
+					<td><a href="/AwesomeProject/index_test.html" title="首頁">回首頁</a></td>
 				</tr>
 			</table>
 

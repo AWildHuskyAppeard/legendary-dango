@@ -31,7 +31,7 @@ response.setDateHeader("Expires",-1);
 </head>
 <body>
 	<div id="UserLogin_div_1">
-		<form action="/AwesomeProject/UserServlet" method="Get">
+		<form action="/AwesomeProject/UserServlet" method="POST">
 			
 			
 					User ID:<br>
@@ -46,7 +46,7 @@ response.setDateHeader("Expires",-1);
                 <input id="Login_div_3" type="submit" value="Login" name="userLogin"><br>
                 <!--<button id="Login_div_3" type="submit" value="signUp" name="signUp">Sign Up</button>-->
                 <a id="Login_div_3" href="/AwesomeProject/userInfo/UserSignUp.jsp" title="註冊">註冊</a>
-                <a href="/AwesomeProject/userInfo/index_test.html" title="首頁">首頁</a>
+                <a href="/AwesomeProject/index_test.html" title="首頁">首頁</a>
             </div>
 		</form>
 	</div>

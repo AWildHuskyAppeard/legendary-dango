@@ -8,9 +8,9 @@
 </head>
 	<body>
 		<h1 style="font-size:200%; color: red;">資料修改成功!</h1>
-		<form action="/AwesomeProject/UserServlet" method="Get">
+		<form action="/AwesomeProject/UserServlet" method="POST">
 
-			<a href="/AwesomeProject/userInfo/index_test.html" title="首頁">點擊此返回首頁</a>
+			<a href="/AwesomeProject/index_test.html" title="首頁">點擊此返回首頁</a>
 		</form>
 	</body>
 </html>

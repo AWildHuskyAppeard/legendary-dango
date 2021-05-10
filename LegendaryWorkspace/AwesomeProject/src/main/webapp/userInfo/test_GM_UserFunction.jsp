@@ -18,7 +18,7 @@ response.setDateHeader("Expires",-1);
     <center>
         <div style="width: 500px;  margin-top: 30px; box-shadow:3px 3px 12px whitesmoke ;">
         <h1>查詢會員資料</h1>
-        <form action="/AwesomeProject/UserServlet" method="Get">
+        <form action="/AwesomeProject/UserServlet" method="POST">
             <span>請輸入User ID:</span>
             <input type="text" name="u_ID">
             <button type="submit" name="findByU_ID" style="margin: 0 10px;">查詢單筆</button>

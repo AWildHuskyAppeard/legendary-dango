@@ -16,7 +16,7 @@ response.setDateHeader("Expires",-1);
 </head>
 <body>
 	<center>
-		<form action="/AwesomeProject/UserServlet" method="Get">
+		<form action="/AwesomeProject/UserServlet" method="POST">
 			<a href="/AwesomeProject/userInfo/test_GM_UserFunction.jsp">回到單筆查詢</a>
 			<a href="/AwesomeProject/userInfo/test_GM_index.html">管理員首頁</a> <br>
 			<br>

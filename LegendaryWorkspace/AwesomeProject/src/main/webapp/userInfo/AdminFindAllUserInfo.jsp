@@ -25,7 +25,6 @@ response.setDateHeader("Expires",-1);
             <a href="/AwesomeProject/userInfo/test_GM_index.html">管理員首頁</a>
             <br>
             <br>
-        </form>
 
 
 		<h2>查詢結果</h2>
