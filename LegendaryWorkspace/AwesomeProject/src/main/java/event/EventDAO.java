@@ -1,7 +1,12 @@
+package event;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import event.EventBeanpag.EventBean;
 
 public class EventDAO {
 	private Connection conn;
@@ -28,7 +33,7 @@ public class EventDAO {
 //			rs.close();
 
 			// 新增部門到Dept Table
-			String sqlString = "INSERT INTO Event_1(UID,AID,ANAME,ADATE,ACOIN) " + "VALUES(" + EventBean.getUid() + ",'" + EventBean.getAid()+ "','" + EventBean.getAname()+ "','" + EventBean.getAdate()+ "','" + EventBean.getAcoin() + "')";
+			String sqlString = "INSERT INTO Event(UID,AID,ANAME,ADATE,ACOIN) " + "VALUES(" + EventBean.getUid() + ",'" + EventBean.getAid()+ "','" + EventBean.getAname()+ "','" + EventBean.getAdate()+ "','" + EventBean.getAcoin() + "')";
 			Statement stmt = conn.createStatement();
 			System.out.println(sqlString);
 //			stmt.executeUpdate(sqlString);
@@ -48,7 +53,7 @@ public class EventDAO {
 	// 刪除部門
 	public boolean deleteDept(int Uid) {
 		try {
-			String sqlString = "DELETE FROM Event_1 " + "WHERE UID = " + Uid;
+			String sqlString = "DELETE FROM Event " + "WHERE UID = " + Uid;
 			Statement stmt = conn.createStatement();
 			int deletecount = stmt.executeUpdate(sqlString);
 			stmt.close();
@@ -65,8 +70,14 @@ public class EventDAO {
 	// 更新部門資料
 	public boolean updateDept(EventBean EventBean) {
 		try {
-			String sqlString = "UPDATE Event_1 " + "SET ANAME = '" + EventBean.getAname() + "' " + "WHERE UID = "
-					+ EventBean.getUid();
+			String sqlString = "UPDATE Event " + 
+		"SET ANAME = '" + EventBean.getAname() + "' " 
+		  +","  + "UID = '" + EventBean.getUid() + "'"
+		  +","  + "AID = '" + EventBean.getAid() + "'"
+		  +","  + "ADATE = '" + EventBean.getAdate() + "'"
+		  +","  + "ACOIN = '" + EventBean.getAcoin() + "'"
+		+ "WHERE UID = "
+		+ EventBean.getUid();
             System.out.println(sqlString);
 			Statement stmt = conn.createStatement();
 			int updatecount = stmt.executeUpdate(sqlString);
@@ -85,24 +96,25 @@ public class EventDAO {
 	public EventBean findDept(int Uid) {
 		try {
 			EventBean dep = null;
-			 
-			String Aname;
-			String Aid;
-			String Adate ;
-			String Acoin;
+			int uid;
+			String aname;
+			String aid;
+			String adate ;
+			String acoin;
 			
 			Statement stmt = conn.createStatement();
-			String sqlString = "SELECT * " + "FROM Event_1 WHERE UID = " + Uid;
+			String sqlString = "SELECT * " + "FROM Event WHERE UID = " + Uid;
 			System.out.println(sqlString);
 			ResultSet rs = stmt.executeQuery(sqlString);
 
 			if (rs.next()) {
-				Aname = rs.getString("Aname");
-				Aid   = rs.getString("Aid");
-				Adate = rs.getString("Adate");
-				Acoin = rs.getString("Acoin");
+				uid = rs.getInt("Uid");
+				aname = rs.getString("Aname");
+				aid   = rs.getString("Aid");
+				adate = rs.getString("Adate");
+				acoin = rs.getString("Acoin");
 				
-				dep = new EventBean(Uid,Aname,Aid,Acoin,Adate);
+				dep = new EventBean(uid,aname,aid,adate,acoin);
 			}
 			rs.close();
 			stmt.close();
@@ -112,6 +124,33 @@ public class EventDAO {
 			System.err.println("尋找部門資料時發生錯誤:" + e);
 			return null;
 		}
+	}
+	public ArrayList<EventBean> findAllEventBean() {
+		// 取出結果集資料
+		ArrayList<EventBean> allEventBean = new ArrayList<>();
+		// 準備儲存輸出對象的容器
+		
+		try {
+			Statement stmt = conn.createStatement();
+			String sqlString = " select * from Event";
+			System.out.println(sqlString);
+			ResultSet rs = stmt.executeQuery(sqlString);
+			while (rs.next()) {
+				EventBean EventBean = new EventBean();
+				EventBean.setUid(rs.getInt(1));
+				EventBean.setAid(rs.getString(2));
+				EventBean.setAname(rs.getString(3));
+				EventBean.setAdate(rs.getString(4));
+				EventBean.setAcoin(rs.getString(5));
+				allEventBean.add(EventBean);
+
+			}
+			conn.close();// 歸還資源//非釋放
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return allEventBean;
 	}
 
 }
