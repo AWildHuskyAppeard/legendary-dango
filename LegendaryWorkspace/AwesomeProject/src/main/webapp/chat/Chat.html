@@ -16,16 +16,28 @@ text-align: center;
 </header>
 </center>
 <form action="../ChatServlet">
-<label>C_ID:</label>
-<input type="text" name="文章編號"><br><br>
-<label>U_ID:</label>
-<input type="text" name="帳號"><br><br>
-<label>C_Class:</label>
-<input type="text" name="類別"><br><br>
-<label>C_Title:</label>
-<input type="text" name="標題"><br><br>
-<label>C_Conts:</label>
-<input type="text" name="內容"><br><br>
+<table>
+<tr>
+<td><label>C_ID:</label></td>
+<td><input type="text" name="文章編號"></td>
+</tr>
+<tr>
+<td><label>U_ID:</label></td>
+<td><input type="text" name="帳號"></td>
+</tr>
+<tr>
+<td><label>C_Class:</label></td>
+<td><input type="text" name="類別"></td>
+</tr>
+<tr>
+<td><label>C_Title:</label></td>
+<td><input type="text" name="標題"></td>
+</tr>
+<tr>
+<td><label>C_Conts:</label></td>
+<td><input type="text" name="內容"></td>
+</tr>
+</table><br>
 <input type="submit" value="新增文章" name="insert">
 <input type="submit" value="刪除文章" name="delete">
 <input type="submit" value="更新文章" name="update">
