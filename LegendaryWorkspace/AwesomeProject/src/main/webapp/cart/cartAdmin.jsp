@@ -30,6 +30,7 @@
 	CartDAOImpl dao = new CartDAOImpl(conn);
 	dao.selectAllOrder();
 	dataArrays = CartDAOImpl.dataArrays;
+	session.setAttribute("OrderRows", dataArrays.size());
 %>
 <!DOCTYPE html>
 <%
@@ -81,7 +82,7 @@
 							<td><input name="<%=i+"8"%>"  type="text" value="<%=dataArrays.get(i).get(8)%>" ></td>
 							<td><input name="<%=i+"9"%>"  type="text" value="<%=dataArrays.get(i).get(9)%>" ></td>
 							<td><input name="<%=i+"10"%>" type="text" value="<%=dataArrays.get(i).get(10)%>"></td>
-							<td></td>
+							<td><input name="btn<%=i+1%>" type="radio"></td>
 					<%
 						}
 					%>
@@ -163,7 +164,7 @@
 							<td><input type='text' name='new` + bla + `8'></td>
 							<td><input type='text' name='new` + bla + `9' value=` /* + fs (有bug，無法正確新增)*/ + `></td>
 							<td><input type='text' name='new` + bla + `10' value='1' readonly></td>
-							<td><input name='' type="radio"></td>
+							<td></td>
 						</tr>
 						`;
 					$('#newRowsBelow').append(content)

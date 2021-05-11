@@ -136,7 +136,7 @@ public class CartControllerServlet extends HttpServlet {
 		// 對照button狀態ArrayList(btns)和要移除的品項ArrayList(toBeRmvd)
 		// 只取出btn值 == on的 P_ID，亦即那些勾選刪除的選項：
 		// 從購物車移除掉有打圈的課程
-		ArrayList btns = new ArrayList(); 
+		ArrayList<String> btns = new ArrayList<String>(); 
 		ArrayList<Integer> toBeRmvd = new ArrayList<Integer>();
 	    if(cart != null || cart.size() != 0) {
 		    for(int i = 0; i < cart.size() ; i++) {
@@ -191,7 +191,7 @@ public class CartControllerServlet extends HttpServlet {
      **/
 	private void pay(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-		Connection conn = getConnection();
+		Connection conn = getConn();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 		// ＊生成OrderBean
 		crudor.selectAllOrder();
@@ -253,9 +253,41 @@ public class CartControllerServlet extends HttpServlet {
 	 * @Database_Connection 涉及
 	 **/
 	private void deleteByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Connection conn = getConnection();
+		Connection conn = getConn();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 
+		//------------------------------------------------------------------------
+		
+		ArrayList<String> btns = new ArrayList<String>(); 
+		ArrayList<Integer> toBeRmvd = new ArrayList<Integer>();
+		
+		Integer OrderRows = Integer.parseInt((String)this.session.getAttribute("OrderRows")); // 來自cartAdmin.jsp的Attribute
+		
+//	    if(cart != null || cart.size() != 0) {
+//		    for(int i = 0; i < cart.size() ; i++) {
+//		    	btns.add(req.getParameter("btn" + (i + 1)));
+//		        if("on".equals(btns.get(i))) {
+//		            for(int j = 0; j < cart.size(); j++) {
+//		            	String aa = (String)session.getAttribute("P_ID" + i);
+//		                if(cart.get(j).getP_ID().equals(aa)) {
+//		                    toBeRmvd.add(j);
+//		                }
+//		            }
+//		        }
+//		        session.removeAttribute("P_ID" + i);
+//		    }
+//		}
+//	    if(cart.size() != 0) {    	
+//		    for(int i = 0; i < toBeRmvd.size(); i++) {
+//		    	cart.remove(cart.get(toBeRmvd.get(i) - i));
+//		    }
+//	    }
+//		
+//		System.out.println(cart);
+		this.session.removeAttribute("OrderRows"); // 來自cartAdmin.jsp的Attribute
+    	this.session.setAttribute("cart", this.cart); // xxxxxxxxx
+		
+    	//------------------------------------------------------------------------
 		
 		
 		try {
@@ -278,7 +310,7 @@ public class CartControllerServlet extends HttpServlet {
 	 * @Database_Connection UPDATE
 	 **/		
 	private void updateByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Connection conn = getConnection();
+		Connection conn = getConn();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 //		ArrayList<OrderBean> adminBeans = (ArrayList<OrderBean>)session.getAttribute("adminBeans");
 //		for(int i = 0; i < adminBeans.size(); i++) {
@@ -317,7 +349,7 @@ public class CartControllerServlet extends HttpServlet {
 	 * @Database_Connection INSERT
 	 **/
 	private void insertByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Connection conn = getConnection();
+		Connection conn = getConn();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 		
 		Integer up = Integer.parseInt(req.getParameter("counter"));
@@ -356,7 +388,7 @@ public class CartControllerServlet extends HttpServlet {
      * @Database_Connection 不涉及
      * @Problem1. InitialContext要關嗎？
      **/
-    private Connection getConnection() {
+    private Connection getConn() {
     	InitialContext ctx;
     	Connection conn = null;
     	
