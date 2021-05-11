@@ -244,7 +244,7 @@ public class CartControllerServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
+		 
 		this.cart = new ArrayList<ProductBean>();
 		session.setAttribute("cart", this.cart);
 //		session.invalidate();
