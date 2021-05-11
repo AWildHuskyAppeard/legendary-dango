@@ -30,7 +30,7 @@ private Connection conn;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
-			stmt.setInt(1, chat.getC_ID());
+			stmt.setString(1, "(SELECT MAX([C_ID])+1 FROM [dbo].[Chat])");				
 			stmt.setString(2, chat.getC_Date());
 			stmt.setString(3, chat.getC_Class());
 			stmt.setString(4, chat.getC_Title());
@@ -109,6 +109,7 @@ private Connection conn;
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
+			
 			while (rs.next()) {
 				ChatVO chatvo = new ChatVO();
 				chatvo.setC_Class(rs.getString("C_Class"));
