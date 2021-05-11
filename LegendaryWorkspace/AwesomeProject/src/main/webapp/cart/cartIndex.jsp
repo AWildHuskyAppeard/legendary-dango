@@ -54,8 +54,7 @@
 				<td> <%= cart.get(i).getP_DESC () %>   </td>
 				<td> <%= cart.get(i).getU_ID   () %>   </td>
 				<!--  <td><input type="checkbox" name="checkRemove"></td>-->
-				<td><input type="radio" name="btn<%= i + 1%>">取消</td>
-				<% session.setAttribute("P_ID" + i, cart.get(i).getP_ID()); %>
+				<td><input type="checkbox" name="ckbox" value="<%=i%>">取消</td>
 			</tr>
 			<% } %>
 			<%} 

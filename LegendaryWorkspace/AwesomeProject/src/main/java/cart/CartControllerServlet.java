@@ -88,8 +88,8 @@ public class CartControllerServlet extends HttpServlet {
      * @Database_Connection 不涉及
      **/
     private void gotoCartIndexPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-    	req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);;
-    	
+//    	req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);
+    	res.sendRedirect("/AwesomeProject/cart/cartIndex.jsp");
     }
     
     /**
@@ -117,16 +117,35 @@ public class CartControllerServlet extends HttpServlet {
 		// 因為單項課程沒有超過一件的概念...吧？
 		this.cart.add(addedProduct);
 		
-		req.getRequestDispatcher("/product/xxxxxxxx.jsp").forward(req, res);	// 返回原頁
+//		req.getRequestDispatcher("/product/xxxxxxxx.jsp").forward(req, res);	// 返回原頁
+		res.sendRedirect("/product/xxxxxxxx.jsp");
 	}
-
     /**
-     * @Method #03 remove > 移除商品
-     * @1. 將指定商品自購物車移除
+     * @Method #03 remove > 移除商品 ver2
+     * @1. 將checkbox所勾選的商品自購物車移除
      * @2. 導回購物車頁(CartIndex.jsp)
      * @Database_Connection 不涉及
      **/
 	private void removeProductFromCart(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		String[] indexesToBeRmvd = req.getParameterValues("ckbox");
+		
+		for(int i = 0; i < indexesToBeRmvd.length; i++) {
+			// 每當從ArrayList移除一件內容時後面的內容index都會往前退一格，故減 i
+			this.cart.remove(Integer.parseInt(indexesToBeRmvd[i]) - i);
+		}
+		session.setAttribute("cart", this.cart);
+//		req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);
+		res.sendRedirect("/AwesomeProject/cart/cartIndex.jsp");
+	}
+	
+	@Deprecated
+    /**
+     * @Method [淘汰]#03 remove > 移除商品 ver1
+     * @1. 將指定商品自購物車移除
+     * @2. 導回購物車頁(CartIndex.jsp)
+     * @Database_Connection 不涉及
+     **/
+	private void removeProductFromCartV1(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		// 用Vector如何？ 
 		// 問題：radio input好像無法取消勾選	
 		// 用checkbox的話要怎麼做啊ˊ<_ˋ
@@ -172,7 +191,8 @@ public class CartControllerServlet extends HttpServlet {
      **/
 	private void checkout(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-		req.getRequestDispatcher("/cart/checkout.jsp").forward(req, res);	// 去結帳
+//		req.getRequestDispatcher("/cart/cartCheckout.jsp").forward(req, res);	// 去結帳
+		res.sendRedirect("/AwesomeProject/cart/cartCheckout.jsp"); // 去結帳
 	}
     /**
      * @Method #05 back > 回購物車頁面
@@ -180,7 +200,8 @@ public class CartControllerServlet extends HttpServlet {
      **/
 	private void backToPreviousPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-		req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);	// 回上一頁
+//		req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);	// 回上一頁(購物車首頁)
+		res.sendRedirect("/AwesomeProject/cart/cartIndex.jsp"); // 回上一頁(購物車首頁)
 	}
     /**
      * @Method #06 pay > 確定付款
@@ -247,9 +268,9 @@ public class CartControllerServlet extends HttpServlet {
 		
 		this.cart = new ArrayList<ProductBean>();
 		session.setAttribute("cart", this.cart);
-//		session.invalidate();
 		
-		req.getRequestDispatcher("/cart/cartThanks.jsp").forward(req, res);	// 
+//		req.getRequestDispatcher("/cart/cartThanks.jsp").forward(req, res);	 
+		res.sendRedirect("/AwesomeProject/cart/cartThanks.jsp");
 	}
 	
     /**
@@ -314,7 +335,8 @@ public class CartControllerServlet extends HttpServlet {
 				e2.printStackTrace();
 			}
 		}
-		req.getRequestDispatcher("/cart/cartAdmin.jsp").forward(req, res);	// 
+//		req.getRequestDispatcher("/cart/cartAdmin.jsp").forward(req, res);	
+		res.sendRedirect("/AwesomeProject/cart/cartAdmin.jsp");
 	}
 	
     /**
@@ -353,7 +375,8 @@ public class CartControllerServlet extends HttpServlet {
 			}
 		}
 		
-		req.getRequestDispatcher("/cart/cartAdmin.jsp").forward(req, res);	// 
+//		req.getRequestDispatcher("/cart/cartAdmin.jsp").forward(req, res);	
+		res.sendRedirect("/AwesomeProject/cart/cartAdmin.jsp");
 	}
 	
     /**
@@ -389,7 +412,8 @@ public class CartControllerServlet extends HttpServlet {
 		}
 		
 		
-		req.getRequestDispatcher("/cart/cartAdmin.jsp").forward(req, res);	// 
+//		req.getRequestDispatcher("/cart/cartAdmin.jsp").forward(req, res);	
+		res.sendRedirect("/AwesomeProject/cart/cartAdmin.jsp");
 	}
 	
 	/********************************************************************************************************************************************/
