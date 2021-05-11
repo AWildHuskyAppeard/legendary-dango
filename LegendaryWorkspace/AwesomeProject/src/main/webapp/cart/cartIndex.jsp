@@ -54,7 +54,7 @@
 				<td> <%= cart.get(i).getP_DESC () %>   </td>
 				<td> <%= cart.get(i).getU_ID   () %>   </td>
 				<!--  <td><input type="checkbox" name="checkRemove"></td>-->
-				<td><input type="checkbox" name="ckbox" value="<%=cart.get(i).getP_ID()%>">取消</td>
+				<td><input type="checkbox" name="ckbox" value="<%=i%>">取消</td>
 			</tr>
 			<% } %>
 			<%} 
