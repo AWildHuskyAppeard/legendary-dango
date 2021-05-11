@@ -25,5 +25,7 @@
         %>
         <img src="/AwesomeProject/src/main/webapp/images/logo.jpg"
 
+        
+
     </body>
 </html>

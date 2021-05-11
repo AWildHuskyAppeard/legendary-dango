@@ -29,10 +29,10 @@ public class teeest extends HttpServlet {
 //		int pureInt = Integer.parseInt(noAlphabets);
 //		System.out.println(pureInt);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(System.currentTimeMillis());
-		System.out.println(sdf.format(calendar.getTime()));
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		Calendar calendar = Calendar.getInstance();
+//		calendar.setTimeInMillis(System.currentTimeMillis());
+//		System.out.println(sdf.format(calendar.getTime()));
 //		try {
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //		Calendar calendar = Calendar.getInstance();
@@ -53,7 +53,9 @@ public class teeest extends HttpServlet {
 //			// TODO: handle exception
 //		}
 //		
-
+		String aaa = "qwje;lwjel1234987123978sjfadasd00000000kljfdkslf";
+		System.out.println(CartControllerServlet.stripNonDigits(aaa));
+		
 		
 	}
 

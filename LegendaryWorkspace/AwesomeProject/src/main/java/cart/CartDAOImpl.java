@@ -214,12 +214,12 @@ public class CartDAOImpl implements CartDAO {
 	*@1. 用P_ID來刪
 	************************************************************************************/
 	@Override
-	public boolean deleteOrder(OrderBean orderBean) {
+	public boolean deleteOrder(String O_ID) {
 		boolean deleteStatus = false;
 		int deletedRows;
 		Statement cStmt = null;
 		String deleteCmd = "DELETE FROM [Order_Info] "
-				+ "WHERE P_ID = '" + orderBean.getP_ID() + "';";
+				+ "WHERE O_ID = '" + O_ID + "';";
 		
 		
 		

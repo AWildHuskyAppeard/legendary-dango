@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class ChatDAOImpl implements ChatDAO{
 	
 private Connection conn;
+public static Integer chatC_ID = 1;
 	
 	public ChatDAOImpl(Connection conn) {
 		this.conn = conn;
@@ -117,6 +118,7 @@ private Connection conn;
 				
 				chat.add(chatvo);
 			}
+			chatC_ID = Integer.parseInt(chat.get(chat.size()-1).getC_ID())+1;
 			conn.close();
 		} catch (Exception e) {
 			// TODO: handle exception

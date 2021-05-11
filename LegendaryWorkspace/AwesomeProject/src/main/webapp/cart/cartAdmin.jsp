@@ -44,7 +44,7 @@
 		<meta charset="UTF-8">
 		<title>Cart Administrator Page</title>
 	</head>
-	<body>
+	<body style="width: 100%;">
 		<h1>管理者頁面</h1>
 		<button id="newRow">添加空白訂單列</button>
 		<form method="POST" action="/AwesomeProject/CartControllerServlet"> 
@@ -81,7 +81,7 @@
 							<td><input name="<%=i+"8"%>"  type="text" value="<%=dataArrays.get(i).get(8)%>" ></td>
 							<td><input name="<%=i+"9"%>"  type="text" value="<%=dataArrays.get(i).get(9)%>" ></td>
 							<td><input name="<%=i+"10"%>" type="text" value="<%=dataArrays.get(i).get(10)%>"></td>
-							<td></td>
+							<td><input name="ckbox" type="checkbox" value="<%=dataArrays.get(i).get(0)/*該行O_ID值*/%>"></td>
 					<%
 						}
 					%>
@@ -163,7 +163,7 @@
 							<td><input type='text' name='new` + bla + `8'></td>
 							<td><input type='text' name='new` + bla + `9' value=` /* + fs (有bug，無法正確新增)*/ + `></td>
 							<td><input type='text' name='new` + bla + `10' value='1' readonly></td>
-							<td><input name='' type="radio"></td>
+							<td></td>
 						</tr>
 						`;
 					$('#newRowsBelow').append(content)
