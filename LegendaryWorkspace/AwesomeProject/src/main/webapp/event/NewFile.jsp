@@ -13,7 +13,7 @@
 <FORM ACTION="/AwesomeProject/EventServletDS" autocomplete="off" class="form-control">
   <CENTER>
   <div class="form-group">
-   活動 UID:<INPUT TYPE="TEXT" NAME="uid"  autocomplete=”off” ><BR>
+   收尋活動 UID:<INPUT TYPE="TEXT" NAME="uid"  autocomplete=”off” ><BR>
    </div>
    <!--
    活動名稱 AName:  <INPUT TYPE="TEXT" NAME="aname"><BR>
