@@ -119,14 +119,29 @@ public class CartControllerServlet extends HttpServlet {
 		
 		req.getRequestDispatcher("/product/xxxxxxxx.jsp").forward(req, res);	// 返回原頁
 	}
-
     /**
-     * @Method #03 remove > 移除商品
+     * @Method #03 remove > 移除商品 ver2
      * @1. 將指定商品自購物車移除
      * @2. 導回購物車頁(CartIndex.jsp)
      * @Database_Connection 不涉及
      **/
 	private void removeProductFromCart(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		String[] P_IDsToBeRmvd = req.getParameterValues("ckbox");
+		
+		for(int i = 0; i < P_IDsToBeRmvd.length; i++) {
+			this.cart.remove();
+		}
+		session.setAttribute("cart", this.cart);
+	}
+	
+	@Deprecated
+    /**
+     * @Method [淘汰]#03 remove > 移除商品 ver1
+     * @1. 將指定商品自購物車移除
+     * @2. 導回購物車頁(CartIndex.jsp)
+     * @Database_Connection 不涉及
+     **/
+	private void removeProductFromCartV1(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		// 用Vector如何？ 
 		// 問題：radio input好像無法取消勾選	
 		// 用checkbox的話要怎麼做啊ˊ<_ˋ
