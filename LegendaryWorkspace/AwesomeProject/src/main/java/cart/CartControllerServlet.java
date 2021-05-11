@@ -14,8 +14,7 @@ import javax.sql.DataSource;
 
 import userInfo.UserBean;
 /**
- * @Q1. 重新導向過去的網址有誤(理應是.jsp卻顯示此controller)
- * @Q2. 
+ * @Q1. 
  **/
 
 @WebServlet("/CartControllerServlet")
@@ -24,6 +23,7 @@ public class CartControllerServlet extends HttpServlet {
 	private DataSource ds;
 	private HttpSession session; 
 	private List<ProductBean> cart;
+	private int jjj = (1==2)? 1 : 2; // 挖賽這居然行的通喔...這不是等於塞了一個if else了嗎
 	
 	public static ProductBean testBean1 = new ProductBean("ENG003", "Speaking", "ENG", 900, "nice", "mem005", "www", "sss")  ;
 	public static ProductBean testBean2 = new ProductBean("ENG015", "Reading", "ENG", 350, "awesome", "mem905", "ww", "ks")  ;
@@ -67,17 +67,17 @@ public class CartControllerServlet extends HttpServlet {
     	// 3. 移除品項 (from 購物車頁面)
     	else if("remove".equals(todo)) removeProductFromCart(request, response);
     	// 4. 去結帳 (from 購物車頁面) 
-    	else if( "checkout".equals(todo)) checkout(request, response);
+    	else if("checkout".equals(todo)) checkout(request, response);
     	// 5. 回購物車頁面 (from 結帳頁面) 
-    	else if( "back".equals(todo)) backToPreviousPage(request, response);
+    	else if("back".equals(todo)) backToPreviousPage(request, response);
     	// 6. 確定付款 (from 結帳頁面) 
-    	else if( "pay".equals(todo)) pay(request, response);
+    	else if("pay".equals(todo)) pay(request, response);
     	// 7. [管理員] 刪除
-    	else if( "deleteAdmin".equals(todo)) deleteByAdmin(request, response);
+    	else if("deleteAdmin".equals(todo)) deleteByAdmin(request, response);
     	// 8. [管理員] 修改
-    	else if( "updateAdmin".equals(todo)) updateByAdmin(request, response);
+    	else if("updateAdmin".equals(todo)) updateByAdmin(request, response);
     	// 9. [管理員] 新增
-    	else if( "insertAdmin".equals(todo)) insertByAdmin(request, response);
+    	else if("insertAdmin".equals(todo)) insertByAdmin(request, response);
     	// debug用
     	else response.getWriter().print("Something went wrong! "
     			+ "todo value = " + todo);
@@ -148,6 +148,7 @@ public class CartControllerServlet extends HttpServlet {
      * @Method [淘汰]#03 remove > 移除商品 ver1
      * @1. 將指定商品自購物車移除
      * @2. 導回購物車頁(CartIndex.jsp)
+     * @3. 紀錄本人的智商成長用
      * @Database_Connection 不涉及
      **/
 	private void removeProductFromCartV1(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
@@ -491,7 +492,8 @@ public class CartControllerServlet extends HttpServlet {
      **/
     public static int maxNum(ArrayList<Integer> intArrayList) {
     	// clone()前後ArrayList記憶體位置會不一樣、不會互相影響
-    	ArrayList<Integer> cloned = (ArrayList<Integer>)intArrayList.clone();
+    	@SuppressWarnings("unchecked")
+		ArrayList<Integer> cloned = (ArrayList<Integer>)intArrayList.clone();
     	while (cloned.size() > 1) {
     		if(cloned.get(0) >= cloned.get(1)) {
     			cloned.remove(1);

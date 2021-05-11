@@ -17,9 +17,10 @@ import javax.servlet.http.HttpSession;
 public class teeest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String aaa = "qwje;lwjel1234987123978sjfadasd00000000kljfdkslf";
+		System.out.println(CartControllerServlet.stripNonDigits(aaa));
+		
 //		HttpSession session = request.getSession();
 //    	List<OrderBean> cart = (ArrayList<OrderBean>) session.getAttribute("cart");
 //    	response.getWriter().print(cart);
@@ -53,8 +54,6 @@ public class teeest extends HttpServlet {
 //			// TODO: handle exception
 //		}
 //		
-		String aaa = "qwje;lwjel1234987123978sjfadasd00000000kljfdkslf";
-		System.out.println(CartControllerServlet.stripNonDigits(aaa));
 		
 		
 	}

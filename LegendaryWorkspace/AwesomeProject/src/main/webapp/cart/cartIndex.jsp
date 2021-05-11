@@ -35,12 +35,12 @@
 		<table>
 			<thead>
 				<tr>
+				    <th>移除</th>
 				    <th>課程名稱(P_Name)</th>
 				    <th>課程編號(P_ID)</th>
 				    <th>課程價格(P_Price)</th>
 				    <th>課程介紹(P_DESC))</th>
 				    <th>課程老師(U_ID)</th>
-				    <th>移除</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -48,13 +48,12 @@
 			%>
 			<% if(cart != null){ %>
 			<tr>
+				<td><input id="ckbox" type="checkbox" name="ckbox" value="<%=i%>"></td>
 				<td> <%= cart.get(i).getP_Name () %>   </td>
 				<td> <%= cart.get(i).getP_ID   () %>   </td>
 				<td> <%= cart.get(i).getP_Price() %>   </td>
 				<td> <%= cart.get(i).getP_DESC () %>   </td>
 				<td> <%= cart.get(i).getU_ID   () %>   </td>
-				<!--  <td><input type="checkbox" name="checkRemove"></td>-->
-				<td><input type="checkbox" name="ckbox" value="<%=i%>">取消</td>
 			</tr>
 			<% } %>
 			<%} 
@@ -73,5 +72,20 @@
 	<form method="POST" action="/AwesomeProject/index_test.html">
 		<button name="" value="">回首頁</button>
 	</form>
+	<script src="../assets/jquery-3.6.0.min.js"></script>
+	<script>
+		$(function(){
+			$('input#ckbox').on('click', function(){
+				let d = $(this).eq(0).attr('disabled');
+				let c = $('input#ckbox').eq(0).attr('clicked');
+				console.log('disabled = ' + d + '; clicked = ' + c)
+			})
+			
+
+
+
+
+		})
+	</script>
 </body>
 </html>
