@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -64,12 +66,18 @@ public class ChatServlet extends HttpServlet {
 	            }
 	    }
 	}
+	private String getDateTime() {
+		SimpleDateFormat nowSimpleDate = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		Date date = new Date();
+		String nowDate = nowSimpleDate.format(date);
+		return nowDate;
+	}
 	private void processInsert(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException, ServletException{
 		response.setContentType("text/html;charset=UTF-8");
 		ChatVO newchatvo = new ChatVO();
 		newchatvo.setC_ID(request.getParameter("文章編號"));
 		newchatvo.setU_ID(request.getParameter("帳號"));
-		newchatvo.setC_Date(request.getParameter("日期"));
+		newchatvo.setC_Date(getDateTime());
 		newchatvo.setC_Class(request.getParameter("類別"));
 		newchatvo.setC_Title(request.getParameter("標題"));
 		newchatvo.setC_Conts(request.getParameter("內容"));
@@ -117,7 +125,7 @@ public class ChatServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		ChatVO updatechatvo = new ChatVO();
 		updatechatvo.setC_ID(request.getParameter("文章編號"));
-		updatechatvo.setC_Date(request.getParameter("日期"));
+		updatechatvo.setC_Date(getDateTime());
 		updatechatvo.setC_Class(request.getParameter("類別"));
 		updatechatvo.setC_Title(request.getParameter("標題"));
 		updatechatvo.setC_Conts(request.getParameter("內容"));
