@@ -278,21 +278,12 @@ public class CartControllerServlet extends HttpServlet {
 				session.removeAttribute("O_ID" + 1);
 			}
 		}
-			
-//	    if(cart != null && cart.size() != 0) {
-//		    for(int i = 0; i < cart.size() ; i++) {
-//		    	btns.add(req.getParameter("btn" + (i + 1)));
-//		        if("on".equals(btns.get(i))) {
-//		            for(int j = 0; j < cart.size(); j++) {
-//		            	String aa = (String)session.getAttribute("P_ID" + i);
-//		                if(cart.get(j).getP_ID().equals(aa)) {
-//		                    toBeRmvd.add(j);
-//		                }
-//		            }
-//		        }
-//		        session.removeAttribute("P_ID" + i);
-//		    }
-//		}
+		if(OrderRows != 0) {
+			for(int i = 0; i < OrderRows; i++) {
+				
+			}
+		}
+		
 //	    if(cart.size() != 0) {    	
 //		    for(int i = 0; i < toBeRmvd.size(); i++) {
 //		    	cart.remove(cart.get(toBeRmvd.get(i) - i));
