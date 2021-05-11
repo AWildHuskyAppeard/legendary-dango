@@ -25,17 +25,16 @@ private Connection conn;
 				+ "           ,[C_Conts]\r\n"			
 				+ "           ,[U_ID])\r\n"
 				+ "     VALUES\r\n"
-				+ "           (?,?,?,?,?,?)";
+				+ "           ((SELECT MAX([C_ID])+1 FROM [dbo].[Chat]),?,?,?,?,?)";
 		boolean isInsert=false;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
-			stmt.setString(1, "(SELECT MAX([C_ID])+1 FROM [dbo].[Chat])");				
-			stmt.setString(2, chat.getC_Date());
-			stmt.setString(3, chat.getC_Class());
-			stmt.setString(4, chat.getC_Title());
-			stmt.setString(5, chat.getC_Conts());
-			stmt.setString(6, chat.getU_ID());
+			stmt.setString(1, chat.getC_Date());
+			stmt.setString(2, chat.getC_Class());
+			stmt.setString(3, chat.getC_Title());
+			stmt.setString(4, chat.getC_Conts());
+			stmt.setString(5, chat.getU_ID());
 			int i=stmt.executeUpdate();
 			if(i>0) {
 				isInsert=true;
