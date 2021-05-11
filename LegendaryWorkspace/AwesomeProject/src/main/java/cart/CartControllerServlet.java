@@ -138,7 +138,7 @@ public class CartControllerServlet extends HttpServlet {
 		// 從購物車移除掉有打圈的課程
 		ArrayList<String> btns = new ArrayList<String>(); 
 		ArrayList<Integer> toBeRmvd = new ArrayList<Integer>();
-	    if(cart != null || cart.size() != 0) {
+	    if(cart != null && cart.size() != 0) {
 		    for(int i = 0; i < cart.size() ; i++) {
 		    	btns.add(req.getParameter("btn" + (i + 1)));
 		        if("on".equals(btns.get(i))) {
@@ -262,8 +262,24 @@ public class CartControllerServlet extends HttpServlet {
 		ArrayList<Integer> toBeRmvd = new ArrayList<Integer>();
 		
 		Integer OrderRows = Integer.parseInt((String)this.session.getAttribute("OrderRows")); // 來自cartAdmin.jsp的Attribute
+		ArrayList<ArrayList<String>> arrayLists = CartDAOImpl.dataArrays;
 		
-//	    if(cart != null || cart.size() != 0) {
+		if(OrderRows != 0 && OrderRows != null) {
+			for(int i = 0; i < OrderRows; i++) {
+				btns.add(req.getParameter("btn" + i));
+				if("on".equals(btns.get(i))) {
+					for(int j = 0; j < OrderRows; j++) {
+						String aa = (String)session.getAttribute("O_ID" + i);
+						if(arrayLists.get(j).get(0).equals(aa)) {
+							toBeRmvd.add(j);
+						}
+					}
+				}
+				session.removeAttribute("O_ID" + 1);
+			}
+		}
+			
+//	    if(cart != null && cart.size() != 0) {
 //		    for(int i = 0; i < cart.size() ; i++) {
 //		    	btns.add(req.getParameter("btn" + (i + 1)));
 //		        if("on".equals(btns.get(i))) {

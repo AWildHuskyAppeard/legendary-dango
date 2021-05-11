@@ -82,7 +82,8 @@
 							<td><input name="<%=i+"8"%>"  type="text" value="<%=dataArrays.get(i).get(8)%>" ></td>
 							<td><input name="<%=i+"9"%>"  type="text" value="<%=dataArrays.get(i).get(9)%>" ></td>
 							<td><input name="<%=i+"10"%>" type="text" value="<%=dataArrays.get(i).get(10)%>"></td>
-							<td><input name="btn<%=i+1%>" type="radio"></td>
+							<td><input name="btn<%=i%>" type="radio"></td>
+							<% session.setAttribute("O_ID" + i, dataArrays.get(i).get(0)); // 亦即SQL裡Order_Info表格的第i+1資料行的O_ID%> 
 					<%
 						}
 					%>
