@@ -9,12 +9,13 @@ public class ChatVO implements Serializable{
 	 */
 	private static final long serialVersionUID = -5659132712338439027L;
 	
-	private String C_ID, C_Date, C_Class, C_Title, C_Conts, U_ID;
+	private Integer C_ID;
+	private String C_Date, C_Class, C_Title, C_Conts, U_ID;
 	
-	public String getC_ID() {
+	public Integer getC_ID() {
 		return C_ID;
 	}
-	public void setC_ID(String c_ID) {
+	public void setC_ID(Integer c_ID) {
 		C_ID = c_ID;
 	}
 	public String getC_Date() {
