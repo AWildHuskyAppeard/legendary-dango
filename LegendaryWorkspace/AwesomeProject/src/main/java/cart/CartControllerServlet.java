@@ -258,31 +258,34 @@ public class CartControllerServlet extends HttpServlet {
 
 		//------------------------------------------------------------------------
 		
-		ArrayList<String> btns = new ArrayList<String>(); 
-		ArrayList<Integer> toBeRmvd = new ArrayList<Integer>();
-		
-		Integer OrderRows = Integer.parseInt((String)this.session.getAttribute("OrderRows")); // 來自cartAdmin.jsp的Attribute
-		ArrayList<ArrayList<String>> arrayLists = CartDAOImpl.dataArrays;
-		
-		if(OrderRows != 0 && OrderRows != null) {
-			for(int i = 0; i < OrderRows; i++) {
-				btns.add(req.getParameter("btn" + i));
-				if("on".equals(btns.get(i))) {
-					for(int j = 0; j < OrderRows; j++) {
-						String aa = (String)session.getAttribute("O_ID" + i);
-						if(arrayLists.get(j).get(0).equals(aa)) {
-							toBeRmvd.add(j);
-						}
-					}
-				}
-				session.removeAttribute("O_ID" + 1);
-			}
+		String[] O_IDsToBeRmvd = req.getParameterValues("ckbox");
+		for(int i = 0; i < O_IDsToBeRmvd.length; i++) {
+			crudor.deleteOrder(O_IDsToBeRmvd[i]);
 		}
-		if(OrderRows != 0) {
-			for(int i = 0; i < OrderRows; i++) {
-				
-			}
-		}
+		
+		
+//		ArrayList<String> btns = new ArrayList<String>(); 
+//		ArrayList<Integer> toBeRmvd = new ArrayList<Integer>();
+//		
+//		Integer OrderRows = Integer.parseInt((String)this.session.getAttribute("OrderRows")); // 來自cartAdmin.jsp的Attribute
+//		ArrayList<ArrayList<String>> arrayLists = CartDAOImpl.dataArrays;
+//		
+//		if(OrderRows != 0 && OrderRows != null) {
+//			for(int i = 0; i < OrderRows; i++) {
+//				btns.add(req.getParameter("btn" + i));
+//				if("on".equals(btns.get(i))) {
+//					for(int j = 0; j < OrderRows; j++) {
+//						String aa = (String)session.getAttribute("O_ID" + i);
+//						if(arrayLists.get(j).get(0).equals(aa)) {
+//							toBeRmvd.add(j);
+//						}
+//					}
+//				}
+//				crudor.deleteOrder((String)session.getAttribute("O_ID" + i));
+//				session.removeAttribute("O_ID" + i);
+//			}
+//		}
+
 		
 //	    if(cart.size() != 0) {    	
 //		    for(int i = 0; i < toBeRmvd.size(); i++) {
@@ -291,7 +294,6 @@ public class CartControllerServlet extends HttpServlet {
 //	    }
 //		
 //		System.out.println(cart);
-		this.session.removeAttribute("OrderRows"); // 來自cartAdmin.jsp的Attribute
     	this.session.setAttribute("cart", this.cart); // xxxxxxxxx
 		
     	//------------------------------------------------------------------------
@@ -304,7 +306,6 @@ public class CartControllerServlet extends HttpServlet {
 		} finally {
 			try {
 				conn.close();
-//				session.removeAttribute(O_ID~~~, e);
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
@@ -429,10 +430,10 @@ public class CartControllerServlet extends HttpServlet {
 	 * @補充 Integar.parseInt("00077")的結果會跑出77
      **/
     public static String stripNonDigits(CharSequence input){
-	     StringBuilder sb = new StringBuilder(input.length());
+	    StringBuilder sb = new StringBuilder(input.length());
 	    for(int i = 0; i < input.length(); i++){
 	        char c = input.charAt(i);
-	        if(c > 47 && c < 58){
+	        if(c > 47 && c < 58) {
 	            sb.append(c);
 	        }
 	    }
@@ -447,7 +448,7 @@ public class CartControllerServlet extends HttpServlet {
     	while (cloned.size() > 1) {
     		for(int i = 0; i < cloned.size(); i++) {
     			for(int j = 0; j < cloned.size(); j++) {
-    				if(cloned.get(i) > cloned.get(j)) {					
+    				if(cloned.get(i) > cloned.get(j)) {		
     					cloned.remove(j);
     				} 
     			}

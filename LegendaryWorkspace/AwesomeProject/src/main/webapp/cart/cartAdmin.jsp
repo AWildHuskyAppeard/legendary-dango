@@ -30,7 +30,6 @@
 	CartDAOImpl dao = new CartDAOImpl(conn);
 	dao.selectAllOrder();
 	dataArrays = CartDAOImpl.dataArrays;
-	session.setAttribute("OrderRows", dataArrays.size());
 %>
 <!DOCTYPE html>
 <%
@@ -82,8 +81,7 @@
 							<td><input name="<%=i+"8"%>"  type="text" value="<%=dataArrays.get(i).get(8)%>" ></td>
 							<td><input name="<%=i+"9"%>"  type="text" value="<%=dataArrays.get(i).get(9)%>" ></td>
 							<td><input name="<%=i+"10"%>" type="text" value="<%=dataArrays.get(i).get(10)%>"></td>
-							<td><input name="btn<%=i%>" type="radio"></td>
-							<% session.setAttribute("O_ID" + i, dataArrays.get(i).get(0)); // 亦即SQL裡Order_Info表格的第i+1資料行的O_ID%> 
+							<td><input name="ckbox" type="checkbox" value="<%=dataArrays.get(i).get(0)/*該行O_ID值*/%>"></td>
 					<%
 						}
 					%>
