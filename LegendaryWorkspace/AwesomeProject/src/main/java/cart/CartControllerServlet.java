@@ -199,15 +199,19 @@ public class CartControllerServlet extends HttpServlet {
 		// (1) 取得O_ID：查出所有O_ID、找出最大值，以產生+1號的O_ID
 		ArrayList<String> O_IDStrings = new ArrayList<String>();
 		ArrayList<Integer> O_IDs = new ArrayList<Integer>();
+		ArrayList<String> newO_IDs = new ArrayList<String>();
 		for(ArrayList<String> dataArray : dataArrays) {
 			O_IDStrings.add(dataArray.get(0));
 		}
 		for(String O_IDString : O_IDStrings) {
-			stripNonDigits(O_IDString);
-			O_IDs.add(Integer.parseInt(O_IDString));
+			String pureNum = stripNonDigits(O_IDString);
+			O_IDs.add(Integer.parseInt(pureNum));
+			Integer latestO_ID = maxNum(O_IDs);
+			Integer counter = 0;
+			counter++;
+			String newO_ID = "Order" + String.valueOf(latestO_ID + counter);
+			newO_IDs.add(newO_ID);
 		}
-		Integer latestO_ID = maxNum(O_IDs);
-		String newO_ID = "Order" + String.valueOf(latestO_ID + 1);
 		
 		// (2) 取得U_ID，U_FirstName，U_LastName，U_Email
 		// 之後請若安把已登入會員的Bean幫我塞進session Attribute內，取出語句如下：
@@ -223,7 +227,7 @@ public class CartControllerServlet extends HttpServlet {
 		
 		// 把OrderBean的資料寫進去Dababase
 		for(int i = 0; i <= cart.size(); i++) {
-			OrderBean orderBean = new OrderBean(newO_ID, cart.get(i).getP_ID(), cart.get(i).getP_Name(), 
+			OrderBean orderBean = new OrderBean(newO_IDs.get(i), cart.get(i).getP_ID(), cart.get(i).getP_Name(), 
 				cart.get(i).getP_Price(), fakeUserBean.getU_ID(), fakeUserBean.getU_FirstName(), 
 				fakeUserBean.getU_LastName(), fakeUserBean.getU_Email(), "confirmed", now, 1);
 			crudor.insertOrder(orderBean);
