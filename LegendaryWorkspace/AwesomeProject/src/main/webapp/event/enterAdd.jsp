@@ -5,9 +5,10 @@
 <HEAD>
 <meta charset="UTF-8">
   <TITLE>新增頁面</TITLE>
+  <link rel="stylesheet" type="text/css" href="/AwesomeProject/event/Bootstrap/css/bootstrap.min.css">
 </HEAD>
-<BODY BGCOLOR="#FDF5E6">
-<H1 ALIGN="CENTER">新增頁面</H1>
+<BODY >
+<H1 >新增頁面</H1>
        
 <FORM ACTION="/AwesomeProject/EventServletDS">
    活動 UID  :     <INPUT TYPE="TEXT" NAME="uid"><BR>
