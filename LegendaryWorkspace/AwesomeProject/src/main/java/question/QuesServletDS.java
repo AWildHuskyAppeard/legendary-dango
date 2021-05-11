@@ -55,6 +55,9 @@ public class QuesServletDS extends HttpServlet {
 				processCreate(request, response, quesDAO);
 			}
 			
+			if (request.getParameter("AllQUERY") != null) {
+			    findAllQuesBean(request, response, quesDAO);
+		}			
 
 
 		} catch (NamingException ne) {
@@ -169,6 +172,15 @@ public class QuesServletDS extends HttpServlet {
 				showError(response, "更新錯誤");
 		}
 
+	}
+	
+	//搜尋全部
+	private void findAllQuesBean(HttpServletRequest request, HttpServletResponse response, QuesDAO quesDAO)
+			throws SQLException, IOException, ServletException {
+		request.setCharacterEncoding("utf-8");
+		ArrayList<QuesBean> list = quesDAO.findAllQuesBean();
+		request.setAttribute("all", list);
+		request.getRequestDispatcher("/question/findAllQuesBean.jsp").forward(request, response);
 	}
 	
 	

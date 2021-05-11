@@ -4,65 +4,69 @@ package question;
 
 import java.io.*;
 
-public class QuesBean implements Serializable{
+public class QuesBean {
 
-    private int Q_ID;
-    private String Q_Type;
-    private String Q_Ques;
-    private String Q_Selection;
-    private String Q_Ans;
-    private String P_Class;
+    private int q_ID;
+    private String q_Type;
+    private String q_Ques;
+    private String q_Selection;
+    private String q_Ans;
+    private String p_Class;
     
     //Constructor
     public QuesBean(int Q_ID, String Q_Type, String Q_Ques, String Q_Selection, String Q_Ans, String P_Class) {
-      this.Q_ID = Q_ID;
-      this.Q_Type = Q_Type;
-      this.Q_Ques = Q_Ques;
-      this.Q_Selection = Q_Selection;
-      this.Q_Ans = Q_Ans;
-      this.P_Class = P_Class;
+      this.q_ID = Q_ID;
+      this.q_Type = Q_Type;
+      this.q_Ques = Q_Ques;
+      this.q_Selection = Q_Selection;
+      this.q_Ans = Q_Ans;
+      this.p_Class = P_Class;
     
 
     }
-	
-    
-    public int getQ_ID() {
-		return Q_ID;
+    public QuesBean() {
+    	
+    	
+    }
+	public int getQ_ID() {
+		return q_ID;
 	}
 	public void setQ_ID(int q_ID) {
-		Q_ID = q_ID;
+		this.q_ID = q_ID;
 	}
 	public String getQ_Type() {
-		return Q_Type;
+		return q_Type;
 	}
 	public void setQ_Type(String q_Type) {
-		Q_Type = q_Type;
+		this.q_Type = q_Type;
 	}
 	public String getQ_Ques() {
-		return Q_Ques;
+		return q_Ques;
 	}
 	public void setQ_Ques(String q_Ques) {
-		Q_Ques = q_Ques;
+		this.q_Ques = q_Ques;
 	}
 	public String getQ_Selection() {
-		return Q_Selection;
+		return q_Selection;
 	}
 	public void setQ_Selection(String q_Selection) {
-		Q_Selection = q_Selection;
+		this.q_Selection = q_Selection;
 	}
 	public String getQ_Ans() {
-		return Q_Ans;
+		return q_Ans;
 	}
 	public void setQ_Ans(String q_Ans) {
-		Q_Ans = q_Ans;
+		this.q_Ans = q_Ans;
 	}
 	public String getP_Class() {
-		return P_Class;
+		return p_Class;
 	}
 	public void setP_Class(String p_Class) {
-		P_Class = p_Class;
+		this.p_Class = p_Class;
 	}
+	
     
+   
  
 
 //

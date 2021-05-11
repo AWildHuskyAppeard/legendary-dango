@@ -4,6 +4,7 @@ package question;
 // 專責與Dept Table之新增,修改,刪除與查詢
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class QuesDAO {
 
@@ -145,6 +146,36 @@ public class QuesDAO {
 			System.err.println("尋找資料時發生錯誤:" + e);
 			return null;
 		}
+	}
+	
+	public ArrayList<QuesBean> findAllQuesBean() {
+		// 取出結果集資料
+		ArrayList<QuesBean> allQuesBean = new ArrayList<>();
+		// 準備儲存輸出對象的容器
+		
+		try {
+			Statement stmt = conn.createStatement();
+			String sqlString = " select * from Questions";
+			System.out.println(sqlString);
+			ResultSet rs = stmt.executeQuery(sqlString);
+			while (rs.next()) {
+				QuesBean quesBean = new QuesBean();
+				quesBean.setQ_ID(rs.getInt(1));
+				quesBean.setQ_Type(rs.getString(2));
+				quesBean.setQ_Ques(rs.getString(3));
+				quesBean.setQ_Selection(rs.getString(4));
+				quesBean.setQ_Ans(rs.getString(5));
+				quesBean.setP_Class(rs.getString(6));
+
+				allQuesBean.add(quesBean);
+
+			}
+			conn.close();// 歸還資源//非釋放
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return allQuesBean;
 	}
 
 }
