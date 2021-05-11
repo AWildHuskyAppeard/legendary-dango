@@ -76,8 +76,7 @@ public class ChatServlet extends HttpServlet {
 	private void processInsert(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException, ServletException{
 		response.setContentType("text/html;charset=UTF-8");
 		ChatVO newchatvo = new ChatVO();
-		newchatvo.setC_ID(request.getParameter("文章編號"));
-		System.out.print(chatC_ID);
+		newchatvo.setC_ID(String.valueOf(chatC_ID));
 		newchatvo.setU_ID(request.getParameter("帳號"));
 		newchatvo.setC_Date(getDateTime());
 		newchatvo.setC_Class(request.getParameter("類別"));

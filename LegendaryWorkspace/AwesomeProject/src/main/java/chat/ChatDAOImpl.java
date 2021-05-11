@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class ChatDAOImpl implements ChatDAO{
 	
 private Connection conn;
-public static Integer chatC_ID = 0;
+public static Integer chatC_ID = 1;
 	
 	public ChatDAOImpl(Connection conn) {
 		this.conn = conn;
