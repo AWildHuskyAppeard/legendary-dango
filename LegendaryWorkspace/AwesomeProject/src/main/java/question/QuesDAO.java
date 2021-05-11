@@ -1,6 +1,7 @@
+package question;
+
 // DAO: Database Access Object
 // 專責與Dept Table之新增,修改,刪除與查詢
-package questions;
 
 import java.sql.*;
 
@@ -8,42 +9,45 @@ public class QuesDAO {
 
 	private Connection conn;
 
-	
 	// 建構子
 	public QuesDAO(Connection conn) {
 		this.conn = conn;
 	}
-	public  boolean insertQues(QuesBean QuesData) {
-		boolean isInsert=false;
-//	// 建立新的部門 ??
-//	public int createQues(String Q_Ques) {
+
+	//新增
+	public boolean insertQues(QuesBean QuesData) {
+		boolean isInsert = false;
+
+//	public int insertQues(int Q_ID, String Q_Type, String Q_Ques, String Q_Selection, String Q_Ans, String P_Class) {
 		try {
 //			int Q_ID = 1;
-			String sqlString ="INSERT INTO Questions(Q_ID,Q_Type,Q_Ques,Q_Selection,Q_Ans,P_Class) " + "VALUES(" + QuesData.getQ_ID() + ",'" + 
-			QuesData.getQ_Type()+ "', N'" + QuesData.getQ_Ques()+ "','" + QuesData.getQ_Selection()+ "','" + QuesData.getQ_Ans()+ "','" + QuesData.getP_Class() + "')";
-			
-			
+			/*
+			 * String sqlString
+			 * ="INSERT INTO Questions(Q_ID,Q_Type,Q_Ques,Q_Selection,Q_Ans,P_Class) " +
+			 * "VALUES(" + Q_ID + ",'" + Q_Type+ "', N'" + Q_Ques+ "',N'" + Q_Selection+
+			 * "','" + Q_Ans+ "','" + P_Class+ "')";
+			 */
+			String sqlString = "INSERT INTO Questions(Q_ID,Q_Type,Q_Ques,Q_Selection,Q_Ans,P_Class) " + "VALUES("
+					+ QuesData.getQ_ID() + ",'" + QuesData.getQ_Type() + "', N'" + QuesData.getQ_Ques() + "',N'"
+					+ QuesData.getQ_Selection() + "',N'" + QuesData.getQ_Ans() + "','" + QuesData.getP_Class() + "')";
+
 			Statement stmt = conn.createStatement();
 			System.out.println(sqlString);
 //			stmt.executeUpdate(sqlString);
-			
-			int i=stmt.executeUpdate(sqlString);
-			if (i>0) {
-				isInsert=true;
+
+			int i = stmt.executeUpdate(sqlString);
+			if (i > 0) {
+				isInsert = true;
 			}
 			stmt.close();
 		} catch (Exception e) {
 			System.err.println("建立資料時發生錯誤:" + e);
-			isInsert=false;
+			isInsert = false;
 		}
-		return isInsert;
+			return isInsert;
 	}
-			
-			
-			
-			
-			
-			// "SELECT dept_id.nextval FROM DUAL"; ??
+
+//   	    "SELECT dept_id.nextval FROM DUAL"; ??
 //			Statement stmt = conn.createStatement();
 //			// 自取號機取得新部門的部門代號
 //			ResultSet rs = stmt.executeQuery(sqlString);
@@ -65,6 +69,7 @@ public class QuesDAO {
 //		}
 //	}
 
+	
 	// 刪除
 	public boolean deleteQues(int Q_ID) {
 		try {
@@ -82,12 +87,15 @@ public class QuesDAO {
 		}
 	}
 
-	// 更新部門資料
+	// 更改
 	public boolean updateQues(QuesBean QuesData) {
 		try {
-			String sqlString = "UPDATE Questions " + "SET Q_ID =" + QuesData.getQ_ID() + ", Q_Type= '" + QuesData.getQ_Type()+ "' , Q_Ques='" + QuesData.getQ_Ques()+ 
-					"', Q_Selection ='" +QuesData.getQ_Selection()+ "', Q_Ans='" + QuesData.getQ_Ans()+ "', P_Class='" + QuesData.getP_Class() + "' WHERE Q_ID=" + QuesData.getQ_ID();
+			String sqlString = "UPDATE Questions " + "SET Q_ID =" + QuesData.getQ_ID() + ", Q_Type= '"
+					+ QuesData.getQ_Type() + "' , Q_Ques=N'" + QuesData.getQ_Ques() + "', Q_Selection =N'"
+					+ QuesData.getQ_Selection() + "', Q_Ans=N'" + QuesData.getQ_Ans() + "', P_Class='"
+					+ QuesData.getP_Class() + "' WHERE Q_ID=" + QuesData.getQ_ID();
 			System.out.println(sqlString);
+
 			Statement stmt = conn.createStatement();
 			int updatecount = stmt.executeUpdate(sqlString);
 			stmt.close();
@@ -104,17 +112,16 @@ public class QuesDAO {
 		}
 	}
 
-	// 尋找部門資料
+	// 搜尋
 	public QuesBean findQues(int Q_ID) {
 		try {
 			QuesBean que = null;
 
-		     String Q_Type;
-		     String Q_Ques;
-		     String Q_Selection;
-		     String Q_Ans;
-		     String P_Class;
-		    
+			String Q_Type;
+			String Q_Ques;
+			String Q_Selection;
+			String Q_Ans;
+			String P_Class;
 
 			Statement stmt = conn.createStatement();
 			String sqlString = "SELECT * " + "FROM Questions WHERE Q_ID = " + Q_ID;
@@ -127,8 +134,8 @@ public class QuesDAO {
 				Q_Selection = rs.getString("Q_Selection");
 				Q_Ans = rs.getString("Q_Ans");
 				P_Class = rs.getString("P_Class");
-	
-				que = new QuesBean(Q_ID,Q_Type,Q_Ques,Q_Selection,Q_Ans,P_Class);
+
+				que = new QuesBean(Q_ID, Q_Type, Q_Ques, Q_Selection, Q_Ans, P_Class);
 			}
 			rs.close();
 			stmt.close();
