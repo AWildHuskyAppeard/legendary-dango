@@ -4,16 +4,16 @@
 <HTML>
 <HEAD>
 <meta charset="UTF-8">
-  <TITLE>更新頁面</TITLE>
+  <TITLE>新增頁面</TITLE>
 </HEAD>
 <BODY BGCOLOR="#FDF5E6">
-<H1 ALIGN="CENTER">更新頁面</H1>
+<H1 ALIGN="CENTER">新增頁面</H1>
        
-<FORM ACTION="/MyTopic/EventServletDS">
+<FORM ACTION="/AwesomeProject/EventServletDS">
    活動 UID  :     <INPUT TYPE="TEXT" NAME="uid"><BR>
    活動名稱 AName:  <INPUT TYPE="TEXT" NAME="aname"><BR>
    活動 AID:  <INPUT TYPE="TEXT" NAME="aid"><BR>
-   活動時間 ADATE:  <INPUT TYPE="TEXT" NAME="adate"><BR>
+   活動時間 ADATE:  <INPUT TYPE="date" NAME="adate"><BR>
    活動代幣 ACOIN:  <INPUT TYPE="TEXT" NAME="acoin"><BR>
             
   <CENTER>

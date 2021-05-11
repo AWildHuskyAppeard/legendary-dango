@@ -10,14 +10,14 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>報名資料確認</title>
+<title>查詢資料</title>
 </head>
 <body>
-<jsp:useBean id="reg_EventBean" class="EventBeanpag.EventBean" scope="session" />
+<jsp:useBean id="reg_EventBean" class="event.EventBeanpag.EventBean" scope="session" />
 <h2>
-報名資料如下請確認
+查詢資料
 </h2>
-<form action="/MyTopic/EventServletDS">
+<form action="/AwesomeProject/EventServletDS">
 <table  cellspacing="2" cellpadding="1" border="1" width="100%">
 <tr bgcolor="#FFFFE1">
     <td>會員ID:</td>

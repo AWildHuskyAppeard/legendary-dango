@@ -7,7 +7,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="./Bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/MyTopic/Bootstrap/css/bootstrap.min.css">
 <!-- href：里面的路径是你导入在static文件夹里面下面bootstrap.min.css所在的路径，下面两个属性一样 -->
 
 
