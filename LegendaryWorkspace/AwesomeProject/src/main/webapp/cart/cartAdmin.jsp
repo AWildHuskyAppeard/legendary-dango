@@ -45,7 +45,7 @@
 		<meta charset="UTF-8">
 		<title>Cart Administrator Page</title>
 	</head>
-	<body>
+	<body style="width: 100%;">
 		<h1>管理者頁面</h1>
 		<button id="newRow">添加空白訂單列</button>
 		<form method="POST" action="/AwesomeProject/CartControllerServlet"> 
