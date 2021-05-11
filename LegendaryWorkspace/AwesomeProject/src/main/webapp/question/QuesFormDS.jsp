@@ -27,12 +27,12 @@ response.setContentType("text/html;charset=UTF-8");
     <INPUT NAME="DELETE" TYPE="SUBMIT" VALUE="DELETE">
     <INPUT NAME="CREATE" TYPE="SUBMIT" VALUE="CREATE"><BR>
     
-    <INPUT NAME="SELECT ALL" TYPE="SUBMIT" VALUE="SELECT ALL">
+    <INPUT NAME="AllQUERY" TYPE="SUBMIT" VALUE="SELECT ALL">
     <!--<INPUT NAME="HOME PAGE" TYPE="BUTTON" VALUE="HOME PAGE"  onclick="location.href='AwesomeProject/index_test.html'"/> -->
    <!-- <a href="AwesomeProject/index_test.html"></a> -->
     
   </DIV>
-</FORM>
+</FORM><BR>
 <a href="/AwesomeProject/index_test.html">回首頁</a>
 
 
