@@ -214,7 +214,7 @@ public class CartDAOImpl implements CartDAO {
 	*@1. 用P_ID來刪
 	************************************************************************************/
 	@Override
-	public boolean deleteOrder(String O_ID) { 
+	public boolean deleteOrder(String O_ID) {
 		boolean deleteStatus = false;
 		int deletedRows;
 		Statement cStmt = null;

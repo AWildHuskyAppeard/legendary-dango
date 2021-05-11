@@ -74,7 +74,7 @@ response.setDateHeader("Expires",-1);
 		<h1>LULLL</h1>
 		
 		<hr>
-<!-- 3. 按鈕導向各頁................................................... --> 
+<!-- 3. 按鈕導向各頁................................................... -->
 		<button name="todo" value="back">回上一頁</button>
 		<button name="todo" value="pay">確定結帳</button>
 		<hr>
