@@ -1,5 +1,6 @@
+package question;
+
 // Value Object:一個Object代表Dept Table一筆Row
-package questions;
 
 import java.io.*;
 
