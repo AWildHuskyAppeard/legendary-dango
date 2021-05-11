@@ -25,6 +25,7 @@ import javax.sql.DataSource;
 @WebServlet("/ChatServlet")
 public class ChatServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	Integer chatC_ID = ChatDAOImpl.chatC_ID;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -76,8 +77,7 @@ public class ChatServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		ChatVO newchatvo = new ChatVO();
 		newchatvo.setC_ID(request.getParameter("文章編號"));
-		ArrayList<ChatVO> chat = ChatDAOImpl.Arraychat;
-		System.out.print(chat.get(chat.size()-1).getC_ID());
+		System.out.print(chatC_ID);
 		newchatvo.setU_ID(request.getParameter("帳號"));
 		newchatvo.setC_Date(getDateTime());
 		newchatvo.setC_Class(request.getParameter("類別"));
