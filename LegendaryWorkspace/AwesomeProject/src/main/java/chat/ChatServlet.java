@@ -25,7 +25,6 @@ import javax.sql.DataSource;
 @WebServlet("/ChatServlet")
 public class ChatServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	Integer chatC_ID = ChatDAOImpl.chatC_ID;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -76,7 +75,7 @@ public class ChatServlet extends HttpServlet {
 	private void processInsert(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException, ServletException{
 		response.setContentType("text/html;charset=UTF-8");
 		ChatVO newchatvo = new ChatVO();
-		newchatvo.setC_ID(String.valueOf(chatC_ID));
+		newchatvo.setC_ID(Integer.parseInt(request.getParameter("文章編號")));
 		newchatvo.setU_ID(request.getParameter("帳號"));
 		newchatvo.setC_Date(getDateTime());
 		newchatvo.setC_Class(request.getParameter("類別"));
@@ -103,7 +102,7 @@ public class ChatServlet extends HttpServlet {
 	private void processDelete(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException, ServletException{
 		response.setContentType("text/html;charset=UTF-8");
 		ChatVO delechatvo = new ChatVO();
-		delechatvo.setC_ID(request.getParameter("文章編號"));
+		delechatvo.setC_ID(Integer.parseInt(request.getParameter("文章編號")));
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 	    out.println("<head><title>Chat</title></head>");
@@ -125,7 +124,7 @@ public class ChatServlet extends HttpServlet {
 	private void processUpdate(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException, ServletException{
 		response.setContentType("text/html;charset=UTF-8");
 		ChatVO updatechatvo = new ChatVO();
-		updatechatvo.setC_ID(request.getParameter("文章編號"));
+		updatechatvo.setC_ID(Integer.parseInt(request.getParameter("文章編號")));
 		updatechatvo.setC_Date(getDateTime());
 		updatechatvo.setC_Class(request.getParameter("類別"));
 		updatechatvo.setC_Title(request.getParameter("標題"));

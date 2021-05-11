@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class ChatDAOImpl implements ChatDAO{
 	
 private Connection conn;
-public static Integer chatC_ID = 1;
 	
 	public ChatDAOImpl(Connection conn) {
 		this.conn = conn;
@@ -31,7 +30,7 @@ public static Integer chatC_ID = 1;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
-			stmt.setString(1, chat.getC_ID());
+			stmt.setInt(1, chat.getC_ID());
 			stmt.setString(2, chat.getC_Date());
 			stmt.setString(3, chat.getC_Class());
 			stmt.setString(4, chat.getC_Title());
@@ -58,7 +57,7 @@ public static Integer chatC_ID = 1;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
-			stmt.setString(1, chat.getC_ID());
+			stmt.setInt(1, chat.getC_ID());
 			int i=stmt.executeUpdate();
 			if(i>0) {
 				isDelete=true;
@@ -81,7 +80,7 @@ public static Integer chatC_ID = 1;
 		boolean isUpdate=false;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(5, chat.getC_ID());
+			stmt.setInt(5, chat.getC_ID());
 			stmt.setString(1, chat.getC_Date());
 			stmt.setString(2, chat.getC_Class());
 			stmt.setString(3, chat.getC_Title());
@@ -118,7 +117,6 @@ public static Integer chatC_ID = 1;
 				
 				chat.add(chatvo);
 			}
-			chatC_ID = Integer.parseInt(chat.get(chat.size()-1).getC_ID())+1;
 			conn.close();
 		} catch (Exception e) {
 			// TODO: handle exception
