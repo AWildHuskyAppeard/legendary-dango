@@ -27,6 +27,6 @@
    
   </CENTER>
 </FORM>
-<button><a href="/AwesomeProject/index_test.html"><b>大家的首頁</b></a></li></button>
+<button><a href="/AwesomeProject/index_test.html">大家的首頁</a></button>
 </BODY>
 </HTML>
