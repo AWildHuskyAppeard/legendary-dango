@@ -14,7 +14,7 @@
 	request.getAttribute("all");
 	%>
 	<form action="/AwesomeProject/EventServletDS">
-		<table>
+		<table class="table table-condensed">
 			<tr>
 				<td>UID</td>
 				<td>AID</td>
