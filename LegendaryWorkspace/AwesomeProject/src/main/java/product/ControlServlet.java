@@ -98,6 +98,8 @@ public class ControlServlet extends HttpServlet {
 				insert(request, response, pDao);
 			}else if (request.getParameter("findAllToUser")!=null) {
 				findAllToUser(request, response, pDao);
+			}else if (request.getParameter("findForUser")!=null) {
+				findForUser(request, response, pDao);
 			}
 			
 		} catch (Exception e) {
@@ -111,6 +113,13 @@ public class ControlServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("find", pDao.findProductByProductNo(request.getParameter("P_ID")));
 		request.getRequestDispatcher("/product/productList.jsp").forward(request, response);
+		
+	}
+	protected void findForUser(HttpServletRequest request, HttpServletResponse response, ProductDAOImpl pDao) throws ServletException, IOException {
+		pDao.findProductByProductNo(request.getParameter("P_ID"));
+		HttpSession session = request.getSession();
+		session.setAttribute("find", pDao.findProductByProductNo(request.getParameter("P_ID")));
+		request.getRequestDispatcher("/product/productForUser.jsp").forward(request, response);
 		
 	}
 	protected void findAll(HttpServletRequest request, HttpServletResponse response, ProductDAOImpl pDao) throws ServletException, IOException {
