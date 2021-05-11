@@ -10,18 +10,48 @@
         <title>課程管理</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="/AwesomeProject/userInfo/index_test.css">
         <%
         ArrayList<ProductBean> list = (ArrayList<ProductBean>)session.getAttribute("list");
         ProductBean findByID = (ProductBean)session.getAttribute("find");
         %>
     </head>
     <style>
+    	
         th{
             border: 1px solid black;
+            width: 70px;
+        }
+        tr{
+            width: 100px;
+        }
+        form{
+            display: inline-block;
         }
     </style>
     <body>
+    
+    	<div class="allpage">
+        <header>
+            <img class="logo-img" src="/AwesomeProject/images/logo.jpg" title="logo" alt="logo">
+            <nav>
+                <ul class="menu">
+                    <li><a href="/AwesomeProject/index_test.html"><b>首頁</b></a></li>
+                    <li><a href="http://localhost:8080/AwesomeProject/ControlServlet?findAllToUser"><b>課程</b></a></li>
+                    <li><a href="/AwesomeProject/chat/Chat.html"><b>討論區</b></a></li>
+                    <li><a href="/AwesomeProject/question/QuesFormDS.jsp"><b>測驗區</b></a></li>
+                    <li><a href=""><b>活動</b></a></li>
+                    <li><a href="/AwesomeProject/cart/cartIndex.jsp"><b>購物車</b></a></li>
+                    <li><a href=""><b>關於</b></a></li>
+                    <li style="float: right;"><a href="/AwesomeProject/userInfo/AdminLogin.jsp"><b>GM系統</b></a></li>
+                    <li style="float: right;"><a href="/AwesomeProject/userInfo/test_UserUpdate.jsp"><b>修改會員資料</b></a></li>
+                    <li style="float: right;"><a href="/AwesomeProject/userInfo/UserLogin.jsp"><b>登入</b></a></li>
+                    <li style="float: right;"><a href="/AwesomeProject/userInfo/UserSignUp.jsp"><b>註冊</b></a></li>
+                </ul>
+            </nav>            
+        </header>
+        <div class="content">
+        
         <form action="/AwesomeProject/ControlServlet" method="POST">
             <label>搜尋全部課程:</label>
             <input type="submit" name="findAll" value="搜尋全部">
@@ -79,11 +109,11 @@
             }}
             session.invalidate();
             %>
-            
-       
-           
-            
 		</table>
-
+        </div>  <!--end content-->
+        
+    </div>  <!--end allpage-->
+    
+  
     </body>
 </html>
