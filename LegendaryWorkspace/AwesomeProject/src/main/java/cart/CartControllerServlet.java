@@ -32,6 +32,7 @@ public class CartControllerServlet extends HttpServlet {
     @Override
 	public void init() throws ServletException {
 		super.init();
+		return;
 	}
     
     @Override
@@ -39,6 +40,7 @@ public class CartControllerServlet extends HttpServlet {
     	request.setCharacterEncoding("UTF-8");
     	response.setContentType("text/html;charset=UTF-8");
     	response.getWriter().print("LUL");
+    	return;
 	}
 
     @Override
@@ -79,7 +81,7 @@ public class CartControllerServlet extends HttpServlet {
     	// debug用
     	else response.getWriter().print("Something went wrong! "
     			+ "todo value = " + todo);
-    	
+    	return;
 	}
     /**
      * @Method #01 todo == null > 導向購物車
@@ -90,6 +92,7 @@ public class CartControllerServlet extends HttpServlet {
     private void gotoCartIndexPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 //    	req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);
     	res.sendRedirect("/AwesomeProject/cart/cartIndex.jsp");
+    	return;
     }
     
     /**
@@ -119,6 +122,7 @@ public class CartControllerServlet extends HttpServlet {
 		
 //		req.getRequestDispatcher("/product/xxxxxxxx.jsp").forward(req, res);	// 返回原頁
 		res.sendRedirect("/product/xxxxxxxx.jsp");
+		return;
 	}
     /**
      * @Method #03 remove > 移除商品 ver2
@@ -136,6 +140,7 @@ public class CartControllerServlet extends HttpServlet {
 		session.setAttribute("cart", this.cart);
 //		req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);
 		res.sendRedirect("/AwesomeProject/cart/cartIndex.jsp");
+		return;
 	}
 	
 	@Deprecated
@@ -181,6 +186,7 @@ public class CartControllerServlet extends HttpServlet {
     	this.session.setAttribute("cart", this.cart); // xxxxxxxxx
 		
 		req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);	// 返回原頁
+		return;
 	}
 	
     /**
@@ -193,6 +199,7 @@ public class CartControllerServlet extends HttpServlet {
 		
 //		req.getRequestDispatcher("/cart/cartCheckout.jsp").forward(req, res);	// 去結帳
 		res.sendRedirect("/AwesomeProject/cart/cartCheckout.jsp"); // 去結帳
+		return;
 	}
     /**
      * @Method #05 back > 回購物車頁面
@@ -202,6 +209,7 @@ public class CartControllerServlet extends HttpServlet {
 		
 //		req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);	// 回上一頁(購物車首頁)
 		res.sendRedirect("/AwesomeProject/cart/cartIndex.jsp"); // 回上一頁(購物車首頁)
+		return;
 	}
     /**
      * @Method #06 pay > 確定付款
@@ -278,6 +286,7 @@ public class CartControllerServlet extends HttpServlet {
 		
 //		req.getRequestDispatcher("/cart/cartThanks.jsp").forward(req, res);	 
 		res.sendRedirect("/AwesomeProject/cart/cartThanks.jsp");
+		return;
 	}
 	
     /**
@@ -344,6 +353,7 @@ public class CartControllerServlet extends HttpServlet {
 		}
 //		req.getRequestDispatcher("/cart/cartAdmin.jsp").forward(req, res);	
 		res.sendRedirect("/AwesomeProject/cart/cartAdmin.jsp");
+		return;
 	}
 	
     /**
@@ -384,6 +394,7 @@ public class CartControllerServlet extends HttpServlet {
 		
 //		req.getRequestDispatcher("/cart/cartAdmin.jsp").forward(req, res);	
 		res.sendRedirect("/AwesomeProject/cart/cartAdmin.jsp");
+		return;
 	}
 	
     /**
@@ -421,6 +432,7 @@ public class CartControllerServlet extends HttpServlet {
 		
 //		req.getRequestDispatcher("/cart/cartAdmin.jsp").forward(req, res);	
 		res.sendRedirect("/AwesomeProject/cart/cartAdmin.jsp");
+		return;
 	}
 	
 	/********************************************************************************************************************************************/

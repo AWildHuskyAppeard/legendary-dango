@@ -40,7 +40,7 @@
 				    <th>課程價格(P_Price)</th>
 				    <th>課程介紹(P_DESC))</th>
 				    <th>課程老師(U_ID)</th>
-				    <th>Delete buttons</th>
+				    <th>移除</th>
 				</tr>
 			</thead>
 			<tbody>

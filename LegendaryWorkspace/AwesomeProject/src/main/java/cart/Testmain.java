@@ -1,6 +1,6 @@
 package cart;
 
-public class Notes {
+public class Testmain {
 	public static void main(String[] args) {
 		String a1 = "w12346";
 		String a2 = "12346";
