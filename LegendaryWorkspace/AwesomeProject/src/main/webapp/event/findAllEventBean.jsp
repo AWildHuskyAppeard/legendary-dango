@@ -6,8 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/AwesomeProject/event/Bootstrap/css/bootstrap.min.css">
 </head>
-<body BGCOLOR="#FDF5E6">
+<body >
 
 	<%
 	request.getAttribute("all");
