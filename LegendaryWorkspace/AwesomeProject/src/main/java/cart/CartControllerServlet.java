@@ -224,13 +224,17 @@ public class CartControllerServlet extends HttpServlet {
 		for(ArrayList<String> dataArray : dataArrays) {
 			O_IDStrings.add(dataArray.get(0));
 		}
+		// 剝掉非O_ID中非數字的部分取出
 		for(String O_IDString : O_IDStrings) {
 			String pureNum = stripNonDigits(O_IDString);
 			O_IDs.add(Integer.parseInt(pureNum));
-			Integer latestO_ID = maxNum(O_IDs);
-			Integer counter = 0;
-			counter++;
-			String newO_ID = "Order" + String.valueOf(latestO_ID + counter);
+		}
+		// 找出當前Table裡O_ID最大數字，往後逐漸+1+1+1...
+		System.out.println("debug開始");
+		Integer latestO_ID = maxNum(O_IDs);
+		System.out.println("debug結束");
+		for(int i = 1; i <= O_IDs.size(); i++) {
+			String newO_ID = String.format("Order%06d", (latestO_ID + i));
 			newO_IDs.add(newO_ID);
 		}
 		
@@ -238,7 +242,9 @@ public class CartControllerServlet extends HttpServlet {
 		// 之後請若安把已登入會員的Bean幫我塞進session Attribute內，取出語句如下：
 		// UserBean userBean = (UserBean)this.session.getAttribute("userBean");
 		// 以下為測試用，要換掉
-		UserBean fakeUserBean = new UserBean("user01", "omegaLUL", "1999-12-31", "b", "F", "L@UL", "0987", "M", "www");
+		ArrayList<UserBean> fakeUserBeans = new ArrayList<UserBean>();
+		UserBean fakeUserBean00 = new UserBean("user01", "omegaLUL", "1999-12-31", "b", "F", "L@UL", "0987", "M", "www");
+		fakeUserBeans.add(fakeUserBean00);
 		
 		// (3) 取得O_Date (使用SimpleDateFormat)
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -247,10 +253,11 @@ public class CartControllerServlet extends HttpServlet {
 		String now = sdf.format(calendar.getTime());
 		
 		// 把OrderBean的資料寫進去Dababase
-		for(int i = 0; i <= cart.size(); i++) {
+		// 之後把下面fakeUserBeans.get(0)改成get(i)
+		for(int i = 0; i < cart.size(); i++) {
 			OrderBean orderBean = new OrderBean(newO_IDs.get(i), cart.get(i).getP_ID(), cart.get(i).getP_Name(), 
-				cart.get(i).getP_Price(), fakeUserBean.getU_ID(), fakeUserBean.getU_FirstName(), 
-				fakeUserBean.getU_LastName(), fakeUserBean.getU_Email(), "confirmed", now, 1);
+				cart.get(i).getP_Price(), fakeUserBeans.get(0).getU_ID(), fakeUserBeans.get(0).getU_FirstName(), 
+				fakeUserBeans.get(0).getU_LastName(), fakeUserBeans.get(0).getU_Email(), "confirmed", now, 1);
 			crudor.insertOrder(orderBean);
 		}
 
@@ -474,15 +481,13 @@ public class CartControllerServlet extends HttpServlet {
     	// clone()前後ArrayList記憶體位置會不一樣、不會互相影響
     	ArrayList<Integer> cloned = (ArrayList<Integer>)intArrayList.clone();
     	while (cloned.size() > 1) {
-    		for(int i = 0; i < cloned.size(); i++) {
-    			for(int j = 0; j < cloned.size(); j++) {
-    				if(cloned.get(i) > cloned.get(j)) {		
-    					cloned.remove(j);
-    				} 
-    			}
-    		}
+    		if(cloned.get(0) >= cloned.get(1)) {
+    			cloned.remove(1);
+    		} else {
+				cloned.remove(0);
+			}
 		}
-		int maxNum =cloned.get(0);
+		int maxNum = cloned.get(0);
     	return maxNum;
     }
 }
