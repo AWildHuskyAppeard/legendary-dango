@@ -12,7 +12,7 @@
 	<%
 	request.getAttribute("all");
 	%>
-	<form action="/MyTopic/EventServletDS">
+	<form action="/AwesomeProject/EventServletDS">
 		<table>
 			<tr>
 				<td>UID</td>
@@ -29,9 +29,10 @@
 					<td>${allEventBean.aname}</td>
 					<td>${allEventBean.adate}</td>
 					<td>${allEventBean.acoin}</td>
-					
-					<td><a href="/MyTopic/enterUPDATE.jsp">修改</a></td>
-                    <td><a href="/MyTopic/EventServletDS?uid=${allEventBean.uid}&delete=%E5%88%AA%E9%99%A4">刪除</a></td>
+					<td><a href="/AwesomeProject/EventServletDS?uid=${allEventBean.uid}&aid=${allEventBean.aid}&aname=${allEventBean.aname}&adate=${allEventBean.adate}&acoin=${allEventBean.acoin}&UPDATE=修改">修改</a></td>
+				<!--	<td><a href="/MyTopic/enterUPDATE.jsp">修改</a></td>   就更改-->
+				 <!--   <td><a href="/MyTopic/enterUPDATE.jsp">修改</a></td> 就更改-->
+                    <td><a href="/AwesomeProject/EventServletDS?uid=${allEventBean.uid}&delete=%E5%88%AA%E9%99%A4" onclick="if(confirm('是否確定刪除?')==false){return false}">刪除</a></td>
                    
 				</tr>
 

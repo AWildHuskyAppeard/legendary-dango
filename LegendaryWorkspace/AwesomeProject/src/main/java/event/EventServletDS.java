@@ -55,20 +55,34 @@ public class EventServletDS extends HttpServlet {
 			}
 
 			if (request.getParameter("UPDATE") != null) {
-				request.getRequestDispatcher("/enterUPDATE.jsp").forward(request, response);
+            //request.getRequestDispatcher("/enterUPDATE.jsp").forward(request, response);
+			//從findAllEventBean.jsp送來的資料 
+				processUpdate(request, response, EventDAO);
 			}
 
+			if (request.getParameter("UPDATE_home") != null) {
+				request.getRequestDispatcher("/event/enterUPDATE_HOME.jsp").forward(request, response);
+			//從首頁更新按鈕送來的資料
+            //processUpdate(request, response, EventDAO);
+			}
+			if (request.getParameter("updhomesubmit") != null) {
+				processUpdateForm(request, response, EventDAO);
+			//從首頁更新按鈕到enterUPDATE_HOME.jsp 後送過來的資料
+            //processUpdate(request, response, EventDAO);
+			}
+			
+			
 			if (request.getParameter("delete") != null) {
 				processdelete(request, response, EventDAO);
 			}
 
 			if (request.getParameter("Add") != null) {
-				request.getRequestDispatcher("/enterAdd.jsp").forward(request, response);
+				request.getRequestDispatcher("/event/enterAdd.jsp").forward(request, response);
 
 			}
 
 			if (request.getParameter("Home") != null) {
-				request.getRequestDispatcher("/NewFile.jsp").forward(request, response);
+				request.getRequestDispatcher("/event/NewFile.jsp").forward(request, response);
 			}
 
 			
@@ -78,7 +92,8 @@ public class EventServletDS extends HttpServlet {
 
 			}
 			if (request.getParameter("updsubmit") != null) {
-				processUpdate(request, response, EventDAO);
+//				processUpdate(request, response, EventDAO);
+				processUpdateForm(request, response, EventDAO);
 				
 			}
 			
@@ -162,8 +177,40 @@ public class EventServletDS extends HttpServlet {
 			EventBean.setAid(aid);
 			EventBean.setAdate(adate);
 			EventBean.setAcoin(acoin);
-			if (EventDAO.updateDept(EventBean))
-				findAllEventBean(request, response, EventDAO);
+			if (EventDAO.updateDept(EventBean)) {
+//				findAllEventBean(request, response, EventDAO);
+			request.getSession(true).setAttribute("UPDATE_EventBean", EventBean);
+			request.getRequestDispatcher("/event/enterUPDATE.jsp").forward(request, response);
+			}
+				
+			else
+				showError(response, "更新錯誤");
+		}
+	}
+	private void processUpdateForm
+(HttpServletRequest request, HttpServletResponse response, EventDAO EventDAO)
+			throws SQLException, IOException, ServletException {
+		String uidno = request.getParameter("uid");
+		String aname = request.getParameter("aname");
+		String aid = request.getParameter("aid");
+		String adate = request.getParameter("adate");
+		String acoin = request.getParameter("acoin");
+
+		EventBean EventBean = EventDAO.findDept(Integer.parseInt(uidno));
+		if (EventBean == null)
+			showError(response, "找不到這個uid" + uidno);
+		else {
+			EventBean.setAname(aname);
+			EventBean.setUid(Integer.parseInt(uidno));
+			EventBean.setAid(aid);
+			EventBean.setAdate(adate);
+			EventBean.setAcoin(acoin);
+			if (EventDAO.updateDept(EventBean)) {
+			findAllEventBean(request, response, EventDAO);
+//			request.getSession(true).setAttribute("UPDATE_EventBean", EventBean);
+//			request.getRequestDispatcher("/enterUPDATE.jsp").forward(request, response);
+			}
+				
 			else
 				showError(response, "更新錯誤");
 		}
@@ -183,7 +230,7 @@ public class EventServletDS extends HttpServlet {
 			showError(response, " 找不到這個UID " + Uid);
 		else {
 			request.getSession(true).setAttribute("reg_EventBean", EventBean);
-			request.getRequestDispatcher("/Confirmationform.jsp").forward(request, response);
+			request.getRequestDispatcher("/event/Confirmationform.jsp").forward(request, response);
 //	                showForm(response, EventBean);
 		}
 
@@ -194,7 +241,7 @@ public class EventServletDS extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		ArrayList<EventBean> list = EventDAO.findAllEventBean();
 		request.setAttribute("all", list);
-		request.getRequestDispatcher("/findAllEventBean.jsp").forward(request, response);
+		request.getRequestDispatcher("/event/findAllEventBean.jsp").forward(request, response);
 	}
 
 //錯誤顯示
