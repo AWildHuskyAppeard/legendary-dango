@@ -136,9 +136,9 @@ public class CartControllerServlet extends HttpServlet {
 		// 對照button狀態ArrayList(btns)和要移除的品項ArrayList(toBeRmvd)
 		// 只取出btn值 == on的 P_ID，亦即那些勾選刪除的選項：
 		// 從購物車移除掉有打圈的課程
-		ArrayList btns = new ArrayList(); 
+		ArrayList<String> btns = new ArrayList<String>(); 
 		ArrayList<Integer> toBeRmvd = new ArrayList<Integer>();
-	    if(cart != null || cart.size() != 0) {
+	    if(cart != null && cart.size() != 0) {
 		    for(int i = 0; i < cart.size() ; i++) {
 		    	btns.add(req.getParameter("btn" + (i + 1)));
 		        if("on".equals(btns.get(i))) {
@@ -191,7 +191,7 @@ public class CartControllerServlet extends HttpServlet {
      **/
 	private void pay(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-		Connection conn = getConnection();
+		Connection conn = getConn();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 		// ＊生成OrderBean
 		crudor.selectAllOrder();
@@ -199,15 +199,19 @@ public class CartControllerServlet extends HttpServlet {
 		// (1) 取得O_ID：查出所有O_ID、找出最大值，以產生+1號的O_ID
 		ArrayList<String> O_IDStrings = new ArrayList<String>();
 		ArrayList<Integer> O_IDs = new ArrayList<Integer>();
+		ArrayList<String> newO_IDs = new ArrayList<String>();
 		for(ArrayList<String> dataArray : dataArrays) {
 			O_IDStrings.add(dataArray.get(0));
 		}
 		for(String O_IDString : O_IDStrings) {
-			stripNonDigits(O_IDString);
-			O_IDs.add(Integer.parseInt(O_IDString));
+			String pureNum = stripNonDigits(O_IDString);
+			O_IDs.add(Integer.parseInt(pureNum));
+			Integer latestO_ID = maxNum(O_IDs);
+			Integer counter = 0;
+			counter++;
+			String newO_ID = "Order" + String.valueOf(latestO_ID + counter);
+			newO_IDs.add(newO_ID);
 		}
-		Integer latestO_ID = maxNum(O_IDs);
-		String newO_ID = "Order" + String.valueOf(latestO_ID + 1);
 		
 		// (2) 取得U_ID，U_FirstName，U_LastName，U_Email
 		// 之後請若安把已登入會員的Bean幫我塞進session Attribute內，取出語句如下：
@@ -223,7 +227,7 @@ public class CartControllerServlet extends HttpServlet {
 		
 		// 把OrderBean的資料寫進去Dababase
 		for(int i = 0; i <= cart.size(); i++) {
-			OrderBean orderBean = new OrderBean(newO_ID, cart.get(i).getP_ID(), cart.get(i).getP_Name(), 
+			OrderBean orderBean = new OrderBean(newO_IDs.get(i), cart.get(i).getP_ID(), cart.get(i).getP_Name(), 
 				cart.get(i).getP_Price(), fakeUserBean.getU_ID(), fakeUserBean.getU_FirstName(), 
 				fakeUserBean.getU_LastName(), fakeUserBean.getU_Email(), "confirmed", now, 1);
 			crudor.insertOrder(orderBean);
@@ -253,9 +257,50 @@ public class CartControllerServlet extends HttpServlet {
 	 * @Database_Connection 涉及
 	 **/
 	private void deleteByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Connection conn = getConnection();
+		Connection conn = getConn();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 
+		//------------------------------------------------------------------------
+		
+		String[] O_IDsToBeRmvd = req.getParameterValues("ckbox");
+		for(int i = 0; i < O_IDsToBeRmvd.length; i++) {
+			crudor.deleteOrder(O_IDsToBeRmvd[i]);
+		}
+		
+		
+//		ArrayList<String> btns = new ArrayList<String>(); 
+//		ArrayList<Integer> toBeRmvd = new ArrayList<Integer>();
+//		
+//		Integer OrderRows = Integer.parseInt((String)this.session.getAttribute("OrderRows")); // 來自cartAdmin.jsp的Attribute
+//		ArrayList<ArrayList<String>> arrayLists = CartDAOImpl.dataArrays;
+//		
+//		if(OrderRows != 0 && OrderRows != null) {
+//			for(int i = 0; i < OrderRows; i++) {
+//				btns.add(req.getParameter("btn" + i));
+//				if("on".equals(btns.get(i))) {
+//					for(int j = 0; j < OrderRows; j++) {
+//						String aa = (String)session.getAttribute("O_ID" + i);
+//						if(arrayLists.get(j).get(0).equals(aa)) {
+//							toBeRmvd.add(j);
+//						}
+//					}
+//				}
+//				crudor.deleteOrder((String)session.getAttribute("O_ID" + i));
+//				session.removeAttribute("O_ID" + i);
+//			}
+//		}
+
+		
+//	    if(cart.size() != 0) {    	
+//		    for(int i = 0; i < toBeRmvd.size(); i++) {
+//		    	cart.remove(cart.get(toBeRmvd.get(i) - i));
+//		    }
+//	    }
+//		
+//		System.out.println(cart);
+    	this.session.setAttribute("cart", this.cart); // xxxxxxxxx
+		
+    	//------------------------------------------------------------------------
 		
 		
 		try {
@@ -265,7 +310,6 @@ public class CartControllerServlet extends HttpServlet {
 		} finally {
 			try {
 				conn.close();
-//				session.removeAttribute(O_ID~~~, e);
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
@@ -278,7 +322,7 @@ public class CartControllerServlet extends HttpServlet {
 	 * @Database_Connection UPDATE
 	 **/		
 	private void updateByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Connection conn = getConnection();
+		Connection conn = getConn();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 //		ArrayList<OrderBean> adminBeans = (ArrayList<OrderBean>)session.getAttribute("adminBeans");
 //		for(int i = 0; i < adminBeans.size(); i++) {
@@ -317,7 +361,7 @@ public class CartControllerServlet extends HttpServlet {
 	 * @Database_Connection INSERT
 	 **/
 	private void insertByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Connection conn = getConnection();
+		Connection conn = getConn();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 		
 		Integer up = Integer.parseInt(req.getParameter("counter"));
@@ -356,7 +400,7 @@ public class CartControllerServlet extends HttpServlet {
      * @Database_Connection 不涉及
      * @Problem1. InitialContext要關嗎？
      **/
-    private Connection getConnection() {
+    private Connection getConn() {
     	InitialContext ctx;
     	Connection conn = null;
     	
@@ -390,10 +434,10 @@ public class CartControllerServlet extends HttpServlet {
 	 * @補充 Integar.parseInt("00077")的結果會跑出77
      **/
     public static String stripNonDigits(CharSequence input){
-	     StringBuilder sb = new StringBuilder(input.length());
+	    StringBuilder sb = new StringBuilder(input.length());
 	    for(int i = 0; i < input.length(); i++){
 	        char c = input.charAt(i);
-	        if(c > 47 && c < 58){
+	        if(c > 47 && c < 58) {
 	            sb.append(c);
 	        }
 	    }
@@ -408,7 +452,7 @@ public class CartControllerServlet extends HttpServlet {
     	while (cloned.size() > 1) {
     		for(int i = 0; i < cloned.size(); i++) {
     			for(int j = 0; j < cloned.size(); j++) {
-    				if(cloned.get(i) > cloned.get(j)) {					
+    				if(cloned.get(i) > cloned.get(j)) {		
     					cloned.remove(j);
     				} 
     			}
