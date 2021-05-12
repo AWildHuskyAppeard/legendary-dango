@@ -111,160 +111,203 @@ public class ControlServlet extends HttpServlet {
 	}
 
 	protected void find(HttpServletRequest request, HttpServletResponse response, ProductDAOImpl pDao) throws ServletException, IOException {
-		pDao.findProductByProductNo(request.getParameter("P_ID"));
-		HttpSession session = request.getSession();
-		session.setAttribute("find", pDao.findProductByProductNo(request.getParameter("P_ID")));
-		request.getRequestDispatcher("/product/productList.jsp").forward(request, response);
+		try {
+			pDao.findProductByProductNo(request.getParameter("P_ID"));
+			HttpSession session = request.getSession();
+			session.setAttribute("find", pDao.findProductByProductNo(request.getParameter("P_ID")));
+			request.getRequestDispatcher("/product/productList.jsp").forward(request, response);
+			
+		} catch (Exception e) {
+			response.sendRedirect("/AwesomeProject/index_test.html");
+		}
 		
 	}protected void findForOne(HttpServletRequest request, HttpServletResponse response, ProductDAOImpl pDao) throws ServletException, IOException {
-		pDao.findProductByProductNo("1");
-		HttpSession session = request.getSession();
-		session.setAttribute("find", pDao.findProductByProductNo("1"));
-		response.sendRedirect("/AwesomeProject/product/productInfo.jsp");
+		try {
+			pDao.findProductByProductNo("en001");
+			HttpSession session = request.getSession();
+			session.setAttribute("find", pDao.findProductByProductNo("en001"));
+			response.sendRedirect("/AwesomeProject/product/productInfo.jsp");
+			
+		} catch (Exception e) {
+			response.sendRedirect("/AwesomeProject/index_test.html");
+		}
 		
 	}
 	protected void findForUser(HttpServletRequest request, HttpServletResponse response, ProductDAOImpl pDao) throws ServletException, IOException {
-		pDao.findProductByProductNo(request.getParameter("P_ID"));
-		HttpSession session = request.getSession();
-		session.setAttribute("find", pDao.findProductByProductNo(request.getParameter("P_ID")));
-		request.getRequestDispatcher("/product/productForUser.jsp").forward(request, response);
+		try {
+			pDao.findProductByProductNo(request.getParameter("P_ID"));
+			HttpSession session = request.getSession();
+			session.setAttribute("find", pDao.findProductByProductNo(request.getParameter("P_ID")));
+			request.getRequestDispatcher("/product/productForUser.jsp").forward(request, response);
+			
+		} catch (Exception e) {
+			response.sendRedirect("/AwesomeProject/index_test.html");
+		}
 		
 	}
 	protected void findAll(HttpServletRequest request, HttpServletResponse response, ProductDAOImpl pDao) throws ServletException, IOException {
-		//建立一個arraylist裝daoimpl方法找出來的資料
-		ArrayList<ProductBean> list = pDao.findAll();
-		//把arraylist放進session裡面
-		HttpSession session = request.getSession();
-		session.setAttribute("list", list);
-		request.getRequestDispatcher("/product/productList.jsp").forward(request, response);
+		try {
+			//建立一個arraylist裝daoimpl方法找出來的資料
+			ArrayList<ProductBean> list = pDao.findAll();
+			//把arraylist放進session裡面
+			HttpSession session = request.getSession();
+			session.setAttribute("list", list);
+			request.getRequestDispatcher("/product/productList.jsp").forward(request, response);
+			
+		} catch (Exception e) {
+			response.sendRedirect("/AwesomeProject/index_test.html");
+		}
+		
 	}
 	protected void findAllToUser(HttpServletRequest request, HttpServletResponse response, ProductDAOImpl pDao) throws ServletException, IOException {
-		//建立一個arraylist裝daoimpl方法找出來的資料
-		ArrayList<ProductBean> list = pDao.findAll();
-		//把arraylist放進session裡面
-		HttpSession session = request.getSession();
-		session.setAttribute("list", list);
-		request.getRequestDispatcher("/product/productForUser.jsp").forward(request, response);
+		try {
+			//建立一個arraylist裝daoimpl方法找出來的資料
+			ArrayList<ProductBean> list = pDao.findAll();
+			//把arraylist放進session裡面
+			HttpSession session = request.getSession();
+			session.setAttribute("list", list);
+			request.getRequestDispatcher("/product/productForUser.jsp").forward(request, response);
+			
+		} catch (Exception e) {
+			response.sendRedirect("/AwesomeProject/index_test.html");
+		}
+		
 	}
 
 	protected void update(HttpServletRequest request, HttpServletResponse response, ProductDAOImpl pDao)	throws ServletException, IOException {
-		//儲存影片
-		Part partVideo = request.getPart("P_Video");
-		String videoName = request.getParameter("P_ID");
-		String fileName = partVideo.getSubmittedFileName();
-		String fileType = partVideo.getContentType();
-		String type = "." + fileType.split("/")[1];
-		String savePath = "D:\\Program\\legendary-repository\\LegendaryWorkspace\\AwesomeProject\\src\\main\\webapp\\product\\File"+ File.separator + videoName+ type;
-		File fileSaveDir = new File(savePath);
-		if (fileSaveDir.exists()) {
-			fileSaveDir.mkdir();
+		try {
+			//儲存影片
+			Part partVideo = request.getPart("P_Video");
+			String videoName = request.getParameter("P_ID");
+			String fileName = partVideo.getSubmittedFileName();
+			String fileType = partVideo.getContentType();
+			String type = "." + fileType.split("/")[1];
+			String savePath = "D:\\Program\\legendary-repository\\LegendaryWorkspace\\AwesomeProject\\src\\main\\webapp\\product\\File"+ File.separator + videoName+ type;
+			File fileSaveDir = new File(savePath);
+			if (fileSaveDir.exists()) {
+				fileSaveDir.mkdir();
+			}
+			InputStream in = partVideo.getInputStream();
+			OutputStream out = new FileOutputStream(savePath);
+			
+			byte[] buffer = new byte[1024];
+			int length = -1;
+			while ((length = in.read(buffer))!=-1) {
+				out.write(buffer,0,length);
+			}
+			in.close();
+			out.close();
+			//儲存圖片
+			Part partImg = request.getPart("P_Img");
+			String imgName = request.getParameter("P_ID")+"Pic";
+			String fName = partImg.getSubmittedFileName();
+			String fType = partImg.getContentType();
+			String ImgType = "." + fType.split("/")[1];
+			String saveImgPath = "D:\\Program\\legendary-repository\\LegendaryWorkspace\\AwesomeProject\\src\\main\\webapp\\product\\File"+ File.separator + imgName+ ImgType;
+			File imgSaveDir = new File(saveImgPath);
+			if (imgSaveDir.exists()) {
+				imgSaveDir.mkdir();
+			}
+			InputStream imgIn = partImg.getInputStream();
+			OutputStream imgOut = new FileOutputStream(saveImgPath);
+			
+			while ((length = imgIn.read(buffer))!=-1) {
+				imgOut.write(buffer,0,length);
+			}
+			imgIn.close();
+			imgOut.close();
+			//新增一個bean放參數
+			ProductBean pBean = new ProductBean();
+			pBean.setP_Class(request.getParameter("P_Class"));
+			pBean.setP_DESC(request.getParameter("P_DESC"));
+			pBean.setP_ID(request.getParameter("P_ID"));
+			pBean.setP_Img(saveImgPath);
+			pBean.setP_Name(request.getParameter("P_Name"));
+			pBean.setP_Price(Integer.parseInt(request.getParameter("P_Price")));
+			pBean.setP_Video(savePath);
+			pBean.setU_ID(request.getParameter("U_ID"));
+			//把裝好參數的bean使用daoimpl update方法
+			pDao.updateProduct(pBean);
+			response.sendRedirect("/AwesomeProject/userInfo/test_GM_index.html");
+			
+		} catch (Exception e) {
+			response.sendRedirect("/AwesomeProject/index_test.html");
 		}
-		InputStream in = partVideo.getInputStream();
-		OutputStream out = new FileOutputStream(savePath);
 		
-		byte[] buffer = new byte[1024];
-		int length = -1;
-		while ((length = in.read(buffer))!=-1) {
-			out.write(buffer,0,length);
-		}
-		in.close();
-		out.close();
-		//儲存圖片
-		Part partImg = request.getPart("P_Img");
-		String imgName = request.getParameter("P_ID")+"Pic";
-		String fName = partImg.getSubmittedFileName();
-		String fType = partImg.getContentType();
-		String ImgType = "." + fType.split("/")[1];
-		String saveImgPath = "D:\\Program\\legendary-repository\\LegendaryWorkspace\\AwesomeProject\\src\\main\\webapp\\product\\File"+ File.separator + imgName+ ImgType;
-		File imgSaveDir = new File(saveImgPath);
-		if (imgSaveDir.exists()) {
-			imgSaveDir.mkdir();
-		}
-		InputStream imgIn = partImg.getInputStream();
-		OutputStream imgOut = new FileOutputStream(saveImgPath);
-		
-		while ((length = imgIn.read(buffer))!=-1) {
-			imgOut.write(buffer,0,length);
-		}
-		imgIn.close();
-		imgOut.close();
-		//新增一個bean放參數
-				ProductBean pBean = new ProductBean();
-				pBean.setP_Class(request.getParameter("P_Class"));
-				pBean.setP_DESC(request.getParameter("P_DESC"));
-				pBean.setP_ID(request.getParameter("P_ID"));
-				pBean.setP_Img(saveImgPath);
-				pBean.setP_Name(request.getParameter("P_Name"));
-				pBean.setP_Price(Integer.parseInt(request.getParameter("P_Price")));
-				pBean.setP_Video(savePath);
-				pBean.setU_ID(request.getParameter("U_ID"));
-				//把裝好參數的bean使用daoimpl update方法
-				pDao.updateProduct(pBean);
-				response.sendRedirect("/AwesomeProject/userInfo/test_GM_index.html");
 	}
 
 	protected void delete(HttpServletRequest request, HttpServletResponse response, ProductDAOImpl pDao)	throws ServletException, IOException {
-		pDao.deleteProduct(request.getParameter("P_ID"));
-		//request.getRequestDispatcher("/userInfo/test_GM_index.html").forward(request, response);
-		response.sendRedirect("/AwesomeProject/userInfo/test_GM_index.html");
+		try {
+			pDao.deleteProduct(request.getParameter("P_ID"));
+			//request.getRequestDispatcher("/userInfo/test_GM_index.html").forward(request, response);
+			response.sendRedirect("/AwesomeProject/userInfo/test_GM_index.html");
+			
+		} catch (Exception e) {
+			response.sendRedirect("/AwesomeProject/index_test.html");
+		}
 	}
 
 	protected void insert(HttpServletRequest request, HttpServletResponse response, ProductDAOImpl pDao)	throws ServletException, IOException {
-		//儲存影片
-		Part partVideo = request.getPart("P_Video");
-		String videoName = request.getParameter("P_ID");
-		String fileName = partVideo.getSubmittedFileName();
-		String fileType = partVideo.getContentType();
-		String type = "." + fileType.split("/")[1];
-		String savePath = "D:\\Program\\legendary-repository\\LegendaryWorkspace\\AwesomeProject\\src\\main\\webapp\\product\\File"+ File.separator + videoName+ type;
-		File fileSaveDir = new File(savePath);
-		if (fileSaveDir.exists()) {
-			fileSaveDir.mkdir();
+		try {
+			//儲存影片
+			Part partVideo = request.getPart("P_Video");
+			String videoName = request.getParameter("P_ID");
+			String fileName = partVideo.getSubmittedFileName();
+			String fileType = partVideo.getContentType();
+			String type = "." + fileType.split("/")[1];
+			String savePath = "D:\\Program\\legendary-repository\\LegendaryWorkspace\\AwesomeProject\\src\\main\\webapp\\product\\File"+ File.separator + videoName+ type;
+			File fileSaveDir = new File(savePath);
+			if (fileSaveDir.exists()) {
+				fileSaveDir.mkdir();
+			}
+			InputStream in = partVideo.getInputStream();
+			OutputStream out = new FileOutputStream(savePath);
+			
+			byte[] buffer = new byte[1024];
+			int length = -1;
+			while ((length = in.read(buffer))!=-1) {
+				out.write(buffer,0,length);
+			}
+			in.close();
+			out.close();
+			//儲存圖片
+			Part partImg = request.getPart("P_Img");
+			String imgName = request.getParameter("P_ID")+"Pic";
+			String fName = partImg.getSubmittedFileName();
+			String fType = partImg.getContentType();
+			String ImgType = "." + fType.split("/")[1];
+			String saveImgPath = "D:\\Program\\legendary-repository\\LegendaryWorkspace\\AwesomeProject\\src\\main\\webapp\\product\\File"+ File.separator + imgName+ ImgType;
+			File imgSaveDir = new File(saveImgPath);
+			if (imgSaveDir.exists()) {
+				imgSaveDir.mkdir();
+			}
+			InputStream imgIn = partImg.getInputStream();
+			OutputStream imgOut = new FileOutputStream(saveImgPath);
+			
+			while ((length = imgIn.read(buffer))!=-1) {
+				imgOut.write(buffer,0,length);
+			}
+			imgIn.close();
+			imgOut.close();
+			
+			//新增一個bean放參數
+			ProductBean pBean = new ProductBean();
+			pBean.setP_Class(request.getParameter("P_Class"));
+			pBean.setP_DESC(request.getParameter("P_DESC"));
+			pBean.setP_ID(request.getParameter("P_ID"));
+			pBean.setP_Img(saveImgPath);
+			pBean.setP_Name(request.getParameter("P_Name"));
+			pBean.setP_Price(Integer.parseInt(request.getParameter("P_Price")));
+			pBean.setP_Video(savePath);
+			pBean.setU_ID(request.getParameter("U_ID"));
+			//把裝好參數的bean使用daoimpl insert方法
+			pDao.insertProduct(pBean);
+			
+			response.sendRedirect("/AwesomeProject/userInfo/test_GM_index.html");
+			
+		} catch (Exception e) {
+			response.sendRedirect("/AwesomeProject/index_test.html");
 		}
-		InputStream in = partVideo.getInputStream();
-		OutputStream out = new FileOutputStream(savePath);
-		
-		byte[] buffer = new byte[1024];
-		int length = -1;
-		while ((length = in.read(buffer))!=-1) {
-			out.write(buffer,0,length);
-		}
-		in.close();
-		out.close();
-		//儲存圖片
-		Part partImg = request.getPart("P_Img");
-		String imgName = request.getParameter("P_ID")+"Pic";
-		String fName = partImg.getSubmittedFileName();
-		String fType = partImg.getContentType();
-		String ImgType = "." + fType.split("/")[1];
-		String saveImgPath = "D:\\Program\\legendary-repository\\LegendaryWorkspace\\AwesomeProject\\src\\main\\webapp\\product\\File"+ File.separator + imgName+ ImgType;
-		File imgSaveDir = new File(saveImgPath);
-		if (imgSaveDir.exists()) {
-			imgSaveDir.mkdir();
-		}
-		InputStream imgIn = partImg.getInputStream();
-		OutputStream imgOut = new FileOutputStream(saveImgPath);
-		
-		while ((length = imgIn.read(buffer))!=-1) {
-			imgOut.write(buffer,0,length);
-		}
-		imgIn.close();
-		imgOut.close();
-
-		//新增一個bean放參數
-		ProductBean pBean = new ProductBean();
-		pBean.setP_Class(request.getParameter("P_Class"));
-		pBean.setP_DESC(request.getParameter("P_DESC"));
-		pBean.setP_ID(request.getParameter("P_ID"));
-		pBean.setP_Img(saveImgPath);
-		pBean.setP_Name(request.getParameter("P_Name"));
-		pBean.setP_Price(Integer.parseInt(request.getParameter("P_Price")));
-		pBean.setP_Video(savePath);
-		pBean.setU_ID(request.getParameter("U_ID"));
-		//把裝好參數的bean使用daoimpl insert方法
-		pDao.insertProduct(pBean);
-		
-		response.sendRedirect("/AwesomeProject/userInfo/test_GM_index.html");
 	}
 
 }

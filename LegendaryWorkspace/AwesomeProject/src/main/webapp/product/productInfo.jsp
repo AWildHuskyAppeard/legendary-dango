@@ -45,7 +45,7 @@ ProductBean findByID = (ProductBean) session.getAttribute("find");
 			
 			<h1>hello <%=findByID.getP_Name()%></h1>
 			<hr>
-			<div><img src="File/1Pic.jpeg" width="200px" height="200px"></div>
+			<div><img src="File/en001Pic.png" width="300px" height="200px"></div>
 			<hr>
 			<h3>簡介:</h3>
 			<div>
@@ -53,7 +53,7 @@ ProductBean findByID = (ProductBean) session.getAttribute("find");
 			</div>
 			<hr>
 			<div>
-				<iframe width="900" height="506" src="File/1.mp4" frameborder="0" allow="accelerometer;clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+				<iframe width="900" height="506" src="File/en001.mp4" frameborder="0" allow="accelerometer;clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 			</div>
 			
 			
