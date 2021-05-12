@@ -194,7 +194,7 @@ public class QuesServletDS extends HttpServlet {
 		out.println("<HEAD>");
 		out.println("<TITLE>題庫</TITLE>");
 		out.println("</HEAD>");
-		out.println("<BODY BGCOLOR='#FDF5E6'>");
+		out.println("<BODY BGCOLOR='aliceblue'>");
 		out.println("message:" + message);
 		out.println("</BODY>");
 		out.println("</HTML>");
@@ -211,7 +211,7 @@ public class QuesServletDS extends HttpServlet {
 		out.println("<HEAD>");
 		out.println("<TITLE>題庫</TITLE>");
 		out.println("</HEAD>");
-		out.println("<BODY BGCOLOR='#FDF5E6'>");
+		out.println("<BODY BGCOLOR='aliceblue'>");
 		out.println("<H1 ALIGN='CENTER'>題庫</H1>");
 		out.println("<FORM ACTION='./QuesServletDS'>");
 		out.println("題目編號: " + ques.getQ_ID() + "<BR>");

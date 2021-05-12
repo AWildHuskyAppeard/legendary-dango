@@ -7,7 +7,7 @@ response.setContentType("text/html;charset=UTF-8");
 %>
 <HTML>
 <HEAD>
-<BODY BGCOLOR="#FDF5E6">
+<BODY BGCOLOR="aliceblue">
 <meta charset="UTF-8">
 <TITLE>題庫</TITLE>
 
