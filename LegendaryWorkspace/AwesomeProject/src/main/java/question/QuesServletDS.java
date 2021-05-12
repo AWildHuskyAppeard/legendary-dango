@@ -214,18 +214,18 @@ public class QuesServletDS extends HttpServlet {
 		out.println("<BODY BGCOLOR='#FDF5E6'>");
 		out.println("<H1 ALIGN='CENTER'>題庫</H1>");
 		out.println("<FORM ACTION='./QuesServletDS'>");
-		out.println("題目編號:  <INPUT TYPE='TEXT' NAME='Q_ID' VALUE='" + ques.getQ_ID() + "'><BR>");
-		out.println("題目種類:  <INPUT TYPE='TEXT' NAME='Q_Type' VALUE='" + ques.getQ_Type() + "'><BR>");
-		out.println("題　目　:  <INPUT TYPE='TEXT' NAME='Q_Ques' VALUE='" + ques.getQ_Ques() + "'><BR>");
-		out.println("選　項　:  <INPUT TYPE='TEXT' NAME='Q_Selection' VALUE='" + ques.getQ_Selection() + "'><BR>");
-		out.println("正　解　:  <INPUT TYPE='TEXT' NAME='Q_Ans' VALUE='" + ques.getQ_Ans() + "'><BR>");
-		out.println("題目類型:  <INPUT TYPE='TEXT' NAME='P_Class' VALUE='" + ques.getP_Class() + "'><BR>");
+		out.println("題目編號: " + ques.getQ_ID() + "<BR>");
+		out.println("題目種類: " + ques.getQ_Type() + "<BR>");
+		out.println("題　目　: " + ques.getQ_Ques() + "<BR>");
+		out.println("選　項　: " + ques.getQ_Selection() + "<BR>");
+		out.println("正　解　: " + ques.getQ_Ans() + "<BR>");
+		out.println("題目類型: " + ques.getP_Class() + "<BR>");
 	
 		out.println("<CENTER>");
-		out.println("<INPUT NAME='QUERY'  TYPE='SUBMIT' VALUE='QUERY'>");
-		out.println("<INPUT NAME='UPDATE' TYPE='SUBMIT' VALUE='UPDATE'>");
-		out.println("<INPUT NAME='DELETE' TYPE='SUBMIT' VALUE='DELETE'>");
-		out.println("<INPUT NAME='CREATE' TYPE='SUBMIT' VALUE='CREATE'>");
+//		out.println("<INPUT NAME='QUERY'  TYPE='SUBMIT' VALUE='QUERY'>");
+//		out.println("<INPUT NAME='UPDATE' TYPE='SUBMIT' VALUE='UPDATE'>");
+//		out.println("<INPUT NAME='DELETE' TYPE='SUBMIT' VALUE='DELETE'>");
+//		out.println("<INPUT NAME='CREATE' TYPE='SUBMIT' VALUE='CREATE'>");
 		out.println("</CENTER>");
 		out.println("</FORM>");
 		out.println("<a href=\"/AwesomeProject/question/QuesFormDS.jsp\">題庫首頁</a>");
@@ -233,5 +233,5 @@ public class QuesServletDS extends HttpServlet {
 		out.println("</HTML>");
 		out.close();
 	}
-
+/////////
 }
