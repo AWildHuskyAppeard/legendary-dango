@@ -25,9 +25,9 @@ public class CartControllerServlet extends HttpServlet {
 	private List<ProductBean> cart;
 	private int jjj = (1==2)? 1 : 2; // 挖賽這居然行的通喔...這不是等於塞了一個if else了嗎
 	
-	public static ProductBean testBean1 = new ProductBean("ENG003", "Speaking", "ENG", 900, "nice", "mem005", "www", "sss")  ;
-	public static ProductBean testBean2 = new ProductBean("ENG015", "Reading", "ENG", 350, "awesome", "mem905", "ww", "ks")  ;
-	public static ProductBean testBean3 = new ProductBean("JPN003", "Speaking", "JPN", 99, "subarashii", "mem001", "aaa", "ww")  ;
+	public static ProductBean testBean1 = new ProductBean("EN00003", "Speaking", "EN", 900, "nice", "fbk001", "pic01", "vid01")  ;
+	public static ProductBean testBean2 = new ProductBean("RU00015", "Reading", "RU", 350, "awesome", "krn563", "pic02", "vid02")  ;
+	public static ProductBean testBean3 = new ProductBean("JP00003", "Speaking", "JP", 99, "subarashii", "duck486", "pic03", "vid03")  ;
 	
     @Override
 	public void init() throws ServletException {
