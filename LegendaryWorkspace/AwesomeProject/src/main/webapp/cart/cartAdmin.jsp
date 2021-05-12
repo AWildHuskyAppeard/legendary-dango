@@ -93,14 +93,16 @@
 			<hr>
 
 			<button name="todo" id="insert" value="insertAdmin">新增</button>
-			<button name="todo" id="delete" value="deleteAdmin">刪除</button>
+			<button name="todo" id="delete" value="deleteAdmin" disabled>刪除</button>
 			<button name="todo" id="update" value="updateAdmin">修改</button>
 			<hr>
 			
+		</form>
+		<form>
 			<button formmethod="POST" formaction="../index_test.html">回首頁</button>
 			<button formmethod="POST" formaction="../userInfo/test_GM_index.html">回GM首頁</button>
-
 		</form>
+
 
 		
 		<script src="../assets/jquery-3.6.0.min.js"></script>
@@ -127,15 +129,16 @@
 							`;
 					$('#newRowsBelow').append(content);
 				})
-				let ckboxes = $('input#ckbox');
 				$('input#ckbox').on('click', function(){
-					for(let i = 0; i < ckboxes.length; i++) {
-						if($(ckboxes[i]).val() !== null) {
-							console.log($(ckboxes[i]).val());
+					let ckboxes = $('input#ckbox:checked');
+					$('#delete').attr('disabled', true);
+						if($(ckboxes).length == 0 || $(ckboxes).length == null) {
+							console.log('(if)' + $(ckboxes).length);
 						} else {
-							console.log('LULLLLL');
+							$('#delete').attr('disabled', false);
+							console.log('(else)' + $(ckboxes).length);							
 						}
-					}
+					
 				})
 
 			})
