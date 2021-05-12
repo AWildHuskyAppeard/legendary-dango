@@ -59,33 +59,13 @@ public class EventServletDS extends HttpServlet {
 			//從findAllEventBean.jsp送來的資料 
 				processUpdate(request, response, EventDAO);
 			}
-
-			if (request.getParameter("UPDATE_home") != null) {
-				request.getRequestDispatcher("/event/enterUPDATE_HOME.jsp").forward(request, response);
-			//從首頁更新按鈕送來的資料
-            //processUpdate(request, response, EventDAO);
-			}
-			if (request.getParameter("updhomesubmit") != null) {
-				processUpdateForm(request, response, EventDAO);
-			//從首頁更新按鈕到enterUPDATE_HOME.jsp 後送過來的資料
-            //processUpdate(request, response, EventDAO);
-			}
-			
-			
-			if (request.getParameter("delete") != null) {
-				processdelete(request, response, EventDAO);
-			}
-
 			if (request.getParameter("Add") != null) {
 				request.getRequestDispatcher("/event/enterAdd.jsp").forward(request, response);
-
+				
 			}
-
 			if (request.getParameter("Home") != null) {
 				request.getRequestDispatcher("/event/NewFile.jsp").forward(request, response);
 			}
-
-			
 			if (request.getParameter("AllQUERY") != null) {
 
 				findAllEventBean(request, response, EventDAO);
@@ -99,8 +79,33 @@ public class EventServletDS extends HttpServlet {
 			
 			if (request.getParameter("addsubmit") != null) {
 				processAdd(request, response, EventDAO);
-				
 			}
+				
+			if (request.getParameter("delete") != null) {
+					processdelete(request, response, EventDAO);
+				}
+			
+			
+			
+			
+//
+//			if (request.getParameter("updhomesubmit") != null) {
+//				processUpdateForm(request, response, EventDAO);
+//				//從首頁更新按鈕到enterUPDATE_HOME.jsp 後送過來的資料
+//				//processUpdate(request, response, EventDAO);
+//			}
+//			if (request.getParameter("UPDATE_home") != null) {
+//				request.getRequestDispatcher("/event/enterUPDATE_HOME.jsp").forward(request, response);
+//			從首頁更新按鈕送來的資料
+//            processUpdate(request, response, EventDAO);
+//			}
+			
+
+
+			
+
+			
+			
 		} catch (NamingException ne) {
 			System.out.println("Naming Service Lookup Exception");
 		} catch (SQLException e) {
@@ -135,7 +140,7 @@ public class EventServletDS extends HttpServlet {
 			if (EventDAO.insertDept(EventBean))
 				findAllEventBean(request, response, EventDAO);
 			else
-				showError(response, "更新錯誤");
+				showError(response, "新增錯誤");
 		}
 	}
 
@@ -289,7 +294,7 @@ public class EventServletDS extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		doGet(request,response);
 	}
 
 }

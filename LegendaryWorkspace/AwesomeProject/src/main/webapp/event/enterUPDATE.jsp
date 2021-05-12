@@ -9,7 +9,7 @@
 </HEAD>
 <BODY >
 <H1 ALIGN="CENTER" >更新頁面</H1>
-       
+     <CENTER>  
 <FORM ACTION="/AwesomeProject/EventServletDS">
    活動 UID  :     <INPUT TYPE="TEXT" NAME="uid"    value="${UPDATE_EventBean.uid}"   readonly="readonly"><BR>
    活動名稱 AName:  <INPUT TYPE="TEXT" NAME="aname"  value="${UPDATE_EventBean.aname}"><BR>
@@ -19,10 +19,10 @@
   
    
             
-  <CENTER>
+  
    
-    <INPUT NAME="updsubmit" TYPE="SUBMIT" VALUE="提交">
-    <input type="submit" name="Home" value="首頁" >
+    <INPUT  class="btn btn-primary" NAME="updsubmit" TYPE="SUBMIT" VALUE="提交">
+    <input  class="btn btn-primary"  type="submit" name="Home" value="首頁" >
     
   </CENTER>
 </FORM>
