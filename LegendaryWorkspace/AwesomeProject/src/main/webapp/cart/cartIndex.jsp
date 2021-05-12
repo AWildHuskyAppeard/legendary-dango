@@ -47,8 +47,8 @@
 			<% for(int i = 0; i < cart.size(); i++) {
 			%>
 			<% if(cart != null){ %>
-			<tr>
-				<td><input id="ckbox" type="checkbox" name="ckbox" value="<%=i%>"></td>
+				<tr>
+				<td><input type="checkbox" name="ckbox" value="<%=i%>" id="ckbox">取消</td>
 				<td> <%= cart.get(i).getP_Name () %>   </td>
 				<td> <%= cart.get(i).getP_ID   () %>   </td>
 				<td> <%= cart.get(i).getP_Price() %>   </td>
@@ -65,8 +65,8 @@
 
 		<hr>
 <!-- 2. 按鈕導向各頁 -->
-		<button name="todo" value="remove">移除</button>
-		<button name="todo" value="checkout">去結帳</button>
+		<button name="todo" value="remove" id="delete" disabled>移除</button>
+		<button name="todo" value="checkout" id="checkout">去結帳</button>
 		<hr>
 	</form>
 	<form method="POST" action="/AwesomeProject/index_test.html">
@@ -74,15 +74,18 @@
 	</form>
 	<script src="../assets/jquery-3.6.0.min.js"></script>
 	<script>
-		$(function(){
-			$('input#ckbox').on('click', function(){
-				let d = $(this).eq(0).attr('disabled');
-				let c = $('input#ckbox').eq(0).attr('clicked');
-				console.log('disabled = ' + d + '; clicked = ' + c)
-			})
-			
-
-
+		$(function() {
+			$('input#ckbox').on('click', function() {
+					let ckboxes = $('input#ckbox:checked');
+					$('#delete').attr('disabled', true);
+						if($(ckboxes).length == 0 || $(ckboxes).length == null) {
+							console.log('(if)' + $(ckboxes).length);
+						} else {
+							$('#delete').attr('disabled', false);
+							console.log('(else)' + $(ckboxes).length);							
+						}
+					
+				})
 
 
 		})

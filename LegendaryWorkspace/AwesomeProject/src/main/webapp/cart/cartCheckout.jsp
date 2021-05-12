@@ -66,7 +66,7 @@
 			%>
 			</tbody>
 		</table>
-		<h1>總計：<%= totalPrice %></h1>
+		<h1>總計：NT$<%= totalPrice %></h1>
 		<hr>
 <!-- 2. 按鈕導向各頁................................................... -->
 		<button name="todo" value="back">回上一頁</button>

@@ -214,9 +214,7 @@ public class CartControllerServlet extends HttpServlet {
 	}
     /**
      * @Method #06 pay > 確定付款
-     * @1. 
-     * @undone 要記得把session invalidate()掉
-     * @undone 尚缺O_ID，O_Amt，U_ID，U_FirstName，U_LastName，U_mail，O_Status，O_Date
+     * @undone O_ID的產生方式錯了，還沒改
      * @Database_Connection SELECT + INSERT
      **/
 	private void pay(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
