@@ -49,7 +49,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			<% int totalPrice = 0; %>
+			<% Integer totalPrice = 0; %>
 			<% for(int i = 0; i < cart.size(); i++) {
 			%>
 			<% if(cart != null){ %>
@@ -67,6 +67,7 @@
 			</tbody>
 		</table>
 		<h1>總計：NT$<%= totalPrice %></h1>
+		<% session.setAttribute("O_Amt", totalPrice); %>
 		<hr>
 <!-- 2. 按鈕導向各頁................................................... -->
 		<button name="todo" value="back">回上一頁</button>

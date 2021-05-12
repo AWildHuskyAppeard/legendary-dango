@@ -18,16 +18,17 @@ import userInfo.UserBean;
  **/
 
 @WebServlet("/CartControllerServlet")
+@SuppressWarnings("unchecked")
 public class CartControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DataSource ds;
 	private HttpSession session; 
 	private List<ProductBean> cart;
-	private int jjj = (1==2)? 1 : 2; // 挖賽這居然行的通喔...這不是等於塞了一個if else了嗎
+//	private int jjj = (1==2)? 1 : 2; // 挖賽這居然行的通喔...這不是等於塞了一個if else了嗎
 	
-	public static ProductBean testBean1 = new ProductBean("EN00003", "Speaking", "EN", 900, "nice", "fbk001", "pic01", "vid01")  ;
-	public static ProductBean testBean2 = new ProductBean("RU00015", "Reading", "RU", 350, "awesome", "krn563", "pic02", "vid02")  ;
-	public static ProductBean testBean3 = new ProductBean("JP00003", "Speaking", "JP", 99, "subarashii", "duck486", "pic03", "vid03")  ;
+	public static ProductBean testBean1 = new ProductBean("p000003", "EN_Speaking", "EN", 500, "nice", "fbk001", "pic01", "vid01");
+	public static ProductBean testBean2 = new ProductBean("p000015", "RU_Reading", "RU", 650, "awesome", "krn563", "pic02", "vid02");
+	public static ProductBean testBean3 = new ProductBean("p000009", "JP_Translation", "JP", 500, "subarashii", "duck486", "pic03", "vid03");
 	
     @Override
 	public void init() throws ServletException {
@@ -43,7 +44,7 @@ public class CartControllerServlet extends HttpServlet {
     	return;
 	}
 
-    @Override
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	// session範圍：會員點選「加入購物車」(#add) ~ 付款完成 or 登出為止 
     	this.session = request.getSession(true);
@@ -219,6 +220,13 @@ public class CartControllerServlet extends HttpServlet {
      **/
 	private void pay(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
+		// 實際上應該是要到錯誤頁
+		// 前端也做個disabled
+		if(cart.size() == 0) {
+			res.sendRedirect("/AwesomeProject/cart/cartIndex.jsp");
+			return;
+		}
+		
 		Connection conn = getConn();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 		// ＊生成OrderBean
@@ -237,20 +245,26 @@ public class CartControllerServlet extends HttpServlet {
 			O_IDs.add(Integer.parseInt(pureNum));
 		}
 		// 找出當前Table裡O_ID最大數字，往後逐漸+1+1+1...
-		System.out.println("debug開始");
 		Integer latestO_ID = maxNum(O_IDs);
-		System.out.println("debug結束");
-		for(int i = 1; i <= O_IDs.size(); i++) {
-			String newO_ID = String.format("Order%06d", (latestO_ID + i));
+		// 97~122 = a~z; 65~90 = A~Z
+		// 單筆訂單內容上限 = 26筆
+		if (cart.size() > 1) {
+			for(int i = 0; i < cart.size(); i++) {			
+				String newO_ID = String.format("order%06d-%s", (latestO_ID + 1), (char)(65 + i));
+				newO_IDs.add(newO_ID);
+			}			
+		} else {	
+			String newO_ID = String.format("order%06d", (latestO_ID + 1));
 			newO_IDs.add(newO_ID);
 		}
+
 		
 		// (2) 取得U_ID，U_FirstName，U_LastName，U_Email
 		// 之後請若安把已登入會員的Bean幫我塞進session Attribute內，取出語句如下：
 		// UserBean userBean = (UserBean)this.session.getAttribute("userBean");
 		// 以下為測試用，要換掉
 		ArrayList<UserBean> fakeUserBeans = new ArrayList<UserBean>();
-		UserBean fakeUserBean00 = new UserBean("user01", "omegaLUL", "1999-12-31", "b", "F", "L@UL", "0987", "M", "www");
+		UserBean fakeUserBean00 = new UserBean("user01", "psww", "1098-12-31", "TKYM", "TMT", "L@U.L", "0987654321", "F", "this.Galaxy");
 		fakeUserBeans.add(fakeUserBean00);
 		
 		// (3) 取得O_Date (使用SimpleDateFormat)
@@ -259,12 +273,15 @@ public class CartControllerServlet extends HttpServlet {
 		calendar.setTimeInMillis(System.currentTimeMillis());
 		String now = sdf.format(calendar.getTime());
 		
-		// 把OrderBean的資料寫進去Dababase
+		// (4) 取得O_Amt
+		 Integer O_Amt = (Integer) session.getAttribute("O_Amt");
+		
+		// 把OrderBean的資料寫進去Database
 		// 之後把下面fakeUserBeans.get(0)改成get(i)
 		for(int i = 0; i < cart.size(); i++) {
 			OrderBean orderBean = new OrderBean(newO_IDs.get(i), cart.get(i).getP_ID(), cart.get(i).getP_Name(), 
 				cart.get(i).getP_Price(), fakeUserBeans.get(0).getU_ID(), fakeUserBeans.get(0).getU_FirstName(), 
-				fakeUserBeans.get(0).getU_LastName(), fakeUserBeans.get(0).getU_Email(), "confirmed", now, 1);
+				fakeUserBeans.get(0).getU_LastName(), fakeUserBeans.get(0).getU_Email(), "done", now, O_Amt);
 			crudor.insertOrder(orderBean);
 		}
 
@@ -282,6 +299,7 @@ public class CartControllerServlet extends HttpServlet {
 		
 		this.cart = new ArrayList<ProductBean>();
 		session.setAttribute("cart", this.cart);
+		session.removeAttribute("O_Amt");
 		
 //		req.getRequestDispatcher("/cart/cartThanks.jsp").forward(req, res);	 
 		res.sendRedirect("/AwesomeProject/cart/cartThanks.jsp");
@@ -404,7 +422,9 @@ public class CartControllerServlet extends HttpServlet {
 		Connection conn = getConn();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 		
-		Integer up = Integer.parseInt(req.getParameter("counter"));
+		System.out.println("Start debugging...");
+		String counter = req.getParameter("counter");
+		Integer up = Integer.parseInt(counter);
 		for(int i =0; i < up; i++) {
 			OrderBean adminBean = new OrderBean();
 			for(int j = 0; j < CartDAOImpl.columnNames.length; j++) { // CartDAOImpl.columnNames.length = 11

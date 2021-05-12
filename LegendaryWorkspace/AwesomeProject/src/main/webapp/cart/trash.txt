@@ -1,0 +1,9 @@
+USE [StudieHub]
+GO
+INSERT [dbo].[Order_Info] VALUES (N'order000001', N'p000001', N'EN_Speaking', 300, N'elf001', N'fl', N'b', N'w@w.w', N'cancelled', CAST(N'1901-12-01T00:00:00' AS SmallDateTime), 1)
+INSERT [dbo].[Order_Info] VALUES (N'order000002', N'p000006', N'JP_Speaking', 500, N'fox002', N'fu', N'b', N'x@x.x', N'done', CAST(N'1902-12-02T00:00:00' AS SmallDateTime), 1)
+INSERT [dbo].[Order_Info] VALUES (N'order000003', N'p000049', N'EN_Reading', 900, N'sheep004', N'wa', N'b', N'y@y.y', N'cancelled', CAST(N'1903-12-03T00:00:00' AS SmallDateTime), 1)
+INSERT [dbo].[Order_Info] VALUES (N'order000004', N'p001753', N'DE_Speaking', 799, N'alien909', N'erf', N'id', N'z@z.z', N'done', CAST(N'1904-06-03T00:00:00' AS SmallDateTime), 1)
+INSERT [dbo].[Order_Info] VALUES (N'order000005', N'p100201', N'ES_Writing', 199, N'893doragon', N'cc', N'msg', N'a@a.a', N'done', CAST(N'1905-01-01T00:00:00' AS SmallDateTime), 1)
+INSERT [dbo].[Order_Info] VALUES (N'order000006', N'p057771', N'SV_Translation', 563, N'bark563', N'knr', N'ingm', N'b@b.b', N'done', CAST(N'1906-11-22T22:05:00' AS SmallDateTime), 1)
+GO

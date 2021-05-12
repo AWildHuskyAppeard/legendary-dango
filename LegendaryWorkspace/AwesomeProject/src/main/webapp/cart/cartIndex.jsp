@@ -7,6 +7,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Cart Index Page</title>
+<style>
+	table {
+	    border: 2px solid black;
+	    border-collapse: 
+	}
+	
+	tbody thead {
+		border: 2px solid black;
+	    border-collapse: 
+	}
+	
+	tr td {
+	    border: 1.5px solid gray;
+	    border-collapse: collapse;
+	}
+	
+	tr th {
+	    border: 1.5px solid gray;
+	    border-collapse: collapse;
+	}
+</style>
 <link rel="stylesheet" href="/AwesomeProject/assets/cartIndex.css">
 </head>
 <body>
@@ -18,7 +39,8 @@
 	if(cart == null || cart.size() == 0) 
 	{
 %>
-		<h1 style='background-color: aquamarine; font-family: Comic Sans MS ;font-size: 200%'>※購物車沒有任何東西，因此管理員塞了三個課程進來✌💀✌</h1>
+		<h1 style='background-color: aquamarine; font-family: 
+		Comic Sans MS ;font-size: 200%'>※購物車沒有任何東西，因此管理員塞了三個課程進來✌💀✌</h1>
 <%
 		cart = new ArrayList<ProductBean>();
 		cart.add(CartControllerServlet.testBean1);
@@ -81,7 +103,7 @@
 					$('#delete').attr('disabled', true);
 						if($(ckboxes).length == 0 || $(ckboxes).length == null) {
 						} else {
-							$('#delete').attr('disabled', false);					
+							$('#delete').attr('disabled', false);			
 						}
 				})
 		})
