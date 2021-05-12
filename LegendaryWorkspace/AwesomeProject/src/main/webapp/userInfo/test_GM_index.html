@@ -1,48 +1,210 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>GM系統</title>
-<link rel="stylesheet" href="test_GM_index.css">
-</head>
-<body>
-    <div class="allpage">
-        <header>
-            <center>
-                <h1 class="header_h1">管理系統</h1>
-            </center>
-            <!-- <img class="logo-img" src="../images/logo.jpg" title="logo" alt="logo"> -->
-            <nav>
-                <ul class="menu">
-                    <li><a href="/AwesomeProject/index_test.html"><b>首頁</b></a></li>
-                    <li><a href="/AwesomeProject/ControlServlet?findAll"><b>課程</b></a></li>
-                    <li><a href="/AwesomeProject/chat/Chat.html"><b>討論區</b></a></li>
-                    <li><a href=""><b>測驗區</b></a></li>
-                    <li><a href=""><b>活動</b></a></li>
-                    <li><a href="/AwesomeProject/cart/cartAdmin.jsp"><b>購物車</b></a></li>
-                    <li style="float: right;"><a href="/AwesomeProject/userInfo/AdminLogin.jsp"><b>GM系統</b></a></li>
-                    <li style="float: right;"><a href="/AwesomeProject/userInfo/test_GM_UserFunction.jsp"><b>會員資料</b></a></li>
-                </ul>
-            </nav>            
-        </header>
-        <div class="content">
-            <article class="article">
-                <section class="section">
-                    <h2>heading2</h2>                    
-                   <p>這裡是article section</p>                   
-                </section>                
-            </article>
-            <aside class="aside">
-                    <section class="section">
-                            <h2>heading2</h2>
-                            <p>this is aside section</p>
-                    </section>
-            </aside>
-        </div>  <!--end content-->
-        <footer>
-                <p>This is footer</p>
-        </footer>
-    </div>  <!--end allpage-->
-</body>
+	<head>
+		<title>管理員首頁</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<!-- <a href="../index_test.html" class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a> -->
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="../index_test.html">Home</a></li>
+							<li><a href="landing.html">About us</a></li>
+							<!-- <li><a href="generic.html">Generic</a></li> -->
+							<li><a href="/AwesomeProject/userInfo/AdminLogin.jsp">GM Page</a></li>
+						</ul>
+						<ul class="actions stacked">
+							<li><a href="./UserLogin.jsp" class="button fit">Log In</a></li>
+							<li><a href="./UserSignUp.jsp" class="button primary fit">Sign Up</a></li>
+						</ul>
+					</nav>
+
+				<!-- Banner -->
+					<section id="banner" class="major">
+						<div class="inner">
+							<header class="major">
+								<h1>Studie Hub</h1>
+							</header>
+							<div class="content">
+								<p>Studie Hub - 1<br />
+								Studie Hub - 2</p>
+								<ul class="actions">
+									<li><a href="#one" class="button next scrolly">Get Started</a></li>
+								</ul>
+							</div>
+						</div>
+					</section>
+
+				<!-- Main -->
+					<div id="main">Main區
+
+						<!-- One -->
+							<section id="one" class="tiles">
+								<article>
+									<span class="image">
+										<img src="../images/pic01.jpg" alt="" />
+									</span>
+									<header class="major">
+										<h3><a href="./test_UserUpdate.jsp" class="link">修改會員資料</a></h3>
+										<!-- <p>part 1</p> -->
+									</header>
+								</article>
+								<article>
+									<span class="image">
+										<img src="../images/pic02.jpg" alt="" />
+									</span>
+									<header class="major">
+										<h3><a href="/AwesomeProject/ControlServlet?findAll" class="link">課程</a></h3>
+										<!-- <p>part 2</p> -->
+									</header>
+								</article>
+								<article>
+									<span class="image">
+										<img src="../images/pic03.jpg" alt="" />
+									</span>
+									<header class="major">
+										<h3><a href="../cart/cartAdmin.jsp" class="link">購物車</a></h3>
+										<!-- <p>part 3</p> -->
+									</header>
+								</article>
+								<article>
+									<span class="image">
+										<img src="../images/pic04.jpg" alt="" />
+									</span>
+									<header class="major">
+										<h3>活動(施工中)</h3>
+										<!-- <p>part 4</p> -->
+									</header>
+								</article>
+								<article>
+									<span class="image">
+										<img src="../images/pic05.jpg" alt="" />
+									</span>
+									<header class="major">
+										<h3>測驗區(施工中)</h3>
+										<!-- <p>part 5</p> -->
+									</header>
+								</article>
+								<article>
+									<span class="image">
+										<img src="../images/pic06.jpg" alt="" />
+									</span>
+									<header class="major">
+										<h3><a href="/AwesomeProject/chat/Chat.html" class="link">討論區</a></h3>
+										<!-- <p>part 6</p> -->
+									</header>
+								</article>
+							</section>
+
+						<!-- Two -->
+							<section id="two">
+								<div class="inner">
+									<header class="major">
+										<h2>Two - 1</h2>
+									</header>
+									<p>two - 2</p>
+									<ul class="actions">
+										<li><a href="#" class="button next">未定</a></li>
+									</ul>
+								</div>
+							</section>
+
+					</div>
+
+				<!-- Contact -->
+					<section id="contact">
+						<div class="inner">
+							<section>
+								<form method="post" action="#">
+									<div class="fields">
+										<div class="field half">
+											<label for="name">Name</label>
+											<input type="text" name="name" id="name" />
+										</div>
+										<div class="field half">
+											<label for="email">Email</label>
+											<input type="text" name="email" id="email" />
+										</div>
+										<div class="field">
+											<label for="message">Message</label>
+											<textarea name="message" id="message" rows="6"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send Message" class="primary" /></li>
+										<li><input type="reset" value="Clear" /></li>
+									</ul>
+								</form>
+							</section>
+							<section class="split">
+								<section>
+									<div class="contact-method">
+										<span class="icon solid alt fa-envelope"></span>
+										<h3>Email</h3>
+										<a href="#">information@untitled.tld</a>
+									</div>
+								</section>
+								<section>
+									<div class="contact-method">
+										<span class="icon solid alt fa-phone"></span>
+										<h3>Phone</h3>
+										<span>(000) 000-0000 x12387</span>
+									</div>
+								</section>
+								<section>
+									<div class="contact-method">
+										<span class="icon solid alt fa-home"></span>
+										<h3>Address</h3>
+										<span>1234 Somewhere Road #5432<br />
+										Nashville, TN 00000<br />
+										United States of America</span>
+									</div>
+								</section>
+							</section>
+						</div>
+					</section>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="icons">
+								<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+								<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							</ul>
+							<ul class="copyright">
+								<li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
 </html>
