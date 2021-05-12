@@ -233,5 +233,5 @@ public class QuesServletDS extends HttpServlet {
 		out.println("</HTML>");
 		out.close();
 	}
-
+/////////
 }
