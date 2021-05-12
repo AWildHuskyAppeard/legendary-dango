@@ -10,29 +10,23 @@
 <BODY >
 <H1 ALIGN="CENTER" >更新頁面</H1>
 <CENTER>  
-<FORM  class="form-control" ACTION="/AwesomeProject/EventServletDS">
+<FORM ACTION="/AwesomeProject/EventServletDS">
    
-   <div class="form-group">
-   <label for="uid">活動 UID:</label>
-   <INPUT  TYPE="TEXT" NAME="uid" id="uid"   >
+   <div>
+   活動 UID  :     <INPUT TYPE="TEXT" NAME="uid"    ><BR>
    </div>
-   <div class="form-group">
-   <label for="aname">活動名稱 AName:</label>
-   <INPUT TYPE="TEXT" NAME="aname" id="aname" >
+   <div>
+   活動名稱 AName:  <INPUT TYPE="TEXT" NAME="aname"  ><BR>
    </div>
-   <div class="form-group">
-   <label for="aid"> 活動 AID:</label>
-   <INPUT TYPE="TEXT" NAME="aid"   id="aid"      >
+   <div>
+   活動 AID:  <INPUT TYPE="TEXT" NAME="aid"         ><BR>
    </div>
-   <div class="form-group">
-   <label for="adate">活動時間 ADATE:</label>
-   <INPUT TYPE="date" NAME="adate" id="adate" >
+   <div>
+   活動時間 ADATE:  <INPUT TYPE="date" NAME="adate" ><BR>
    </div>
-   <div class="form-group">
-   <label for="acoin">活動代幣 ACOIN:</label>
-   <INPUT TYPE="TEXT" NAME="acoin" id="acoin" >
-   </div>
-   
+   <div>
+   活動代幣 ACOIN:  <INPUT TYPE="TEXT" NAME="acoin"  ><BR>
+  </div>
    
             
   
