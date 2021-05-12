@@ -14,9 +14,16 @@ import javax.sql.*;
  * Servlet implementation class QuesServletDS
  */
 @WebServlet("/QuesServletDS")
+
 public class QuesServletDS extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		
+		//解決中文亂碼
+		response.setContentType("text/html");
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		
 
 		DataSource ds = null;
 		InitialContext ctxt = null;
@@ -96,12 +103,19 @@ public class QuesServletDS extends HttpServlet {
 			ques.setQ_Ans(Q_Ans);
 			ques.setP_Class(P_Class);
 
-			if (quesDAO.updateQues(ques))
-				showForm(response, ques);
-			else
-				showError(response, " update failure");
-		}
-	}
+			if (quesDAO.updateQues(ques)) {
+//				showForm(response,QuesData);{
+				response.getWriter().println("題目編號 : " + Q_ID + " 修改成功!<br><br>");
+//			response.getWriter().println("正在導回後台管理系統.....<br><br>");
+/*倒數自動跳轉,但未帶SERVLET所以無值
+         response.setHeader("refresh", "3; /AwesomeProject/question/findAllQuesBean.jsp");*/
+			response.getWriter().println("<a href=\"/AwesomeProject/QuesServletDS?AllQUERY=BackStage\">返回後臺</a>");
+
+			
+		}else {
+			showError(response, "題目編號 : " + Q_ID + "資料修改失敗!");
+	}}
+}
 
 //查詢
 	private void processQuery(HttpServletRequest request, HttpServletResponse response, QuesDAO quesDAO)
@@ -142,17 +156,20 @@ public class QuesServletDS extends HttpServlet {
 			QuesData.setQ_Ans(Q_Ans);
 			QuesData.setP_Class(P_Class);
 			
-			if (quesDAO.insertQues(QuesData)) 
-				showForm(response,QuesData);
-			else 
-				showError(response," insert failure");
+			if (quesDAO.insertQues(QuesData)) {
+//				showForm(response,QuesData);{
+				response.getWriter().println("題目編號 : " + Q_ID + " 新增成功!<br><br>");
+//			response.getWriter().println("正在導回後台管理系統.....<br><br>");
+/*倒數自動跳轉,但未帶SERVLET所以無值
+         response.setHeader("refresh", "3; /AwesomeProject/question/findAllQuesBean.jsp");*/
+			response.getWriter().println("<a href=\"/AwesomeProject/QuesServletDS?AllQUERY=BackStage\">返回後臺</a>");
 
-/*			if (quesDAO.insertQues(Integer.parseInt(Q_ID), Q_Type, Q_Ques, Q_Selection, Q_Ans, P_Class) != -1)
-				showForm(response, QuesData);
-			else
-				showError(response, " insert failure"); */
-		}
-	}
+			
+		}else {
+			showError(response, "題目編號 : " + Q_ID + "資料新增失敗!");
+	}}
+}
+
 
 	// 刪除資料
 	private void processDelete(HttpServletRequest request, HttpServletResponse response, QuesDAO quesDAO)
@@ -166,12 +183,17 @@ public class QuesServletDS extends HttpServlet {
 		else {
 			System.out.println("ID:"+ Q_ID +" 刪除成功!");
 
-			if (quesDAO.deleteQues(Integer.parseInt(Q_ID)))
-				showForm(response, Quesdata);
-			else
-				showError(response, "更新錯誤");
-		}
+			if (quesDAO.deleteQues(Integer.parseInt(Q_ID))) {
+				response.getWriter().println("題目編號 : " + Q_ID + " 刪除成功!<br><br>");
+//				response.getWriter().println("正在導回後台管理系統.....<br><br>");
+/*倒數自動跳轉,但未帶SERVLET所以無值
+             response.setHeader("refresh", "3; /AwesomeProject/question/findAllQuesBean.jsp");*/
+				response.getWriter().println("<a href=\"/AwesomeProject/QuesServletDS?AllQUERY=BackStage\">返回後臺</a>");
 
+				
+			}else {
+				showError(response, "題目編號 : " + Q_ID + "資料刪除失敗!");
+		}}
 	}
 	
 	//搜尋全部
