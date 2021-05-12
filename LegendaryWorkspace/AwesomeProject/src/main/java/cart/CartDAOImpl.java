@@ -1,5 +1,6 @@
 package cart;
 // 購物車的連線物件
+// 要考慮做DAO Factory嗎？
 import java.sql.*;
 import java.util.ArrayList;
 

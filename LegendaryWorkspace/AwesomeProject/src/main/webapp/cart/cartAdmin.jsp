@@ -48,6 +48,7 @@
 	<body style="width: 100%;">
 		<h1>管理者頁面</h1>
 		<button id="newRow">添加空白訂單列</button>
+		<button id="cheat">添加訂單列(懶人用)</button>
 		<form method="POST" action="/AwesomeProject/CartControllerServlet"> 
 		<!-- 秀出所有Order_Info (希望之後能每20項分一頁) -->
 			<table border="2px">
@@ -95,6 +96,7 @@
 			<button name="todo" id="insert" value="insertAdmin">新增</button>
 			<button name="todo" id="delete" value="deleteAdmin" disabled>刪除</button>
 			<button name="todo" id="update" value="updateAdmin">修改</button>
+			<input name="counter" value="-1" id="counter" type="text" hidden>
 			<hr>
 			
 		</form>
@@ -103,7 +105,6 @@
 			<button formmethod="POST" formaction="../userInfo/test_GM_index.html">回GM首頁</button>
 		</form>
 
-
 		
 		<script src="../assets/jquery-3.6.0.min.js"></script>
 		<script>
@@ -111,6 +112,7 @@
 			$(function(){
 				$('#newRow').on('click', function(){
 					counter++;
+					$('#counter').attr('value', counter + 1)
 					let content = `
 					<tr style="background-color: yellow;">
 						<td><button type='' id=''><i class="fas fa-trash-alt"></i></td>
@@ -124,11 +126,36 @@
 							<td><input required type='text' name='new` + counter + `7'    ></td>
 							<td><input required type='text' name='new` + counter + `8'    ></td>
 							<td><input required type='text' name='new` + counter + `9'     value=` /* + fs (有bug，無法正確新增)*/ + `></td>
-							<td><input required type='text' name='new` + counter + `10'    value='1' readonly></td>
+							<td><input required type='text' name='new` + counter + `10'   ></td>
 							</tr>
 							`;
 					$('#newRowsBelow').append(content);
 				})
+
+				$('#cheat').on('click', function(){
+					counter++;
+					$('#counter').attr('value', counter + 1)
+					let content = `
+					<tr style="background-color: yellow;">
+						<td><button type='' id=''><i class="fas fa-trash-alt"></i></td>
+							<td><input required type='text' value='order123456' name='new` + counter + `0'    ></td>
+							<td><input required type='text' value='p234567' name='new` + counter + `1'    ></td>
+							<td><input required type='text' value='CS_Conversation' name='new` + counter + `2'    ></td>
+							<td><input required type='text' value='777' name='new` + counter + `3'    ></td>
+							<td><input required type='text' value='randomAlien' name='new` + counter + `4'    ></td>
+							<td><input required type='text' value='aaa' name='new` + counter + `5'    ></td>
+							<td><input required type='text' value='bbb' name='new` + counter + `6'    ></td>
+							<td><input required type='text' value='c@e.f' name='new` + counter + `7'    ></td>
+							<td><input required type='text' value='done' name='new` + counter + `8'    ></td>
+							<td><input required type='text' value='1907-01-23 00:11:22.0' name='new` + counter + `9'     value=` /* + fs (有bug，無法正確新增)*/ + `></td>
+							<td><input required type='text' value='777' name='new` + counter + `10'    value='1' readonly></td>
+							</tr>
+							`;
+					$('#newRowsBelow').append(content);
+				})
+
+				
+
 				$('input#ckbox').on('click', function(){
 					let ckboxes = $('input#ckbox:checked');
 					$('#delete').attr('disabled', true);
@@ -136,7 +163,7 @@
 							console.log('(if)' + $(ckboxes).length);
 						} else {
 							$('#delete').attr('disabled', false);
-							console.log('(else)' + $(ckboxes).length);							
+							console.log('(else)' + $(ckboxes).length);		
 						}
 					
 				})
