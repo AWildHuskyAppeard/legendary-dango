@@ -58,7 +58,7 @@ public class OrderBean {
 	public void setO_Date(String o_Date) {O_Date = o_Date;}
 	public void setO_Amt(Integer o_Amt) {O_Amt = o_Amt;}
 	
-	// ˊ<_ˋ
+	// 為了配合for迴圈的懶人用方法之一...
 	public String take(int SQLindex) {
 		String returnedString = null;
 		switch (SQLindex) {
@@ -102,7 +102,7 @@ public class OrderBean {
 		return returnedString;
 	}
 	
-	// ˊ<_ˋ
+	// 為了配合for迴圈的懶人用方法之二...
 	public void assign(int SQLindex, String value) {
 		switch (SQLindex) {
 		case 1:
@@ -145,16 +145,3 @@ public class OrderBean {
 	}
 	
 }
-/* Database table
-	訂單編號	O_ID	int
-	課程編號	P_ID	nvarchar(20)
-	課程名稱	P_Name	nvarchar(20)
-	課程價格	P_Price	int
-	會員帳號	U_ID	nvarchar(20)
-	會員名	U_FirstName	nvarchar(20)
-	會員姓	U_LastName	nvarchar(20)
-	會員信箱	U_Email	nvarchar(max)
-	訂單狀態	O_Status	nvarchar(max)
-	訂單日期	O_Date	smalldatetime
-	訂單總額	O_Amt	int
-*/

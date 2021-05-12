@@ -5,11 +5,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-request.setCharacterEncoding("UTF-8");
-response.setContentType("text/html;charset=UTF-8");
-response.setHeader("Cache-Control", "no-cache");
-response.setHeader("Pragma","no-cache");
-response.setDateHeader("Expires",-1);
+	request.setCharacterEncoding("UTF-8");
+	response.setContentType("text/html;charset=UTF-8");
+	response.setHeader("Cache-Control", "no-cache");
+	response.setHeader("Pragma","no-cache");
+	response.setDateHeader("Expires",-1);
 %>
 <html>
 <head>
@@ -49,7 +49,7 @@ response.setDateHeader("Expires",-1);
 				</tr>
 			</thead>
 			<tbody>
-			<%! int totalPrice = 0; %>
+			<% int totalPrice = 0; %>
 			<% for(int i = 0; i < cart.size(); i++) {
 			%>
 			<% if(cart != null){ %>
@@ -68,13 +68,7 @@ response.setDateHeader("Expires",-1);
 		</table>
 		<h1>總計：<%= totalPrice %></h1>
 		<hr>
-<!-- 2. 確認購買者資訊(從userBean獲取)................................. -->
-<!-- 缺O_ID，O_Amt，U_ID，U_FirstName，U_LastName，U_mail，O_Status，O_Date -->
-		<input type="text">
-		<h1>LULLL</h1>
-		
-		<hr>
-<!-- 3. 按鈕導向各頁................................................... -->
+<!-- 2. 按鈕導向各頁................................................... -->
 		<button name="todo" value="back">回上一頁</button>
 		<button name="todo" value="pay">確定結帳</button>
 		<hr>
@@ -86,10 +80,8 @@ response.setDateHeader("Expires",-1);
 	<script>
 		$(function(){
 
-
-
-
-
+			
+			
 		})
 	</script>
 </body>
