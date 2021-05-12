@@ -41,7 +41,7 @@ form {
 			<!-- <img class="logo-img" src="../images/logo.jpg" title="logo" alt="logo"> -->
 			<nav>
 				<ul class="menu">
-					<li><a href="/AwesomeProject/index_test.html"><b>首頁</b></a></li>
+					<li><a href="/AwesomeProject/index_test.html"><b>使用者首頁</b></a></li>
 					<li><a href="/AwesomeProject/ControlServlet?findAll"><b>課程</b></a></li>
 					<li><a href=""><b>討論區</b></a></li>
 					<li><a href=""><b>測驗區</b></a></li>
@@ -49,7 +49,7 @@ form {
 					<li style="float: right;"><a
 						href="/AwesomeProject/userInfo/AdminLogin.jsp"><b>GM系統</b></a></li>
 					<li style="float: right;"><a
-						href="/AwesomeProject/userInfo/test_GM_UserFunction.jsp"><b>會員資料</b></a></li>
+						href="/AwesomeProject/userInfo/test_GM_index.html"><b>管理者首頁</b></a></li>
 				</ul>
 			</nav>
 		</header>
