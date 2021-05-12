@@ -77,7 +77,8 @@ public class ChatServlet extends HttpServlet {
 		ChatVO newchatvo = new ChatVO();
 		newchatvo.setU_ID(request.getParameter("帳號"));
 		newchatvo.setC_Date(getDateTime());
-		newchatvo.setC_Class(request.getParameter("類別"));
+		String class_type[] = request.getParameterValues("class_type");
+		newchatvo.setC_Class(class_type[0]);
 		newchatvo.setC_Title(request.getParameter("標題"));
 		newchatvo.setC_Conts(request.getParameter("內容"));
 		PrintWriter out = response.getWriter();
@@ -125,7 +126,8 @@ public class ChatServlet extends HttpServlet {
 		ChatVO updatechatvo = new ChatVO();
 		updatechatvo.setC_ID(Integer.parseInt(request.getParameter("文章編號")));
 		updatechatvo.setC_Date(getDateTime());
-		updatechatvo.setC_Class(request.getParameter("類別"));
+		String class_type[] = request.getParameterValues("class_type");
+		updatechatvo.setC_Class(class_type[0]);
 		updatechatvo.setC_Title(request.getParameter("標題"));
 		updatechatvo.setC_Conts(request.getParameter("內容"));
 		PrintWriter out = response.getWriter();
