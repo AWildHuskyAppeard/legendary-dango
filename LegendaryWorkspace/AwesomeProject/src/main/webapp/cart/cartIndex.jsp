@@ -17,6 +17,9 @@
 	// 測試用。cart如果是空的，會自動補3件下列商品作為測試
 	if(cart == null || cart.size() == 0) 
 	{
+%>
+		<h1 style='background-color: aquamarine; font-family: Comic Sans MS ;font-size: 200%'>※購物車沒有任何東西，因此管理員塞了三個課程進來✌💀✌</h1>
+<%
 		cart = new ArrayList<ProductBean>();
 		cart.add(CartControllerServlet.testBean1);
 		cart.add(CartControllerServlet.testBean2);
@@ -58,9 +61,7 @@
 			<% } %>
 			<%} 
 			%>
-			</tbody>	
-		
-		
+			</tbody>
 		</table>
 
 		<hr>
@@ -79,15 +80,10 @@
 					let ckboxes = $('input#ckbox:checked');
 					$('#delete').attr('disabled', true);
 						if($(ckboxes).length == 0 || $(ckboxes).length == null) {
-							console.log('(if)' + $(ckboxes).length);
 						} else {
-							$('#delete').attr('disabled', false);
-							console.log('(else)' + $(ckboxes).length);							
+							$('#delete').attr('disabled', false);					
 						}
-					
 				})
-
-
 		})
 	</script>
 </body>
