@@ -42,13 +42,25 @@ public class ChatServlet extends HttpServlet {
 	    	request.setCharacterEncoding("UTF-8");
 	    	
 	    	if (request.getParameter("insert") != null) {
-	            processInsert(request,response,chatDAOImpl);
+	            if(request.getParameter("帳號")!="") {
+	            	processInsert(request,response,chatDAOImpl);	    			
+	    		}else {
+	    			errorSent(request,response,chatDAOImpl);
+	    		}
 	    	}
 	    	if (request.getParameter("delete") != null) {
-	    		processDelete(request,response,chatDAOImpl);
+	    		if(request.getParameter("文章編號")!="") {
+	    			processDelete(request,response,chatDAOImpl);	    			
+	    		}else {
+	    			errorSent(request,response,chatDAOImpl);
+	    		}
 	    	}
 	    	if (request.getParameter("update") != null) {
-	    		processUpdate(request,response,chatDAOImpl);
+	    		if(request.getParameter("文章編號")!="") {
+	    			processUpdate(request,response,chatDAOImpl);	    			
+	    		}else {
+	    			errorSent(request,response,chatDAOImpl);
+	    		}
 	    	}
 	    	if (request.getParameter("find") != null) {
 	    		processFind(request,response,chatDAOImpl);
@@ -72,12 +84,29 @@ public class ChatServlet extends HttpServlet {
 		String nowDate = nowSimpleDate.format(date);
 		return nowDate;
 	}
+	private void errorSent(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException, ServletException{
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.println("<html>");
+	    out.println("<head><title>Chat</title></head>");
+	    out.println("<style>");
+	    out.println("body{\r\n"
+	    		+ "        text-align: center;\r\n"
+	    		+ "    }");
+	    out.println("</style>");
+	    out.println("<body bgcolor=\"lightblue\">");
+	    out.println("<h3>發生錯誤</h3>");	    	
+		out.println("</body></html>");
+		response.setHeader("refresh", "2;/AwesomeProject/chat/Chat.html");
+		out.close();
+	}
 	private void processInsert(HttpServletRequest request, HttpServletResponse response, ChatDAOImpl chatDAOImpl) throws SQLException, IOException, ServletException{
 		response.setContentType("text/html;charset=UTF-8");
 		ChatVO newchatvo = new ChatVO();
 		newchatvo.setU_ID(request.getParameter("帳號"));
 		newchatvo.setC_Date(getDateTime());
-		newchatvo.setC_Class(request.getParameter("類別"));
+		String class_type[] = request.getParameterValues("class_type");
+		newchatvo.setC_Class(class_type[0]);
 		newchatvo.setC_Title(request.getParameter("標題"));
 		newchatvo.setC_Conts(request.getParameter("內容"));
 		PrintWriter out = response.getWriter();
@@ -125,7 +154,8 @@ public class ChatServlet extends HttpServlet {
 		ChatVO updatechatvo = new ChatVO();
 		updatechatvo.setC_ID(Integer.parseInt(request.getParameter("文章編號")));
 		updatechatvo.setC_Date(getDateTime());
-		updatechatvo.setC_Class(request.getParameter("類別"));
+		String class_type[] = request.getParameterValues("class_type");
+		updatechatvo.setC_Class(class_type[0]);
 		updatechatvo.setC_Title(request.getParameter("標題"));
 		updatechatvo.setC_Conts(request.getParameter("內容"));
 		PrintWriter out = response.getWriter();

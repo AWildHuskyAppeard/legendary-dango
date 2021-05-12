@@ -35,7 +35,7 @@
 		<table>
 			<thead>
 				<tr>
-					<th>Delete buttons</th>
+				    <th>移除</th>
 				    <th>課程名稱(P_Name)</th>
 				    <th>課程編號(P_ID)</th>
 				    <th>課程價格(P_Price)</th>
@@ -54,7 +54,6 @@
 				<td> <%= cart.get(i).getP_Price() %>   </td>
 				<td> <%= cart.get(i).getP_DESC () %>   </td>
 				<td> <%= cart.get(i).getU_ID   () %>   </td>
-				<!--  <td><input type="checkbox" name="checkRemove"></td>-->
 			</tr>
 			<% } %>
 			<%} 

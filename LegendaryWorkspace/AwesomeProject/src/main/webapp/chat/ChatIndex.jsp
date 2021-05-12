@@ -1,8 +1,12 @@
+<%@page import="chat.*"%>
+<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head><title>Chat</title>
+<head>
+<meta charset="UTF-8">
+<title>Chat</title>
 <style>
     body{
         text-align: center;
@@ -27,12 +31,13 @@
 </style>
 </head>
 <body bgcolor="lightblue">
+<%  
+
+%>
     <header><h1>StudieHub 討論區</h1></header>
-<table>
-	<tr>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
-</table>
+    <form action="../ChatServlet">
+    <table>
+    
+	</table>    
+    </form>
 </body></html>

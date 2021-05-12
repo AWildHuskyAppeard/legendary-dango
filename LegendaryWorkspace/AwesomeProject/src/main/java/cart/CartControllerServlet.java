@@ -14,8 +14,7 @@ import javax.sql.DataSource;
 
 import userInfo.UserBean;
 /**
- * @Q1. 重新導向過去的網址有誤(理應是.jsp卻顯示此controller)
- * @Q2. 
+ * @Q1. 
  **/
 
 @WebServlet("/CartControllerServlet")
@@ -24,6 +23,7 @@ public class CartControllerServlet extends HttpServlet {
 	private DataSource ds;
 	private HttpSession session; 
 	private List<ProductBean> cart;
+	private int jjj = (1==2)? 1 : 2; // 挖賽這居然行的通喔...這不是等於塞了一個if else了嗎
 	
 	public static ProductBean testBean1 = new ProductBean("ENG003", "Speaking", "ENG", 900, "nice", "mem005", "www", "sss")  ;
 	public static ProductBean testBean2 = new ProductBean("ENG015", "Reading", "ENG", 350, "awesome", "mem905", "ww", "ks")  ;
@@ -32,6 +32,7 @@ public class CartControllerServlet extends HttpServlet {
     @Override
 	public void init() throws ServletException {
 		super.init();
+		return;
 	}
     
     @Override
@@ -39,6 +40,7 @@ public class CartControllerServlet extends HttpServlet {
     	request.setCharacterEncoding("UTF-8");
     	response.setContentType("text/html;charset=UTF-8");
     	response.getWriter().print("LUL");
+    	return;
 	}
 
     @Override
@@ -65,21 +67,21 @@ public class CartControllerServlet extends HttpServlet {
     	// 3. 移除品項 (from 購物車頁面)
     	else if("remove".equals(todo)) removeProductFromCart(request, response);
     	// 4. 去結帳 (from 購物車頁面) 
-    	else if( "checkout".equals(todo)) checkout(request, response);
+    	else if("checkout".equals(todo)) checkout(request, response);
     	// 5. 回購物車頁面 (from 結帳頁面) 
-    	else if( "back".equals(todo)) backToPreviousPage(request, response);
+    	else if("back".equals(todo)) backToPreviousPage(request, response);
     	// 6. 確定付款 (from 結帳頁面) 
-    	else if( "pay".equals(todo)) pay(request, response);
+    	else if("pay".equals(todo)) pay(request, response);
     	// 7. [管理員] 刪除
-    	else if( "deleteAdmin".equals(todo)) deleteByAdmin(request, response);
+    	else if("deleteAdmin".equals(todo)) deleteByAdmin(request, response);
     	// 8. [管理員] 修改
-    	else if( "updateAdmin".equals(todo)) updateByAdmin(request, response);
+    	else if("updateAdmin".equals(todo)) updateByAdmin(request, response);
     	// 9. [管理員] 新增
-    	else if( "insertAdmin".equals(todo)) insertByAdmin(request, response);
+    	else if("insertAdmin".equals(todo)) insertByAdmin(request, response);
     	// debug用
     	else response.getWriter().print("Something went wrong! "
     			+ "todo value = " + todo);
-    	
+    	return;
 	}
     /**
      * @Method #01 todo == null > 導向購物車
@@ -90,6 +92,7 @@ public class CartControllerServlet extends HttpServlet {
     private void gotoCartIndexPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 //    	req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);
     	res.sendRedirect("/AwesomeProject/cart/cartIndex.jsp");
+    	return;
     }
     
     /**
@@ -119,6 +122,7 @@ public class CartControllerServlet extends HttpServlet {
 		
 //		req.getRequestDispatcher("/product/xxxxxxxx.jsp").forward(req, res);	// 返回原頁
 		res.sendRedirect("/product/xxxxxxxx.jsp");
+		return;
 	}
     /**
      * @Method #03 remove > 移除商品 ver2
@@ -136,6 +140,7 @@ public class CartControllerServlet extends HttpServlet {
 		session.setAttribute("cart", this.cart);
 //		req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);
 		res.sendRedirect("/AwesomeProject/cart/cartIndex.jsp");
+		return;
 	}
 	
 	@Deprecated
@@ -143,6 +148,7 @@ public class CartControllerServlet extends HttpServlet {
      * @Method [淘汰]#03 remove > 移除商品 ver1
      * @1. 將指定商品自購物車移除
      * @2. 導回購物車頁(CartIndex.jsp)
+     * @3. 紀錄本人的智商成長用
      * @Database_Connection 不涉及
      **/
 	private void removeProductFromCartV1(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
@@ -181,6 +187,7 @@ public class CartControllerServlet extends HttpServlet {
     	this.session.setAttribute("cart", this.cart); // xxxxxxxxx
 		
 		req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);	// 返回原頁
+		return;
 	}
 	
     /**
@@ -193,6 +200,7 @@ public class CartControllerServlet extends HttpServlet {
 		
 //		req.getRequestDispatcher("/cart/cartCheckout.jsp").forward(req, res);	// 去結帳
 		res.sendRedirect("/AwesomeProject/cart/cartCheckout.jsp"); // 去結帳
+		return;
 	}
     /**
      * @Method #05 back > 回購物車頁面
@@ -202,6 +210,7 @@ public class CartControllerServlet extends HttpServlet {
 		
 //		req.getRequestDispatcher("/cart/cartIndex.jsp").forward(req, res);	// 回上一頁(購物車首頁)
 		res.sendRedirect("/AwesomeProject/cart/cartIndex.jsp"); // 回上一頁(購物車首頁)
+		return;
 	}
     /**
      * @Method #06 pay > 確定付款
@@ -222,13 +231,17 @@ public class CartControllerServlet extends HttpServlet {
 		for(ArrayList<String> dataArray : dataArrays) {
 			O_IDStrings.add(dataArray.get(0));
 		}
+		// 剝掉非O_ID中非數字的部分取出
 		for(String O_IDString : O_IDStrings) {
 			String pureNum = stripNonDigits(O_IDString);
 			O_IDs.add(Integer.parseInt(pureNum));
-			Integer latestO_ID = maxNum(O_IDs);
-			Integer counter = 0;
-			counter++;
-			String newO_ID = "Order" + String.valueOf(latestO_ID + counter);
+		}
+		// 找出當前Table裡O_ID最大數字，往後逐漸+1+1+1...
+		System.out.println("debug開始");
+		Integer latestO_ID = maxNum(O_IDs);
+		System.out.println("debug結束");
+		for(int i = 1; i <= O_IDs.size(); i++) {
+			String newO_ID = String.format("Order%06d", (latestO_ID + i));
 			newO_IDs.add(newO_ID);
 		}
 		
@@ -236,7 +249,9 @@ public class CartControllerServlet extends HttpServlet {
 		// 之後請若安把已登入會員的Bean幫我塞進session Attribute內，取出語句如下：
 		// UserBean userBean = (UserBean)this.session.getAttribute("userBean");
 		// 以下為測試用，要換掉
-		UserBean fakeUserBean = new UserBean("user01", "omegaLUL", "1999-12-31", "b", "F", "L@UL", "0987", "M", "www");
+		ArrayList<UserBean> fakeUserBeans = new ArrayList<UserBean>();
+		UserBean fakeUserBean00 = new UserBean("user01", "omegaLUL", "1999-12-31", "b", "F", "L@UL", "0987", "M", "www");
+		fakeUserBeans.add(fakeUserBean00);
 		
 		// (3) 取得O_Date (使用SimpleDateFormat)
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -245,10 +260,11 @@ public class CartControllerServlet extends HttpServlet {
 		String now = sdf.format(calendar.getTime());
 		
 		// 把OrderBean的資料寫進去Dababase
-		for(int i = 0; i <= cart.size(); i++) {
+		// 之後把下面fakeUserBeans.get(0)改成get(i)
+		for(int i = 0; i < cart.size(); i++) {
 			OrderBean orderBean = new OrderBean(newO_IDs.get(i), cart.get(i).getP_ID(), cart.get(i).getP_Name(), 
-				cart.get(i).getP_Price(), fakeUserBean.getU_ID(), fakeUserBean.getU_FirstName(), 
-				fakeUserBean.getU_LastName(), fakeUserBean.getU_Email(), "confirmed", now, 1);
+				cart.get(i).getP_Price(), fakeUserBeans.get(0).getU_ID(), fakeUserBeans.get(0).getU_FirstName(), 
+				fakeUserBeans.get(0).getU_LastName(), fakeUserBeans.get(0).getU_Email(), "confirmed", now, 1);
 			crudor.insertOrder(orderBean);
 		}
 
@@ -269,6 +285,7 @@ public class CartControllerServlet extends HttpServlet {
 		
 //		req.getRequestDispatcher("/cart/cartThanks.jsp").forward(req, res);	 
 		res.sendRedirect("/AwesomeProject/cart/cartThanks.jsp");
+		return;
 	}
 	
     /**
@@ -335,6 +352,7 @@ public class CartControllerServlet extends HttpServlet {
 		}
 //		req.getRequestDispatcher("/cart/cartAdmin.jsp").forward(req, res);	
 		res.sendRedirect("/AwesomeProject/cart/cartAdmin.jsp");
+		return;
 	}
 	
     /**
@@ -375,6 +393,7 @@ public class CartControllerServlet extends HttpServlet {
 		
 //		req.getRequestDispatcher("/cart/cartAdmin.jsp").forward(req, res);	
 		res.sendRedirect("/AwesomeProject/cart/cartAdmin.jsp");
+		return;
 	}
 	
     /**
@@ -412,6 +431,7 @@ public class CartControllerServlet extends HttpServlet {
 		
 //		req.getRequestDispatcher("/cart/cartAdmin.jsp").forward(req, res);	
 		res.sendRedirect("/AwesomeProject/cart/cartAdmin.jsp");
+		return;
 	}
 	
 	/********************************************************************************************************************************************/
@@ -470,17 +490,16 @@ public class CartControllerServlet extends HttpServlet {
      **/
     public static int maxNum(ArrayList<Integer> intArrayList) {
     	// clone()前後ArrayList記憶體位置會不一樣、不會互相影響
-    	ArrayList<Integer> cloned = (ArrayList<Integer>)intArrayList.clone();
+    	@SuppressWarnings("unchecked")
+		ArrayList<Integer> cloned = (ArrayList<Integer>)intArrayList.clone();
     	while (cloned.size() > 1) {
-    		for(int i = 0; i < cloned.size(); i++) {
-    			for(int j = 0; j < cloned.size(); j++) {
-    				if(cloned.get(i) > cloned.get(j)) {		
-    					cloned.remove(j);
-    				} 
-    			}
-    		}
+    		if(cloned.get(0) >= cloned.get(1)) {
+    			cloned.remove(1);
+    		} else {
+				cloned.remove(0);
+			}
 		}
-		int maxNum =cloned.get(0);
+		int maxNum = cloned.get(0);
     	return maxNum;
     }
 }

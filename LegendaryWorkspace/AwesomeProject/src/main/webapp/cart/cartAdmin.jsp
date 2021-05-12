@@ -6,38 +6,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
 <%!	private DataSource ds;
-	private HttpSession session;
-	private InitialContext ctx;
-	private Connection conn = null;
-	private ArrayList<ArrayList<String>> dataArrays = null;%>    
+		private HttpSession session;
+		private InitialContext ctx;
+		private Connection conn = null;
+		private ArrayList<ArrayList<String>> dataArrays = null;%>    
 <%
-	try 
-	{
-		if (this.ds == null) 
-		{	
-			ctx = new InitialContext();
-			// 改資料庫名稱
-			this.ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/DBDB");
-		}
-		this.conn = this.ds.getConnection();
-	} catch (NamingException e) 
-	{
-		e.printStackTrace();
-	} catch (SQLException e) 
-	{
-		e.printStackTrace();
-	} 
-	CartDAOImpl dao = new CartDAOImpl(conn);
-	dao.selectAllOrder();
-	dataArrays = CartDAOImpl.dataArrays;
+		try 
+		{
+			if (this.ds == null) 
+			{	
+				ctx = new InitialContext();
+				// 改資料庫名稱
+				this.ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/DBDB");
+			}
+			this.conn = this.ds.getConnection();
+		} catch (NamingException e) 
+		{
+			e.printStackTrace();
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		} 
+		CartDAOImpl dao = new CartDAOImpl(conn);
+		dao.selectAllOrder();
+		dataArrays = CartDAOImpl.dataArrays;
 %>
 <!DOCTYPE html>
 <%
-	request.setCharacterEncoding("UTF-8");
-	response.setContentType("text/html;charset=UTF-8");
-	response.setHeader("Cache-Control", "no-cache");
-	response.setHeader("Pragma","no-cache");
-	response.setDateHeader("Expires",-1);
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Pragma","no-cache");
+		response.setDateHeader("Expires",-1);
 %>
 <html>
 	<head>
@@ -71,7 +71,7 @@
 						for(int i = 0; i < dataArrays.size(); i++) {
 					%>
 						<tr>
-							<td><input name="ckbox" id="ckbox" type="checkbox" value="<%=dataArrays.get(i).get(0)/*該行O_ID值*/%>"></td>
+							<td><input name="ckbox" id="ckbox" type="checkbox" value="<%=dataArrays.get(i).get(0)/*有勾選的行數(0起算)*/%>"></td>
 							<td style="background: aquamarine;"><input name="<%=i+"0"%>" type="text" value="<%=dataArrays.get(i).get(0)%>" readonly></td>
 							<td><input required name="<%=i+"1"%>"  type="text" value="<%=dataArrays.get(i).get(1)%>" ></td>
 							<td><input required name="<%=i+"2"%>"  type="text" value="<%=dataArrays.get(i).get(2)%>" ></td>
