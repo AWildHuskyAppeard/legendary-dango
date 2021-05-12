@@ -422,7 +422,7 @@ public class CartControllerServlet extends HttpServlet {
 		Connection conn = getConn();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 		
-		System.out.println("Start debugging...");
+//		System.out.println("Start debugging...");
 		String counter = req.getParameter("counter");
 		Integer up = Integer.parseInt(counter);
 		for(int i =0; i < up; i++) {

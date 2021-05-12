@@ -44,6 +44,7 @@
 		<meta charset="UTF-8">
 		<title>Cart Administrator Page</title>
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+		
 	</head>
 	<body style="width: 100%;">
 		<h1>管理者頁面</h1>
@@ -76,14 +77,14 @@
 							<td style="background: aquamarine;"><input name="<%=i+"0"%>" type="text" value="<%=dataArrays.get(i).get(0)%>" readonly></td>
 							<td><input required name="<%=i+"1"%>"  type="text" value="<%=dataArrays.get(i).get(1)%>" ></td>
 							<td><input required name="<%=i+"2"%>"  type="text" value="<%=dataArrays.get(i).get(2)%>" ></td>
-							<td><input required name="<%=i+"3"%>"  type="text" value="<%=dataArrays.get(i).get(3)%>" ></td>
+							<td><input required name="<%=i+"3"%>"  type="text" value="<%=dataArrays.get(i).get(3)%>" id="num"></td> <!--price-->
 							<td><input required name="<%=i+"4"%>"  type="text" value="<%=dataArrays.get(i).get(4)%>" ></td>
 							<td><input required name="<%=i+"5"%>"  type="text" value="<%=dataArrays.get(i).get(5)%>" ></td>
 							<td><input required name="<%=i+"6"%>"  type="text" value="<%=dataArrays.get(i).get(6)%>" ></td>
 							<td><input required name="<%=i+"7"%>"  type="text" value="<%=dataArrays.get(i).get(7)%>" ></td>
 							<td><input required name="<%=i+"8"%>"  type="text" value="<%=dataArrays.get(i).get(8)%>" ></td>
 							<td><input required name="<%=i+"9"%>"  type="text" value="<%=dataArrays.get(i).get(9)%>" ></td>
-							<td><input required name="<%=i+"10"%>" type="text" value="<%=dataArrays.get(i).get(10)%>"></td>
+							<td><input required name="<%=i+"10"%>" type="text" value="<%=dataArrays.get(i).get(10)%>" id="num"></td>
 					<%
 						}
 					%>
@@ -105,57 +106,83 @@
 			<button formmethod="POST" formaction="../userInfo/test_GM_index.html">回GM首頁</button>
 		</form>
 
+			<button type="button" id="labelall" hidden>click me</button>
+
 		
 		<script src="../assets/jquery-3.6.0.min.js"></script>
 		<script>
 			let counter = -1;
 			$(function(){
+				// func.01
 				$('#newRow').on('click', function(){
 					counter++;
 					$('#counter').attr('value', counter + 1)
 					let content = `
 					<tr style="background-color: yellow;">
-						<td><button type='' id=''><i class="fas fa-trash-alt"></i></td>
+						<td></td>
 							<td><input required type='text' name='new` + counter + `0'    ></td>
 							<td><input required type='text' name='new` + counter + `1'    ></td>
 							<td><input required type='text' name='new` + counter + `2'    ></td>
-							<td><input required type='text' name='new` + counter + `3'    ></td>
+							<td><input required type='text' name='new` + counter + `3' id='num'   ></td>
 							<td><input required type='text' name='new` + counter + `4'    ></td>
 							<td><input required type='text' name='new` + counter + `5'    ></td>
 							<td><input required type='text' name='new` + counter + `6'    ></td>
 							<td><input required type='text' name='new` + counter + `7'    ></td>
 							<td><input required type='text' name='new` + counter + `8'    ></td>
 							<td><input required type='text' name='new` + counter + `9'     value=` /* + fs (有bug，無法正確新增)*/ + `></td>
-							<td><input required type='text' name='new` + counter + `10'   ></td>
+							<td><input required type='text' name='new` + counter + `10' id='num'   ></td>
 							</tr>
 							`;
 					$('#newRowsBelow').append(content);
 				})
-
+				// func.02
 				$('#cheat').on('click', function(){
 					counter++;
 					$('#counter').attr('value', counter + 1)
 					let content = `
 					<tr style="background-color: yellow;">
-						<td><button type='' id=''><i class="fas fa-trash-alt"></i></td>
+						<td></td>
 							<td><input required type='text' value='order123456' name='new` + counter + `0'    ></td>
 							<td><input required type='text' value='p234567' name='new` + counter + `1'    ></td>
 							<td><input required type='text' value='CS_Conversation' name='new` + counter + `2'    ></td>
-							<td><input required type='text' value='777' name='new` + counter + `3'    ></td>
+							<td><input required type='text' value='777' name='new` + counter + `3'  id='num'  ></td>
 							<td><input required type='text' value='randomAlien' name='new` + counter + `4'    ></td>
 							<td><input required type='text' value='aaa' name='new` + counter + `5'    ></td>
 							<td><input required type='text' value='bbb' name='new` + counter + `6'    ></td>
 							<td><input required type='text' value='c@e.f' name='new` + counter + `7'    ></td>
 							<td><input required type='text' value='done' name='new` + counter + `8'    ></td>
 							<td><input required type='text' value='1907-01-23 00:11:22.0' name='new` + counter + `9'     value=` /* + fs (有bug，無法正確新增)*/ + `></td>
-							<td><input required type='text' value='777' name='new` + counter + `10'    value='1' readonly></td>
+							<td><input required type='text' value='777' name='new` + counter + `10' id='num'   value='1' readonly></td>
 							</tr>
 							`;
 					$('#newRowsBelow').append(content);
 				})
+				// func.03 不完整的數字檢查
+				// 不知道為什麼抓不到新增列id=num的格子，明明F12可以看到他有ID
 
-				
+				$('input#num').on('focusout', function(){
+					if(!isNaN($(this).val())){
+						console.log('if')
+						return;
+					} else {
+						console.log('else')
+						alert('Only numbers are allowed.')
+						$(this).val('')
+					}
+				})
 
+				// func.test
+
+				// $('#labelall').on('click', function(){
+				// 	$('input#num').css('background-color', 'red')
+				// })
+
+				// func.04 
+				$('i#gcIcon', 'button#gcBtn').on('click', function(event){
+					event.preventDefault();
+				})
+
+				// func.05
 				$('input#ckbox').on('click', function(){
 					let ckboxes = $('input#ckbox:checked');
 					$('#delete').attr('disabled', true);
