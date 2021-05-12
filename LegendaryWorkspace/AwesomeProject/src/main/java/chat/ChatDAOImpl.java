@@ -100,7 +100,8 @@ private Connection conn;
 	@Override
 	public ArrayList<ChatVO> findAllChat() {
 		ArrayList<ChatVO> chat = new ArrayList<>();
-		String sql = " select [C_Class]\r\n"
+		String sql = " select [C_ID]\r\n"
+				+ "      ,[C_Class]\r\n"
 				+ "      ,[C_Title]\r\n"
 				+ "      ,[C_Date]\r\n"
 				+ " from [dbo].[Chat]";
@@ -111,6 +112,7 @@ private Connection conn;
 			
 			while (rs.next()) {
 				ChatVO chatvo = new ChatVO();
+				chatvo.setC_ID(rs.getInt("C_ID"));
 				chatvo.setC_Class(rs.getString("C_Class"));
 				chatvo.setC_Title(rs.getString("C_Title"));
 				chatvo.setC_Date(rs.getString("C_Date"));
