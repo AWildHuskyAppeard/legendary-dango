@@ -100,6 +100,8 @@ public class ControlServlet extends HttpServlet {
 				findAllToUser(request, response, pDao);
 			}else if (request.getParameter("findForUser")!=null) {
 				findForUser(request, response, pDao);
+			}else if (request.getParameter("findInfo")!=null) {
+				findForOne(request, response, pDao);
 			}
 			
 		} catch (Exception e) {
@@ -113,6 +115,12 @@ public class ControlServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("find", pDao.findProductByProductNo(request.getParameter("P_ID")));
 		request.getRequestDispatcher("/product/productList.jsp").forward(request, response);
+		
+	}protected void findForOne(HttpServletRequest request, HttpServletResponse response, ProductDAOImpl pDao) throws ServletException, IOException {
+		pDao.findProductByProductNo("1");
+		HttpSession session = request.getSession();
+		session.setAttribute("find", pDao.findProductByProductNo("1"));
+		response.sendRedirect("/AwesomeProject/product/productInfo.jsp");
 		
 	}
 	protected void findForUser(HttpServletRequest request, HttpServletResponse response, ProductDAOImpl pDao) throws ServletException, IOException {
@@ -185,19 +193,20 @@ public class ControlServlet extends HttpServlet {
 				pBean.setP_Class(request.getParameter("P_Class"));
 				pBean.setP_DESC(request.getParameter("P_DESC"));
 				pBean.setP_ID(request.getParameter("P_ID"));
-				pBean.setP_Img(request.getParameter("P_Img"));
+				pBean.setP_Img(saveImgPath);
 				pBean.setP_Name(request.getParameter("P_Name"));
 				pBean.setP_Price(Integer.parseInt(request.getParameter("P_Price")));
-				pBean.setP_Video(request.getParameter("P_Video"));
+				pBean.setP_Video(savePath);
 				pBean.setU_ID(request.getParameter("U_ID"));
 				//把裝好參數的bean使用daoimpl update方法
 				pDao.updateProduct(pBean);
-				request.getRequestDispatcher("/product/index.jsp").forward(request, response);
+				response.sendRedirect("/AwesomeProject/userInfo/test_GM_index.html");
 	}
 
 	protected void delete(HttpServletRequest request, HttpServletResponse response, ProductDAOImpl pDao)	throws ServletException, IOException {
 		pDao.deleteProduct(request.getParameter("P_ID"));
-		request.getRequestDispatcher("/product/index.jsp").forward(request, response);
+		//request.getRequestDispatcher("/userInfo/test_GM_index.html").forward(request, response);
+		response.sendRedirect("/AwesomeProject/userInfo/test_GM_index.html");
 	}
 
 	protected void insert(HttpServletRequest request, HttpServletResponse response, ProductDAOImpl pDao)	throws ServletException, IOException {
@@ -255,7 +264,7 @@ public class ControlServlet extends HttpServlet {
 		//把裝好參數的bean使用daoimpl insert方法
 		pDao.insertProduct(pBean);
 		
-		request.getRequestDispatcher("/product/index.jsp").forward(request, response);
+		response.sendRedirect("/AwesomeProject/userInfo/test_GM_index.html");
 	}
 
 }

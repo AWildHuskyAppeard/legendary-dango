@@ -82,7 +82,7 @@ form {
 					<img src="product/File/<%=imgName%>" width="200px" height="200px">
 					<br>
 				</figcaption>
-				<a href=""><%=productName%></a>
+				<a href="/AwesomeProject/ControlServlet?findInfo"><%=productName%></a>
 			</div>
 
 			<%
@@ -93,13 +93,15 @@ form {
 				ProductBean p = list.get(i);
 				String imgName = p.getP_Img().split("\\\\")[10];
 				String productName = p.getP_Name();
+				String P_ID = p.getP_ID();
+				System.out.println(imgName);
 			%>
 			<div>
 				<figcaption>
 					<img src="product/File/<%=imgName%>" width="200px" height="200px">
 					<br>
 				</figcaption>
-				<a href=""><%=productName%></a>
+				<a href="/AwesomeProject/ControlServlet?findInfo"><%=productName%></a>
 			</div>
 
 			<%
