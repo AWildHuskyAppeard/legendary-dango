@@ -16,7 +16,7 @@ response.setContentType("text/html;charset=UTF-8");
 <BODY>
 <FORM ACTION="/AwesomeProject/QuesServletDS">
 <H1 ALIGN="CENTER">題庫</H1><BR>
-<p align="center">   題目編號  :  <INPUT TYPE="TEXT" NAME="Q_ID" PLACEHOLDER="請輸入題目編號  ex:1"></p>
+<p align="center">   題目編號  :  <INPUT TYPE="TEXT" NAME="Q_ID" PLACEHOLDER="請輸入題目編號  ex:1" required></p>
 <!--   題目種類  :  <INPUT TYPE="TEXT" NAME="Q_Type" PLACEHOLDER="請輸入題目種類  ex:choice"><BR> -->
 <!--   題　目　  :  <INPUT TYPE="TEXT" NAME="Q_Ques" PLACEHOLDER="請輸入題目  ex:玩具的日文為?"><BR> -->
 <!--   選　項　  :  <INPUT TYPE="TEXT" NAME="Q_Selection" PLACEHOLDER="請輸入選項  ex:1おもちゃ 2おさけ 3おいしい 4おしゃれ"><BR> -->
@@ -28,8 +28,8 @@ response.setContentType("text/html;charset=UTF-8");
 <!--     <INPUT NAME="UPDATE" TYPE="SUBMIT" VALUE="UPDATE"> -->
 <!--     <INPUT NAME="DELETE" TYPE="SUBMIT" VALUE="DELETE"> -->
 <!--     <INPUT NAME="CREATE" TYPE="SUBMIT" VALUE="CREATE"><BR> -->
-    
-     <INPUT NAME="AllQUERY" TYPE="SUBMIT" VALUE="BackStage"></p>
+  
+     <!--   <INPUT NAME="AllQUERY" TYPE="SUBMIT" VALUE="BackStage"></p>-->
     <!--<INPUT NAME="HOME PAGE" TYPE="BUTTON" VALUE="HOME PAGE"  onclick="location.href='AwesomeProject/index_test.html'"/> -->
     <!-- <a href="AwesomeProject/index_test.html"></a> -->
     
