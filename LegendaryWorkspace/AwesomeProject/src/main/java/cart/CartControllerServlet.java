@@ -40,7 +40,7 @@ public class CartControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	request.setCharacterEncoding("UTF-8");
     	response.setContentType("text/html;charset=UTF-8");
-    	response.getWriter().print("LUL");
+    	response.getWriter().print("<h1>PLEASE USE POST METHOD SIR LULLLLLLLLLLLLLL</h1>");
     	return;
 	}
 
@@ -217,6 +217,7 @@ public class CartControllerServlet extends HttpServlet {
      * @Method #06 pay > 確定付款
      * @undone O_ID的產生方式錯了，還沒改
      * @Database_Connection SELECT + INSERT
+     * @Caution 部分SQL語句只適用於MSSQL(TOP(n))
      **/
 	private void pay(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
@@ -230,24 +231,18 @@ public class CartControllerServlet extends HttpServlet {
 		Connection conn = getConn();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
 		// ＊生成OrderBean
-		crudor.selectAllOrder();
+		
+		// (1) 取得O_ID：查出最新的O_ID
+		crudor.selectCustom("SELECT TOP(1) [O_ID] FROM [Order_Info] ORDER BY [O_ID] DESC;");
 		ArrayList<ArrayList<String>> dataArrays = CartDAOImpl.dataArrays;
-		// (1) 取得O_ID：查出所有O_ID、找出最大值，以產生+1號的O_ID
-		ArrayList<String> O_IDStrings = new ArrayList<String>();
-		ArrayList<Integer> O_IDs = new ArrayList<Integer>();
-		ArrayList<String> newO_IDs = new ArrayList<String>();
-		for(ArrayList<String> dataArray : dataArrays) {
-			O_IDStrings.add(dataArray.get(0));
-		}
-		// 剝掉非O_ID中非數字的部分取出
-		for(String O_IDString : O_IDStrings) {
-			String pureNum = stripNonDigits(O_IDString);
-			O_IDs.add(Integer.parseInt(pureNum));
-		}
-		// 找出當前Table裡O_ID最大數字，往後逐漸+1+1+1...
-		Integer latestO_ID = maxNum(O_IDs);
-		// 97~122 = a~z; 65~90 = A~Z
+		String O_IDString = dataArrays.get(0).get(0);
+		// 剝掉非O_ID中非數字的部分取出轉成Integer
+		String pureNum = stripNonDigits(O_IDString);
+		Integer latestO_ID = Integer.parseInt(pureNum);
+		// 找出當前Table裡O_ID最大數字，並+1
+		// 97~122 = a~z; 65~90 = A~Z (ASCII表)
 		// 單筆訂單內容上限 = 26筆
+		ArrayList<String> newO_IDs = new ArrayList<String>();
 		if (cart.size() > 1) {
 			for(int i = 0; i < cart.size(); i++) {			
 				String newO_ID = String.format("order%06d-%s", (latestO_ID + 1), (char)(65 + i));
@@ -256,8 +251,7 @@ public class CartControllerServlet extends HttpServlet {
 		} else {	
 			String newO_ID = String.format("order%06d", (latestO_ID + 1));
 			newO_IDs.add(newO_ID);
-		}
-
+		}		
 		
 		// (2) 取得U_ID，U_FirstName，U_LastName，U_Email
 		// 之後請若安把已登入會員的Bean幫我塞進session Attribute內，取出語句如下：
@@ -308,54 +302,18 @@ public class CartControllerServlet extends HttpServlet {
 	
     /**
      * @Method #07 deleteAdmin 
-	 * @Database_Connection 涉及
+	 * @Database_Connection DELETE
 	 **/
 	private void deleteByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Connection conn = getConn();
 		CartDAOImpl crudor = new CartDAOImpl(conn);
-
-		//------------------------------------------------------------------------
 		
 		String[] O_IDsToBeRmvd = req.getParameterValues("ckbox");
 		for(int i = 0; i < O_IDsToBeRmvd.length; i++) {
 			crudor.deleteOrder(O_IDsToBeRmvd[i]);
 		}
 		
-		
-//		ArrayList<String> btns = new ArrayList<String>(); 
-//		ArrayList<Integer> toBeRmvd = new ArrayList<Integer>();
-//		
-//		Integer OrderRows = Integer.parseInt((String)this.session.getAttribute("OrderRows")); // 來自cartAdmin.jsp的Attribute
-//		ArrayList<ArrayList<String>> arrayLists = CartDAOImpl.dataArrays;
-//		
-//		if(OrderRows != 0 && OrderRows != null) {
-//			for(int i = 0; i < OrderRows; i++) {
-//				btns.add(req.getParameter("btn" + i));
-//				if("on".equals(btns.get(i))) {
-//					for(int j = 0; j < OrderRows; j++) {
-//						String aa = (String)session.getAttribute("O_ID" + i);
-//						if(arrayLists.get(j).get(0).equals(aa)) {
-//							toBeRmvd.add(j);
-//						}
-//					}
-//				}
-//				crudor.deleteOrder((String)session.getAttribute("O_ID" + i));
-//				session.removeAttribute("O_ID" + i);
-//			}
-//		}
-
-		
-//	    if(cart.size() != 0) {    	
-//		    for(int i = 0; i < toBeRmvd.size(); i++) {
-//		    	cart.remove(cart.get(toBeRmvd.get(i) - i));
-//		    }
-//	    }
-//		
-//		System.out.println(cart);
-    	this.session.setAttribute("cart", this.cart); // xxxxxxxxx
-		
-    	//------------------------------------------------------------------------
-		
+    	this.session.setAttribute("cart", this.cart); 
 		
 		try {
 			
@@ -459,7 +417,7 @@ public class CartControllerServlet extends HttpServlet {
 	/**
      * @SubMethod #01 取得連線
      * @undone 使用此方法的方法要在最後記得關閉
-     * @Database_Connection 不涉及
+     * @Database_Connection 取得連線
      * @Problem1. InitialContext要關嗎？
      **/
     private Connection getConn() {
@@ -510,7 +468,6 @@ public class CartControllerServlet extends HttpServlet {
      **/
     public static int maxNum(ArrayList<Integer> intArrayList) {
     	// clone()前後ArrayList記憶體位置會不一樣、不會互相影響
-    	@SuppressWarnings("unchecked")
 		ArrayList<Integer> cloned = (ArrayList<Integer>)intArrayList.clone();
     	while (cloned.size() > 1) {
     		if(cloned.get(0) >= cloned.get(1)) {
