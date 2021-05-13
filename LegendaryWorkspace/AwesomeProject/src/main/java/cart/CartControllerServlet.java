@@ -334,6 +334,8 @@ public class CartControllerServlet extends HttpServlet {
     /**
      * @Method #08 updateAdmin 
 	 * @Database_Connection UPDATE
+	 * @Problem.1 方法太笨重，資料庫有1000筆11欄資料時就要進行11000次UPDATEs，太扯了。待優化。
+	 * @Solution.1 在前端限制傳回數量 or 一次顯示20筆之類 or 特化查詢 or 改善此方法 
 	 **/		
 	private void updateByAdmin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Connection conn = getConn();
