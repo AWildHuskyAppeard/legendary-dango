@@ -163,6 +163,55 @@ public class CartDAOImpl implements CartDAO {
 		}
 		return selectStatus;
 	}
+	/************************************************************************************
+	*@Custom_Select
+	*@1. 可輸入自訂SELECT語句
+	*@2. 使用時，須注意參數中的SQL語句時是否為原生SQL語句、或是僅適用於該資料庫的SQL語句
+	************************************************************************************/
+	public boolean selectCustom(String customSQLCmd) {
+		boolean selectStatus = false;
+		String selectCmd = customSQLCmd; // ***
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+		ArrayList<String> headersArray = new ArrayList<String>();
+		this.dataArrays = new ArrayList<ArrayList<String>>();
+		try {
+			pStmt = conn.prepareStatement(selectCmd);
+			rs = pStmt.executeQuery();
+			ResultSetMetaData md = rs.getMetaData();
+			
+			// 1. headers
+			for(int i = 1; i <= md.getColumnCount(); i++) {
+//				System.out.println(md.getColumnName(i));
+				headersArray.add(md.getColumnName(i));
+			}
+			// 2. data
+			while(rs.next()) {
+				ArrayList<String> dataArray = new ArrayList<String>();
+				for(int i = 1; i <= md.getColumnCount(); i++) {
+//					System.out.println(rs.getString(i));
+					dataArray.add(rs.getString(i));
+				}
+				this.dataArrays.add(dataArray);
+			}
+			
+			selectStatus = true;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pStmt.close();
+//				conn.close(); // 留給外頭的控制器關
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return selectStatus;
+	}
 
 	/************************************************************************************
 	*@Update_By_Admins

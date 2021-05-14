@@ -28,7 +28,6 @@
 	    border-collapse: collapse;
 	}
 </style>
-<link rel="stylesheet" href="/AwesomeProject/assets/cartIndex.css">
 </head>
 <body>
 <jsp:useBean id="addedProduct" scope="session" class="cart.ProductBean" type="cart.ProductBean" />
