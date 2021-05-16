@@ -17,7 +17,7 @@ response.setDateHeader("Expires",-1);
 	<%
 		if (session.getAttribute("inputID") == null) {
 	%>
-		<script type="text/javascript" language="javascript">
+		<script>
 			alert("您還沒有登入, 請登入...");
 			top.location.href = "/AwesomeProject/userInfo/UserLogin.jsp";
 		</script>
