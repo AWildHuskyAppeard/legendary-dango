@@ -59,7 +59,6 @@ public class UserLoginServlet extends HttpServlet {
 			System.out.println("psw: "+ userData.getU_Psw());
 			if(userData.getU_ID().equals(userID) && userData.getU_Psw().equals(userPsw)) {
 				request.getRequestDispatcher("/userInfo/userLoginTransPage.jsp").forward(request, response);
-				
 			}
 		} catch (Exception e) {
 			response.getWriter().println("<h2 style=\"color: red;\">帳號不存在! 請先註冊!</h2><br><br>");

@@ -33,6 +33,9 @@ response.setContentType("text/html;charset=UTF-8");
 					<!-- <span class="image main"><img src="images/pic11.jpg" alt="" /></span> -->
 					<%
 						UserBean userBean = (UserBean)request.getSession().getAttribute("userData");
+					%>
+					<%
+						if(userBean != null){
 						String userID = userBean.getU_ID();
 						String userPsw = userBean.getU_Psw();
 						String userBday = userBean.getU_BirthDay();
@@ -59,6 +62,16 @@ response.setContentType("text/html;charset=UTF-8");
 					
 						<button type="submit" name="modifyUserInfo">修改</button>
 					</form>
+					<%
+						} else {
+					%>
+					<script>
+						alert("您還沒有登入, 請登入...");
+						top.location.href = "/AwesomeProject/userInfo/UserLogin.jsp";
+					</script>
+					<%
+						}
+					%>
 				</div>
 			</section>
 
