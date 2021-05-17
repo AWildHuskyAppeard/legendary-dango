@@ -18,14 +18,14 @@ private Connection conn;
 	@Override
 	public boolean insertChat(ChatVO chat) {
 		String sql="INSERT INTO [dbo].[Chat]\r\n"
-				+ "           ([C_ID]\r\n"
-				+ "           ,[C_Date]\r\n"
-				+ "           ,[C_Class]\r\n"
-				+ "           ,[C_Title]\r\n"
-				+ "           ,[C_Conts]\r\n"			
-				+ "           ,[U_ID])\r\n"
+				+ "           ([c_ID]\r\n"
+				+ "           ,[c_Date]\r\n"
+				+ "           ,[c_Class]\r\n"
+				+ "           ,[c_Title]\r\n"
+				+ "           ,[c_Conts]\r\n"			
+				+ "           ,[u_ID])\r\n"
 				+ "     VALUES\r\n"
-				+ "           ((SELECT MAX([C_ID])+1 FROM [dbo].[Chat]),?,?,?,?,?)";
+				+ "           ((SELECT MAX([c_ID])+1 FROM [dbo].[Chat]),?,?,?,?,?)";
 		boolean isInsert=false;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -51,7 +51,7 @@ private Connection conn;
 	@Override
 	public boolean deleteChat(ChatVO chat) {
 		String sql="DELETE FROM [dbo].[Chat]\r\n"
-				+ "      WHERE [C_ID] = ?";
+				+ "      WHERE [c_ID] = ?";
 		boolean isDelete=false;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -71,11 +71,11 @@ private Connection conn;
 	@Override
 	public boolean updateChat(ChatVO chat) {
 		String sql="UPDATE [dbo].[Chat]\r\n"
-				+ "   SET [C_Date] = ?\r\n"
-				+ "      ,[C_Class] = ?\r\n"
-				+ "      ,[C_Title] = ?\r\n"
-				+ "      ,[C_Conts] = ?\r\n"
-				+ " WHERE [C_ID] = ?";
+				+ "   SET [c_Date] = ?\r\n"
+				+ "      ,[c_Class] = ?\r\n"
+				+ "      ,[c_Title] = ?\r\n"
+				+ "      ,[c_Conts] = ?\r\n"
+				+ " WHERE [c_ID] = ?";
 		boolean isUpdate=false;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -100,10 +100,10 @@ private Connection conn;
 	@Override
 	public ArrayList<ChatVO> findAllChat() {
 		ArrayList<ChatVO> chat = new ArrayList<>();
-		String sql = " select [C_ID]\r\n"
-				+ "      ,[C_Class]\r\n"
-				+ "      ,[C_Title]\r\n"
-				+ "      ,[C_Date]\r\n"
+		String sql = " select [c_ID]\r\n"
+				+ "      ,[c_Class]\r\n"
+				+ "      ,[c_Title]\r\n"
+				+ "      ,[c_Date]\r\n"
 				+ " from [dbo].[Chat]";
 		
 		try {
@@ -112,10 +112,10 @@ private Connection conn;
 			
 			while (rs.next()) {
 				ChatVO chatvo = new ChatVO();
-				chatvo.setC_ID(rs.getInt("C_ID"));
-				chatvo.setC_Class(rs.getString("C_Class"));
-				chatvo.setC_Title(rs.getString("C_Title"));
-				chatvo.setC_Date(rs.getString("C_Date"));
+				chatvo.setC_ID(rs.getInt("c_ID"));
+				chatvo.setC_Class(rs.getString("c_Class"));
+				chatvo.setC_Title(rs.getString("c_Title"));
+				chatvo.setC_Date(rs.getString("c_Date"));
 				
 				chat.add(chatvo);
 			}
