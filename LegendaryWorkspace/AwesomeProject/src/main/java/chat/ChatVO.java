@@ -9,49 +9,72 @@ public class ChatVO implements Serializable{
 	 */
 	private static final long serialVersionUID = -5659132712338439027L;
 	
-	private Integer C_ID;
-	private String C_Date, C_Class, C_Title, C_Conts, U_ID;
+	private Integer c_ID;
+	private String c_Date, c_Class, c_Title, c_Conts, u_ID;
 	
 	public Integer getC_ID() {
-		return C_ID;
+		return c_ID;
 	}
+
+
 	public void setC_ID(Integer c_ID) {
-		C_ID = c_ID;
+		this.c_ID = c_ID;
 	}
+
+
 	public String getC_Date() {
-		return C_Date;
+		return c_Date;
 	}
+
+
 	public void setC_Date(String c_Date) {
-		C_Date = c_Date;
+		this.c_Date = c_Date;
 	}
+
+
 	public String getC_Class() {
-		return C_Class;
+		return c_Class;
 	}
+
+
 	public void setC_Class(String c_Class) {
-		C_Class = c_Class;
+		this.c_Class = c_Class;
 	}
+
+
 	public String getC_Title() {
-		return C_Title;
+		return c_Title;
 	}
+
+
 	public void setC_Title(String c_Title) {
-		C_Title = c_Title;
+		this.c_Title = c_Title;
 	}
+
+
 	public String getC_Conts() {
-		return C_Conts;
+		return c_Conts;
 	}
+
+
 	public void setC_Conts(String c_Conts) {
-		C_Conts = c_Conts;
+		this.c_Conts = c_Conts;
 	}
+
+
 	public String getU_ID() {
-		return U_ID;
+		return u_ID;
 	}
+
+
 	public void setU_ID(String u_ID) {
-		U_ID = u_ID;
+		this.u_ID = u_ID;
 	}
-	
+
+
 	@Override
 	public String toString() {
-		return "<tr><td>"+C_ID+"</td><td id=\"class\">"+C_Class + "</td><td><b>" + C_Title + "</td><td id=\"time\">" + C_Date + "</td></tr>";
+		return "<tr><td>"+c_ID+"</td><td id=\"class\">"+c_Class + "</td><td><b>" + c_Title + "</td><td id=\"time\">" + c_Date + "</td></tr>";
 	}
 
 }
