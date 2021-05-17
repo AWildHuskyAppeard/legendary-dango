@@ -197,6 +197,7 @@ public class UserServlet extends HttpServlet {
 		String u_Address = request.getParameter("u_Address");
 		
 		// 拿登入的session裡的user id
+//		UserBean userBean = (UserBean)request.getSession().getAttribute("userData");
 		String u_ID = String.valueOf(request.getSession().getAttribute("inputID"));
 		System.out.println(u_ID); //測試session取值
 		

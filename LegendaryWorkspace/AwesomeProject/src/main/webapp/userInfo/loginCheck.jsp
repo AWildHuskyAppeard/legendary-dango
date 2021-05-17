@@ -4,9 +4,6 @@
 <%
 request.setCharacterEncoding("UTF-8");
 response.setContentType("text/html;charset=UTF-8");
-response.setHeader("Cache-Control", "no-cache");
-response.setHeader("Pragma","no-cache");
-response.setDateHeader("Expires",-1);
 %>
 <html>
 <head>
@@ -15,7 +12,7 @@ response.setDateHeader("Expires",-1);
 </head>
 <body>
 	<%
-		if (session.getAttribute("inputID") == null) {
+		if (session.getAttribute("userData") == null) {
 	%>
 		<script>
 			alert("您還沒有登入, 請登入...");

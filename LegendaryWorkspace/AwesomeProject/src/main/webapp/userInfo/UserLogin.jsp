@@ -4,9 +4,6 @@
 <%
 request.setCharacterEncoding("UTF-8");
 response.setContentType("text/html;charset=UTF-8");
-response.setHeader("Cache-Control", "no-cache");
-response.setHeader("Pragma","no-cache");
-response.setDateHeader("Expires",-1);
 %>
 <html>
 <head>
@@ -31,8 +28,8 @@ response.setDateHeader("Expires",-1);
 </head>
 <body>
 	<div id="UserLogin_div_1">
-		<form action="/AwesomeProject/UserServlet" method="POST">
-			
+		<!-- <form action="/AwesomeProject/UserServlet" method="POST"> -->
+			<form action="/AwesomeProject/UserLoginServlet" method="POST">
 			
 					User ID:<br>
 					<input type="text" name="u_ID" size="20" maxlength="20"

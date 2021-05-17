@@ -1,3 +1,4 @@
+<%@page import="userInfo.UserBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,12 +28,35 @@ response.setContentType("text/html;charset=UTF-8");
 			<section id="one">
 				<div class="inner">
 					<header class="major">
-						<h1>功能(標題)</h1>
+						<h1>會員資料</h1>
 					</header>
 					<!-- <span class="image main"><img src="images/pic11.jpg" alt="" /></span> -->
-					<h3>抓帳號 (id),</h3>
-					<p>PARAGRAPH.</p>
+					<%
+						UserBean userBean = (UserBean)request.getSession().getAttribute("userData");
+						String userID = userBean.getU_ID();
+						String userPsw = userBean.getU_Psw();
+						String userBday = userBean.getU_BirthDay();
+						String userLastName = userBean.getU_LastName();
+						String userFirstName = userBean.getU_FirstName();
+						String userEmail = userBean.getU_Email();
+						String userTel = userBean.getU_Tel();
+						String userSex = userBean.getU_Sex();
+						String userAddress = userBean.getU_Address();
+					%>
 					<form action="/AwesomeProject/UserServlet" method="POST">
+					<h3>USER ID: <%=userID %></h3>
+					<!-- <p>PARAGRAPH.</p> -->
+					<p>修改密碼: <input type="Password" name="u_Psw"></p>
+					<p>確認密碼: <input type="Password" name="cfm_Psw" placeholder="請再次輸入密碼"></p>
+					<p>生日: <%=userBday %></p>
+					<p><input type="date" name="u_BirthDay" style="color:darkgray;"></p>
+					<p>姓: <input type="text" name="u_LastName" value="<%=userLastName %>"></p>
+					<p>名: <input type="text" name="u_FirstName" value="<%=userFirstName %>"></p>
+					<p>信箱: <input type="text" name="u_Email" value="<%=userEmail %>"></p>
+					<p>電話: <input type="text" name="u_Tel" value="<%=userTel %>"></p>
+					<p>性別: <%=userSex %>
+					<p>地址: <input type="text" name="u_Address" value="<%=userAddress %>"></p>
+					
 						<button type="submit" name="modifyUserInfo">修改</button>
 					</form>
 				</div>

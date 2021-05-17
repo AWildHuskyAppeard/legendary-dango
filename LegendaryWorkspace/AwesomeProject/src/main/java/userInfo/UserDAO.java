@@ -3,7 +3,7 @@ package userInfo;
 import java.sql.*;
 
 public class UserDAO {
-//	[U_ID] ,[U_Psw] ,[U_Birthday] ,[U_LastName] ,[U_FirstName] ,[U_Img] ,[U_Email] ,[U_Tel] ,[U_Sex] ,[U_Address]
+//	[u_ID] ,[u_Psw] ,[u_Birthday] ,[u_LastName] ,[u_FirstName] ,[u_Img] ,[u_Email] ,[u_Tel] ,[u_Sex] ,[u_Address]
 	
 	private Connection conn;
 	
@@ -14,10 +14,11 @@ public class UserDAO {
 	
 	// User登入，去DB撈資料，把帳號密碼回傳給Servlet
 	public UserBean userLogin (String u_ID) {
-		/* SELECT [U_ID] ,[U_Psw] ,[U_Birthday] ,[U_LastName] ,[U_FirstName] ,[U_Email] ,
-		[U_Tel] ,[U_Sex] ,[U_Address] FROM [User_Info] WEHRE [U_ID] = PARAM */
+		/* SELECT [u_ID] ,[u_Psw] ,[u_Birthday] ,[u_LastName] ,[u_FirstName] ,[u_Email] ,
+		[u_Tel] ,[u_Sex] ,[u_Address] FROM [user_Info] WEHRE [u_ID] = PARAM */
 		
-		String loginSqlString = "SELECT [U_ID],[U_Psw] FROM User_Info WHERE [U_ID] =?";
+//		String loginSqlString = "SELECT [U_ID],[U_Psw] FROM User_Info WHERE [u_ID] =?";
+		String loginSqlString = "SELECT * FROM User_Info WHERE [u_ID] =?";
 		UserBean loginBean = new UserBean();
 		
 		try {
@@ -26,8 +27,15 @@ public class UserDAO {
 			System.out.println(u_ID); //測試
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				loginBean.setU_ID(rs.getString("U_ID"));
-				loginBean.setU_Psw(rs.getString("U_Psw"));
+				loginBean.setU_ID(rs.getString("u_ID"));
+				loginBean.setU_Psw(rs.getString("u_Psw"));
+				loginBean.setU_BirthDay(rs.getString("u_Birthday"));
+				loginBean.setU_LastName(rs.getString("u_LastName"));
+				loginBean.setU_FirstName(rs.getString("u_FirstName"));
+				loginBean.setU_Email(rs.getString("u_Email"));
+				loginBean.setU_Tel(rs.getString("u_Tel"));
+				loginBean.setU_Sex(rs.getString("u_Sex"));
+				loginBean.setU_Address(rs.getString("u_Address"));
 			} else {
 				loginBean = null;
 			}
