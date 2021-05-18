@@ -51,7 +51,8 @@ response.setContentType("text/html;charset=UTF-8");
 
 			<!-- One -->
 			<section id="one">
-				<!-- <div class="inner"> --><div class="form-check">
+				<div class="inner">
+				<!-- <div class="form-check">-->
 					<header class="major">
 						<!-- <h1>功能(標題)</h1> -->
 						<h1>您的購物車內有：</h1>
@@ -80,7 +81,14 @@ response.setContentType("text/html;charset=UTF-8");
 								%>
 								<% if(cart != null){ %>
 									<tr>
-									<td><input class="form-check-input" type="checkbox" name="ckbox" value="<%=i%>" id="ckbox">取消</td>
+									<td>
+									<div>
+										<input class="form-check-input" type="checkbox" name="ckbox" value="<%=i%>" id="ckbox flexCheckDefault">
+									    <label class="form-check-label" for="flexCheckDefault">
+											取消
+										</label>
+									</div>
+									</td>
 									<td> <%= cart.get(i).getP_Name () %>   </td>
 									<td> <%= cart.get(i).getP_ID   () %>   </td>
 									<td> <%= cart.get(i).getP_Price() %>   </td>
@@ -103,7 +111,7 @@ response.setContentType("text/html;charset=UTF-8");
 					<form method="POST" action="/AwesomeProject/index_test.html">
 						<button name="" value="">回首頁</button>
 					</form>
-					
+
 					<!-- ************************************************************************ -->
 					
 				</div>
@@ -120,7 +128,7 @@ response.setContentType("text/html;charset=UTF-8");
 	</div>
 
 	<!-- Scripts -->
-	<script src="/AwesomeProject/assets/js/jquery.min.js"></script>
+	<script src="/AwesomeProject/assets/jquery-3.6.0.min.js"></script>
 	<script src="/AwesomeProject/assets/js/jquery.scrolly.min.js"></script>
 	<script src="/AwesomeProject/assets/js/jquery.scrollex.min.js"></script>
 	<script src="/AwesomeProject/assets/js/browser.min.js"></script>
@@ -128,8 +136,7 @@ response.setContentType("text/html;charset=UTF-8");
 	<script src="/AwesomeProject/assets/js/util.js"></script>
 	<script src="/AwesomeProject/assets/js/main.js"></script>
 	<!-- ************************************************************ -->
-	
-		<script src="../assets/jquery-3.6.0.min.js"></script>
+
 		<script>
 			$(function() {
 				$('input#ckbox').on('click', function() {
