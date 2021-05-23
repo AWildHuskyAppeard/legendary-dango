@@ -2,7 +2,7 @@
 
 ## 補充
 - 推薦使用Github桌面版的tutorial來練習一下操作！
-- 請避免在main(主幹/主要分支)直接做修改🖐️
+- 請避免在main(主幹/主要分支)直接做修改😠🤚‼
     - 請以自己的名稱(ex: ken_branch)創個自己個人的分支(create new branch)
     - **分支用完(合併完後)後請刪掉重創**，不然你分支的時間軸會脫離主幹(main)太遠
 - Eclipse和VSCode是也有git功能，不過操作上來說我目前只有GitHub Desktop比較會解釋😅
